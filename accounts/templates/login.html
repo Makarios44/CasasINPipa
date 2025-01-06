@@ -1,0 +1,35 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Casas em Pipa - Login</title>
+  <link rel="stylesheet" href="{% static 'css/login.css' %}">
+</head>
+<body>
+  <div class="container">
+    <div class="logo">
+      <img src="{% static 'imgs/logo.png' %}" alt="Logo Casas em Pipa">
+      <h1>Casas em Pipa</h1>
+    </div>
+
+    <form class="login-form" method="get" action="{% url 'login' %}">
+      {% csrf_token %}
+      <label for="login">Login:</label>
+      <input type="text" id="login" name="login" placeholder="Digite seu login">
+      <label for="senha">Senha:</label>
+      <input type="password" id="senha" name="senha" placeholder="Digite sua senha">
+      <div class="actions">
+        <a href="#" class="forgot-password">Esqueci a senha</a>
+      </div>
+      <button type="submit" class="btn-primary">Login</button>
+    </form>
+
+  </div>
+
+  <footer>
+    <p>Copyright 2025</p>
+  </footer>
+</body>
+</html>

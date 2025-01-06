@@ -1,0 +1,43 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Casas em Pipa</title>
+    <link rel="shortcut icon" href="{% static 'imgs/logo.png' %}" type="image/x-icon">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+</head>
+<body>
+    <header class="header">
+        <img src="{% static 'imgs/logo.png' %}" alt="Logo Casas em Pipa" class="logo">
+        <div class="search-container">
+            <input type="text" id="checkin" placeholder="Check-in">
+            <input type="text" id="checkout" placeholder="Check-out">
+            <input type="number" id="guests" placeholder="Qt. Hóspedes" min="1">
+            <button class="search-btn">🔍</button>
+        </div>
+        <div class="user-info">
+            <span>Oi, fulano</span>
+            <a href="#" class="profile-link">Perfil</a>
+        </div>
+    </header>
+    <nav class="navigation">
+        <a href="#">Temporada</a> | <a href="#">Diárias</a>
+    </nav>
+    <main>
+        <h1>Conheça o litoral mais lindo do RN</h1>
+        <div class="houses">
+            <div class="house">CASA 1</div>
+            <div class="house">CASA 2</div>
+            <div class="house active">CASA 3</div>
+        </div>
+    </main>
+    <footer>
+        <p>Copyright 2024</p>
+    </footer>
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script src="script.js"></script>
+</body>
+</html>
