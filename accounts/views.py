@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.contrib.auth.models import User
-from django.contrib.auth import authenticate
+from django.contrib.auth import authenticate, login as auth_login 
 from django.contrib import messages
 
 # Create your views here.
@@ -14,7 +14,7 @@ def login(request):
         
 
         if usuario:
-             
+            auth_login(request, usuario)
             messages.success(request,'seja bem vindo')
             return  render(request,'reservas.html')
      
