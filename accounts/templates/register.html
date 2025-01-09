@@ -9,13 +9,21 @@
     <link rel="stylesheet" href="{% static 'css/register.css' %}">
 </head>
 <body>
+    {% if messages%}
+        <ul>
+            {%for message in messages%}
+                <li class="alert alert -{{message.tags}}">{{message}}</li>
+            {%endfor%}
+        <ul>
+    {%endif%}
+
     <div class="container">
         <header>
             <img src="{% static 'imgs/logo.png' %}" alt="Logo Casas em Pipa" class="logo">
             <h1>Casas em Pipa</h1>
         </header>
-        <form method="POST" action="{% url 'register' %}">
-            {% csrf_token %}
+        <form method="POST" action="{% url 'register' %}"> {% csrf_token %}
+           
             <div class="form-group">
                 <input type="text" name="nome" placeholder="Nome" class="input">
                 <input type="text" name="sobrenome" placeholder="Sobrenome" class="input">
@@ -26,7 +34,7 @@
             </div>
             <div class="form-group">
                 <input type="password" name="senha" placeholder="Senha" class="input">
-                <input type="text" name="genero" placeholder="Gênero" class="input">
+               
             </div>
             <div class="form-group">
                 <input type="password" name="confirme_senha" placeholder="Confirme sua senha" class="input">
