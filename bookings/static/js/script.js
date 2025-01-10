@@ -8,3 +8,9 @@ document.addEventListener("DOMContentLoaded", () => {
         minDate: "today",
     });
 });
+const filterBtn = document.getElementById('filter-btn');
+        const sidebar = document.getElementById('sidebar');
+        
+        filterBtn.addEventListener('click', () => {
+            sidebar.classList.toggle('active');
+        });

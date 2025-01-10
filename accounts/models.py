@@ -1,7 +1,7 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 
-class User:
+class User(models.Model):
 
     nome = models.CharField(max_length=50, null=False)
     sobrenome = models.CharField(max_length=50, null=False) 
