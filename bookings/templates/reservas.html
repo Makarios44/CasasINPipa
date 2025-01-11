@@ -20,20 +20,30 @@
             <button class="search-btn">🔍</button>
         </div>
         <div class="user-info">
-            <span>Oi, fulano</span>
+            {%if user is autheticated%}
+
+            <span>Oi, {{nome}}</span>
             <a href="#" class="profile-link">Perfil</a>
+            {%else%}
+
+            <a href="{% url 'login' %}" class="button">Login</a>
+            <a href="{% url 'register' %}" class="button">Cadastre-se</a>
+
+            
+            {%endif%}
         </div>
      </header>
 
     <nav class="navigation">
-        
-
-        <button class="filter-btn" id="filter-btn">Filtro</button>
-        
-        <button class="filter-btn" id="filter-btn">Pretendo hospedar</button>
-        
+        {%if user is autheticated%}
+        <a href="rental" class="profile-link">Pretendo hospedar</a>
+        {% endif %}
     </nav>
     
+    <div class='botao-filtro'>
+        <button class="filter-btn" id="filter-btn">Filtro</button>
+    </div>
+
     <main>
         <h1>Conheça o litoral mais lindo do RN</h1>
 
@@ -57,22 +67,22 @@
                 <button type="submit" class="search-btn">Aplicar Filtro</button>
             </form>
         </div>
-
+            {%for casa in Casas %}
         <div class="houses">
             <div class="house">
                 <div class="card">
-                    <img src="{% static 'imgs/logo.png' %}" class="card-img-top" alt="Imagem da Casa">
+                    <img src="{{ casa.imagem_principal.url }}" class="card-img-top" alt="Imagem da Casa">
                     <div class="card-body">
-                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                        <p class="card-text">{{casa.descricao}}</p>
                     </div>
                 </div>
             </div>
-            
         </div>
+        {% endfor %}
     </main>
 
     <footer>
-        <p>Copyright 2024</p>
+        <p>Copyright 2025</p>
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>

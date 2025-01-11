@@ -1,3 +1,4 @@
+//Calendario
 document.addEventListener("DOMContentLoaded", () => {
     flatpickr("#checkin", {
         dateFormat: "d M",
@@ -8,9 +9,22 @@ document.addEventListener("DOMContentLoaded", () => {
         minDate: "today",
     });
 });
+//Calendario
+
+//Sidebar
+const sidebar = document.querySelector('.sidebar');
 const filterBtn = document.getElementById('filter-btn');
-        const sidebar = document.getElementById('sidebar');
-        
-        filterBtn.addEventListener('click', () => {
-            sidebar.classList.toggle('active');
-        });
+
+
+filterBtn.addEventListener('click', () => {
+    sidebar.classList.add('active');
+});
+
+
+document.addEventListener('click', (event) => {
+
+    if (!sidebar.contains(event.target) && event.target !== filterBtn) {
+        sidebar.classList.remove('active');
+    }
+});
+//Sidebar
