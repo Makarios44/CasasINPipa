@@ -4,10 +4,10 @@ from .models import Casa, ImagemAdicional
 # Create your views here.
 
 def reservas(request):
-
     casas = Casa.objects.all()
-
     return render(request,'reservas.html' ,{'casas':casas})
+
+
 
 def rental(request):
     if  request.method  == 'POST':
@@ -35,4 +35,5 @@ def rental(request):
         return redirect('bookings') 
     
     return render(request, 'rental.html')  
+
 
