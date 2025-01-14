@@ -1,26 +1,30 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login as auth_login
+from django.contrib.auth import logout as auth_logout
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 def login(request):
+
+    if request.user.is_authenticated:
+        return redirect('reservas') 
+
     if request.method == 'POST':
-   
         nome = request.POST.get('login')
         password = request.POST.get('senha')
-
         usuario  = authenticate(username=nome, password=password)
         
-
         if usuario:
             auth_login(request, usuario)
-            messages.success(request,'seja bem vindo')
+        
+            request.session['logado'] = True
             return  render(request,'reservas.html')
-     
+
         else:
             messages.error(request,'email ou senha incorretos')
+            return  render(request,'login.html')
     
     return render(request,'login.html')
 
@@ -64,3 +68,8 @@ def register(request):
 @login_required
 def perfil(request):
     return render(request,'perfil.html')
+
+
+def logout(request):
+    auth_logout(request) 
+    return redirect('login')
