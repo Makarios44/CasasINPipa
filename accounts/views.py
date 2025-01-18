@@ -20,7 +20,7 @@ def login(request):
             auth_login(request, usuario)
         
             request.session['logado'] = True
-            return  render(request,'reservas.html')
+            return  redirect('reservas')
 
         else:
             messages.error(request,'email ou senha incorretos')

@@ -20,7 +20,8 @@
             <input type="text" id="checkin" placeholder="Check-in">
             <input type="text" id="checkout" placeholder="Check-out">
             <input type="number" id="guests" placeholder="Qt. Hóspedes" min="1">
-            <button class="search-btn">🔍</button>
+            <button class="search-btn" type="submit">🔍</button>
+      
         </div>
         <div class="user-info">
             {% if user.is_authenticated %}
@@ -56,23 +57,23 @@
 
         <div class="sidebar" id="sidebar">
             <h3>Filtros</h3>
-            <form action="#">
-                
+            <form action="#" method="POST">
+                {% csrf_token %}
                 
                 <label for="rooms">Número de quartos</label>
-                <input type="number" id="rooms" min="1" max="10">
+                <input type="number" id="rooms" name="rooms" min="1" max="10">
                 
                 <label for="type">Tipo de casa</label>
-                <select id="type">
+                <select id="type" name="type">
                     <option value="casa">Casa</option>
                     <option value="apartamento">Apartamento</option>
-                    <option value="sítio">Chalé</option>
-                    <option value="sítio">Vista mar</option>
-
+                    <option value="sitio">Chalé</option>
+                    <option value="vista_mar">Vista mar</option>
                 </select>
                 
                 <button type="submit" class="search-btn">Aplicar Filtro</button>
             </form>
+            
         </div>
         
         <div id="carouselExampleSlidesOnly" class="carousel slide" data-bs-ride="carousel">
@@ -119,7 +120,7 @@
                         
                  
                         {% if user.is_authenticated and user == casa.owner %}
-                            <a href="{% url 'editar' casa.id %}" class="">Editar Casa</a>
+                            <a href="{% url 'editar' casa.id %}" class="profile-link btn-edit">Editar Casa</a>
                         {% endif %}
                         {% if user.is_authenticated and user == casa.owner %}
                             <a href="{% url 'excluir_casa' casa.id %}" class="profile-link btn-edit">Excluir Casa</a>

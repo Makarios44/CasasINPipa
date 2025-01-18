@@ -22,7 +22,8 @@
             <img src="{% static 'imgs/logo.png' %}" alt="Logo Casas em Pipa" class="logo">
             <h1>Casas em Pipa</h1>
         </header>
-        <form method="POST" action="{% url 'register' %}"> {% csrf_token %}
+        <form method="POST" action="{% url 'register' %}"> 
+            {% csrf_token %}
            
             <div class="form-group">
                 <input type="text" name="nome" placeholder="Nome" class="input">
