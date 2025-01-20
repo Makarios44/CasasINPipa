@@ -17,12 +17,15 @@
      <header class="header">
         <img src="{% static 'imgs/logo.png' %}" alt="Logo Casas em Pipa" class="logo">
         <div class="search-container">
-            <input type="text" id="checkin" placeholder="Check-in">
-            <input type="text" id="checkout" placeholder="Check-out">
-            <input type="number" id="guests" placeholder="Qt. Hóspedes" min="1">
+            <input type="text" name="checkin" id="checkin" placeholder="Check-in">
+            <input type="text" name="checkout" id="checkout" placeholder="Check-out">
+            <input type="number" name="hospedes" id="hospedes" placeholder="Qt. Hóspedes" min="1">
             <button class="search-btn" type="submit">🔍</button>
       
         </div>
+         
+        
+
         <div class="user-info">
             {% if user.is_authenticated %}
             <span>Oi, {{ user.username}}</span>
@@ -46,6 +49,8 @@
             <a href="{% url 'editar_casa' casa.id %}" class="profile-link">Editar Casa</a>
         {% endif %}
     </nav>
+    
+   
     
     
     <div class='botao-filtro'>
@@ -104,39 +109,47 @@
             </div>
           </div>
 
+          {% if erro %}
+             <p>{{ erro }}</p>
+          {% endif %}
+      
 
-
-        {% for casa in casas %}
-        <div class="houses">
-            <div class="house">
-                <div class="card">
-                    {% if casa.imagem_principal %}
-                        <img src="{{ casa.imagem_principal.url }}" class="card-img-top" alt="Imagem da Casa">
-                    {% else %}
-                        <p>Imagem não disponível</p>
-                    {% endif %}
-                    
-                    <div class="card-body">
-                        <h3 class="card-text">{{ casa.nome }}</h3>
-                        <p class="card-text">{{ casa.descricao }}</p>
-                        <p class="card-text">{{ casa.preco_diaria }}</p>
-                        <p class="card-text">{{ casa.endereco }}</p>
-                        <p class="card-text">{{ casa.tipo }}</p>
-                        
-                 
-                        {% if user.is_authenticated and user == casa.owner %}
-                            <a href="{% url 'editar' casa.id %}" class="profile-link btn-edit">Editar Casa</a>
-                        {% endif %}
-                        {% if user.is_authenticated and user == casa.owner %}
-                            <a href="{% url 'excluir_casa' casa.id %}" class="profile-link btn-edit">Excluir Casa</a>
-                        {% endif %}
-                    </div>
-                </div>
-            </div>
-        </div>
-        {% empty %}
-        <p>Não há casas cadastradas no momento.</p>
-        {% endfor %}
+          {% if casas %}
+          {% for casa in casas %}
+              <div class="houses">
+                  <div class="house">
+                      <div class="card">
+                          {% if casa.imagem_principal %}
+                              <img src="{{ casa.imagem_principal.url }}" class="card-img-top" alt="Imagem da Casa">
+                          {% else %}
+                              <p>Imagem não disponível</p>
+                          {% endif %}
+                          
+                          <div class="card-body">
+                              <h1 class="card-text">{{ casa.nome }}</h1>
+                              <p class="card-text">{{ casa.descricao }}</p>
+                              <p class="card-text">{{ casa.preco_diaria }}</p>
+                              <p class="card-text">{{ casa.endereco }}</p>
+                              <p class="card-text">{{ casa.tipo }}</p>
+                              <p class="card-text">Capacidade máxima: {{ casa.capacidade_maxima }} hóspedes</p>
+                              <p class="card-text">Disponível de {{ casa.disponivel_de }} até {{ casa.disponivel_ate }}</p>
+                       
+                              {% if user.is_authenticated and user == casa.owner %}
+                                  <a href="{% url 'editar' casa.id %}" class="profile-link btn-edit">Editar Casa</a>
+                              {% endif %}
+                              {% if user.is_authenticated and user == casa.owner %}
+                                  <a href="{% url 'excluir_casa' casa.id %}" class="profile-link btn-edit">Excluir Casa</a>
+                              {% endif %}
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          {% empty %}
+              <p>Não há casas disponíveis para as datas e quantidade de hóspedes selecionados.</p>
+          {% endfor %}
+      {% else %}
+          <p>Não há casas cadastradas no momento.</p>
+      {% endif %}
     </main>
 
     <footer>

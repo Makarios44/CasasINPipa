@@ -5,6 +5,7 @@ from django.contrib.auth import logout as auth_logout
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from bookings.models import Casa
+from .forms import EditarPerfilForm
 # Create your views here.
 def login(request):
 
@@ -68,16 +69,36 @@ def register(request):
 
 @login_required
 def perfil(request):
-    
-    return render(request, 'perfil.html')
+    if request.method == 'POST':
+        form = EditarPerfilForm(request.POST, instance=request.user)
+        if form.is_valid():
+            form.save()  # Salva as alterações feitas no usuário
+            messages.success(request, "Informações do perfil atualizadas com sucesso!")
+            return redirect('perfil')  # Redireciona para a página de perfil novamente
+    else:
+        form = EditarPerfilForm(instance=request.user)  # Carrega os dados atuais do usuário no formulário
+
+    return render(request, 'perfil.html', {'form': form})
 
 
 
+def editar_perfil(request):
+    if request.method == 'POST':
+        form = EditarPerfilForm(request.POST)
+        if form.is_valid():
+            user = request.user
+            user.first_name = form.cleaned_data['nome']
+            user.last_name = form.cleaned_data['sobrenome']
+            user.email = form.cleaned_data['email']
+            if form.cleaned_data.get('senha'):
+                user.set_password(form.cleaned_data['senha'])
+            user.save()
+            return redirect('perfil')  # Redireciona para a página de perfil
 
-
-
-
-
+        else:
+             form = EditarPerfilForm(instance=request.user)
+         
+    return render(request, 'perfil.html', {'form': form})
 
 
 
