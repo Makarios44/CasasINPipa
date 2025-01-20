@@ -23,7 +23,7 @@ class Casa(models.Model):
     tipo = models.CharField(max_length=3, choices=TIPOS_CASA, null=False)
     imagem_principal = models.ImageField(upload_to='casas/', null=True, blank=True)
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
-    quantidade_pessoas = models.CharField(max_length=100)
+   
 
     def __str__(self):
         return self.nome

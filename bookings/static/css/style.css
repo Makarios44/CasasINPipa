@@ -1,4 +1,4 @@
-
+@import url('https://fonts.googleapis.com/css2?family=Lexend+Giga:wght@100..900&display=swap');
 *,
 *::before,
 *::after {
@@ -11,6 +11,7 @@ body {
     padding: 0;
     background-color: #f9f9f9;
     width: 100%;
+    padding-bottom: 50px;
     overflow-x: hidden; 
 }
 
@@ -86,10 +87,14 @@ main {
     width: 100%;
 }
 
-main h1 {
-    margin-bottom: 20px;
-    font-size: 24px;
-}
+
+
+.lexend-giga-header {
+    font-family: "Lexend Giga", serif;
+    font-optical-sizing: auto;
+    font-weight: 700; 
+    font-style: normal;
+  }
 
 
 /* Cards de casas */
@@ -139,16 +144,19 @@ main h1 {
 }
 
 footer {
-    margin-top: 20px;
-    font-size: 12px;
-    color: #666;
-    text-align: center;
-    padding: 10px 0;
-    width: 100%;
-    position: fixed;
-    bottom: 0;
-}
-
+    position: fixed; 
+    bottom: 0;       
+    left: 0;         
+    width: 100%;     
+    font-size: 1rem; /* Corrigido para um valor válido */
+    color: #080808;
+ 
+    text-align: center; 
+    padding: 10px 0; 
+    
+    z-index: 10; /* Garante que o rodapé fique sobre outros elementos */
+  }
+  
 
 .filter-btn {
     padding: 10px 20px;
@@ -299,12 +307,12 @@ footer {
   
   /* Ajuste do tamanho do carrossel */
 .carousel {
-    max-width: 1000px; 
+    max-width: 10000px; 
     max-height: 500px;
     margin: 0 auto; 
     overflow: hidden; 
 
-    border: 2px solid #0a0a0a; 
+   
     border-radius: 8px; 
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
     padding: 5px; 

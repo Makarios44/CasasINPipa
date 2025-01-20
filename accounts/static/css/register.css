@@ -15,7 +15,8 @@ body {
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     text-align: center;
-    width: 400px;
+    width: 100%; /* Usado com um max-width para responsividade */
+    max-width: 400px; /* Limita o tamanho */
 }
 
 header {
@@ -31,24 +32,44 @@ h1 {
     margin: 10px 0;
 }
 
-.form {
+form {
     display: flex;
-    flex-direction: column;
-    gap: 10px;
+    flex-direction: column; /* Empilha os elementos */
+    gap: 15px; /* Adiciona espaçamento entre os campos */
 }
 
 .form-group {
     display: flex;
-    justify-content: space-between;
-    gap: 10px;
+    flex-direction: column; /* Empilha os campos dentro do grupo */
+    gap: 10px; /* Espaçamento entre os campos no grupo */
 }
 
+
+.form-group input[type="checkbox"] {
+    margin-right: 10px;
+}
+
+.form-group label a {
+    color: #007BFF;
+    text-decoration: none;
+}
+
+.form-group label a:hover {
+    text-decoration: underline;
+}
+
+
+
+
+
+
 .input {
-    flex: 1;
+    width: 100%; /* Campos ocupam toda a largura do container pai */
     padding: 10px;
     font-size: 14px;
     border: 1px solid #ccc;
     border-radius: 4px;
+    box-sizing: border-box; /* Garante que padding e borda não extrapolem o tamanho */
 }
 
 .btn {
@@ -66,7 +87,14 @@ h1 {
 }
 
 footer {
-    margin-top: 20px;
-    font-size: 12px;
-    color: #666;
+    position: fixed; 
+    bottom: 0;       
+    left: 0;         
+    width: 100%;     
+    font-size: 0.8rem; /* Corrigido para um valor válido */
+    color: #080808;
+    background-color: #f8f8f8; /* Fundo para contraste */
+    text-align: center; 
+    padding: 10px 0; 
+    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1); /* Sombra opcional */
 }

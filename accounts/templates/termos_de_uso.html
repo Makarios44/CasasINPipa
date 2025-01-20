@@ -1,0 +1,55 @@
+{% load static %}
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Termos de Uso - Casas em Pipa</title>
+    <link rel="stylesheet" href="{% static 'css/terms_of_use.css' %}">
+    <link rel="shortcut icon" href="{% static 'imgs/logo.png' %}" type="image/x-icon">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Casas em Pipa</h1>
+            <button id="termsBtn">Leia os Termos de Uso</button>
+        </header>
+
+        <!-- Modal com os Termos de Uso -->
+        <div id="termsModal" class="modal">
+            <div class="modal-content">
+                <span class="close" onclick="closeModal()">&times;</span>
+                <h2>Termos de Uso - Casas em Pipa</h2>
+                <p><strong>1. Introdução</strong></p>
+                <p>Bem-vindo ao Casas em Pipa! Ao acessar e utilizar os nossos serviços de aluguel de casas, você concorda em cumprir e estar vinculado aos seguintes Termos de Uso. Se você não concordar com algum desses termos, por favor, não utilize nossos serviços.</p>
+                
+                <p><strong>2. Definições</strong></p>
+                <p>- <strong>Locatário</strong>: Pessoa física ou jurídica que realiza o aluguel da propriedade através do nosso site.</p>
+                <p>- <strong>Locador</strong>: Pessoa física ou jurídica proprietária da casa que oferece a locação através do nosso site.</p>
+                <p>- <strong>Serviço</strong>: O serviço de intermediação de aluguel de imóveis oferecido pela plataforma.</p>
+
+                <p><strong>3. Responsabilidades do Locatário</strong></p>
+                <p>O locatário é responsável por realizar os pagamentos dos aluguéis de acordo com os prazos e valores estabelecidos no contrato de locação, bem como pela devolução da casa nas condições acordadas.</p>
+
+                <p><strong>4. Responsabilidades do Locador</strong></p>
+                <p>O locador garante que o imóvel está disponível para aluguel nas condições descritas no anúncio e que atende às normas de segurança e habitabilidade.</p>
+
+                <p><strong>5. Pagamento e Política de Cancelamento</strong></p>
+                <p>Os pagamentos devem ser realizados de acordo com as instruções fornecidas no site, e o locatário poderá cancelar a reserva de acordo com a política de cancelamento do contrato.</p>
+
+                <p><strong>6. Política de Privacidade</strong></p>
+                <p>As informações pessoais fornecidas pelos usuários serão tratadas conforme nossa Política de Privacidade.</p>
+
+                <p><strong>7. Alterações nos Termos de Uso</strong></p>
+                <p>O site pode modificar os Termos de Uso a qualquer momento, e você será notificado sobre essas mudanças.</p>
+
+                <p><strong>8. Aceitação dos Termos</strong></p>
+                <p>Ao utilizar nosso site, você concorda com os Termos de Uso descritos acima.</p>
+            </div>
+        </div>
+
+    </div>
+
+
+    <script src="{% static 'js/termos_de_uso.js' %}"></script>
+</body>
+</html>

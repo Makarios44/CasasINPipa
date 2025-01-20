@@ -4,7 +4,7 @@ from django.contrib.auth import authenticate, login as auth_login
 from django.contrib.auth import logout as auth_logout
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-
+from bookings.models import Casa
 # Create your views here.
 def login(request):
 
@@ -44,8 +44,9 @@ def register(request):
         password2 = request.POST.get('confirme_senha')
         telefone = request.POST.get('telefone')
         data_nascimento = request.POST.get('data_nascimento')
-
-       
+        terms = request.POST.get('terms')
+        
+        
         if User.objects.filter(username=nome).exists():
             messages.error(request, 'Este usuario já está cadastrado')
         elif password != password2:
@@ -67,9 +68,24 @@ def register(request):
 
 @login_required
 def perfil(request):
-    return render(request,'perfil.html')
+    
+    return render(request, 'perfil.html')
 
 
+
+
+
+
+
+
+
+
+
+
+@login_required
 def logout(request):
     auth_logout(request) 
     return redirect('login')
+
+def termos_de_uso(request):
+    return render(request, 'termos_de_uso.html')

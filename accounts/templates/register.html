@@ -7,6 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Casas em Pipa - Cadastro</title>
     <link rel="stylesheet" href="{% static 'css/register.css' %}">
+    <link rel="shortcut icon" href="{% static 'imgs/logo.png' %}" type="image/x-icon">
 </head>
 <body>
     {% if messages%}
@@ -41,10 +42,14 @@
                 <input type="password" name="confirme_senha" placeholder="Confirme sua senha" class="input">
                 <input type="date" name="data_nascimento" placeholder="Data de Nasc." class="input">
             </div>
+            <div class="form-group">
+                <input type="checkbox" id="termos" name="termos" required>
+                <label for="termos">Eu aceito os <a href="{% url 'termos_de_uso' %}" target="_blank">termos de uso</a>.</label>
+            </div>
             <button type="submit" class="btn">Cadastrar</button>
         </form>
         <footer>
-            <p>Copyright 2025</p>
+            <p>@Copyright 2025</p>
         </footer>
     </div>
 </body>
