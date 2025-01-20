@@ -91,3 +91,43 @@ button {
 button:hover {
     background-color: #45a049;
 }
+
+
+/* Media query para dispositivos móveis */
+@media (max-width: 768px) {
+    .modal {
+        padding: 20px; /* Adiciona um pequeno padding em torno do modal */
+    }
+
+    .modal-content {
+        width: 95%; /* Aumenta a largura do modal para aproveitar mais o espaço da tela */
+        max-width: 350px; /* Ajusta o tamanho máximo do modal */
+        padding: 20px; /* Ajusta o padding para um melhor uso do espaço */
+    }
+
+    .modal-content h1 {
+        font-size: 18px; /* Diminui o tamanho do título */
+        margin-bottom: 10px;
+    }
+
+    form {
+        gap: 15px; /* Aumenta o espaçamento entre os campos do formulário */
+    }
+
+    input[type="text"],
+    input[type="number"],
+    textarea,
+    input[type="file"] {
+        font-size: 16px; /* Aumenta o tamanho da fonte dos inputs */
+        padding: 10px; /* Ajusta o padding para um melhor conforto */
+    }
+
+    textarea {
+        height: 100px; /* Ajusta a altura da área de texto */
+    }
+
+    button {
+        padding: 12px 20px; /* Aumenta o tamanho do botão */
+        font-size: 16px; /* Aumenta o tamanho da fonte do botão */
+    }
+}

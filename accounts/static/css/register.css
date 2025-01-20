@@ -7,6 +7,7 @@ body {
     justify-content: center;
     align-items: center;
     height: 100vh;
+    padding-bottom: 50px; /* Adiciona espaço para o rodapé não sobrepor o conteúdo */
 }
 
 .container {
@@ -44,7 +45,6 @@ form {
     gap: 10px; /* Espaçamento entre os campos no grupo */
 }
 
-
 .form-group input[type="checkbox"] {
     margin-right: 10px;
 }
@@ -58,14 +58,9 @@ form {
     text-decoration: underline;
 }
 
-
-
-
-
-
 .input {
     width: 100%; /* Campos ocupam toda a largura do container pai */
-    padding: 10px;
+    padding: 12px; /* Aumenta o padding para maior conforto */
     font-size: 14px;
     border: 1px solid #ccc;
     border-radius: 4px;
@@ -76,7 +71,7 @@ form {
     background-color: #007bff;
     color: white;
     border: none;
-    padding: 10px;
+    padding: 12px; /* Aumenta o padding do botão para um visual mais confortável */
     font-size: 16px;
     border-radius: 4px;
     cursor: pointer;
@@ -87,14 +82,46 @@ form {
 }
 
 footer {
-    position: fixed; 
-    bottom: 0;       
-    left: 0;         
-    width: 100%;     
-    font-size: 0.8rem; /* Corrigido para um valor válido */
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    font-size: 0.8rem; 
     color: #080808;
-    background-color: #f8f8f8; /* Fundo para contraste */
-    text-align: center; 
-    padding: 10px 0; 
-    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1); /* Sombra opcional */
+    background-color: #f8f8f8;
+    text-align: center;
+    padding: 10px 0;
+    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+}
+
+
+/* Media Query para telas menores */
+@media (max-width: 768px) {
+    body {
+        padding: 20px 10px; /* Adiciona um pouco de espaçamento nas laterais em telas pequenas */
+    }
+
+    .container {
+        width: 100%; /* Ocupa toda a largura disponível */
+        max-width: 100%; /* Remove o limite de largura */
+        padding: 15px; /* Diminui o padding para mais conforto */
+    }
+
+    h1 {
+        font-size: 18px; /* Ajusta o tamanho do título para telas menores */
+    }
+
+    .input {
+        padding: 10px; /* Ajusta o padding dos campos */
+        font-size: 14px; /* Ajusta o tamanho da fonte */
+    }
+
+    .btn {
+        padding: 10px; /* Ajusta o tamanho do botão */
+        font-size: 14px; /* Ajusta o tamanho da fonte do botão */
+    }
+
+    footer {
+        font-size: 0.75rem; /* Ajusta o tamanho da fonte do rodapé */
+    }
 }

@@ -326,3 +326,72 @@ footer {
     object-fit: cover; /* Opcional: para cortar a imagem sem distorcer */
   }
   
+  @media (max-width: 768px) {
+    body {
+        padding-bottom: 20px;
+    }
+
+    .header {
+        flex-direction: column; /* Alinha o logo e a barra de pesquisa em coluna */
+        padding: 10px 15px;
+    }
+
+    .search-container input {
+        width: 100%; /* Deixa a barra de pesquisa ocupar toda a largura */
+    }
+
+    .search-btn {
+        width: 100%; /* Botão de pesquisa também ocupa toda a largura */
+    }
+
+    .user-info {
+        flex-direction: column; /* Alinha os elementos de usuário em coluna */
+        align-items: flex-start;
+        gap: 10px;
+    }
+
+    .navigation {
+        flex-direction: column; /* Alinha os links de navegação em coluna */
+        gap: 10px;
+        font-size: 14px;
+    }
+
+    .houses {
+        flex-direction: column; /* Exibe as casas em uma coluna */
+        gap: 10px;
+        align-items: center; /* Alinha as casas no centro */
+    }
+
+    .house {
+        width: 100%; /* As casas ocupam toda a largura em telas pequenas */
+        margin-bottom: 10px; /* Menos espaço entre as casas */
+    }
+
+    .sidebar {
+        left: -250px; /* Inicialmente escondido */
+        width: 200px; /* Largura menor da sidebar */
+    }
+
+    .sidebar.active {
+        left: 0;
+    }
+
+    .carousel {
+        max-width: 100%;
+        max-height: 300px; /* Ajuste da altura do carrossel */
+    }
+
+    .carousel-inner img {
+        height: 200px; /* Ajuste da altura das imagens do carrossel */
+        object-fit: cover;
+    }
+
+    footer {
+        font-size: 14px;
+        padding: 5px 0;
+    }
+
+    .filter-btn {
+        width: 100%; /* Botão de filtro ocupa toda a largura */
+    }
+}

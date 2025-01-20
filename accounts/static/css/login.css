@@ -102,3 +102,43 @@ body, h1, p, label, a, input, button {
     
   }
   
+
+  /* Media query para dispositivos móveis */
+@media (max-width: 768px) {
+  body {
+      padding: 10px; /* Adiciona um pequeno padding nas bordas para evitar que o conteúdo encoste na tela */
+  }
+
+  .container {
+      width: 100%; /* Faz o container ocupar 100% da largura da tela */
+      max-width: 350px; /* Limita a largura máxima para não ficar muito largo */
+      padding: 15px; /* Ajusta o padding para se adaptar melhor a telas pequenas */
+  }
+
+  .logo img {
+      height: 50px; /* Reduz a altura do logo */
+  }
+
+  .logo h1 {
+      font-size: 1rem; /* Ajusta o tamanho do título */
+  }
+
+  .login-form {
+      gap: 10px; /* Diminui o espaçamento entre os campos do formulário */
+  }
+
+  input {
+      padding: 8px; /* Ajusta o padding dos campos de entrada */
+      font-size: 0.9rem; /* Ajusta o tamanho da fonte */
+  }
+
+  .btn-primary {
+      font-size: 0.9rem; /* Ajusta o tamanho da fonte do botão */
+      padding: 8px; /* Ajusta o padding do botão */
+  }
+
+  footer {
+      font-size: 1rem; /* Ajusta o tamanho da fonte do rodapé */
+      padding: 8px 0; /* Ajusta o padding do rodapé */
+  }
+}

@@ -91,3 +91,60 @@ footer {
     font-size: 12px;
     color: #666;
 }
+
+
+/* Media query para dispositivos móveis */
+@media (max-width: 768px) {
+    body {
+        padding: 0 10px;
+    }
+
+    .header {
+        flex-direction: column; /* Alinha logo e botões em coluna */
+        padding: 10px;
+    }
+
+    .botoes {
+        justify-content: center; /* Alinha os botões ao centro */
+        margin-left: 0;
+        gap: 10px;
+    }
+
+    .logo {
+        width: 80px; /* Logo um pouco menor em telas pequenas */
+    }
+
+    .user-info {
+        flex-direction: column; /* Alinha as informações do usuário em coluna */
+        gap: 5px;
+    }
+
+    main {
+        margin: 10px;
+        padding: 15px;
+        max-width: 100%; /* Aumenta o tamanho máximo do main para aproveitar mais espaço */
+    }
+
+    h1 {
+        font-size: 20px; /* Reduz o tamanho do título */
+        margin-bottom: 15px;
+    }
+
+    .form-cadastro {
+        gap: 10px; /* Menos espaçamento entre os campos */
+    }
+
+    input, textarea, select, button {
+        font-size: 14px; /* Fonte menor para se adaptar ao espaço */
+        padding: 8px; /* Ajuste no tamanho do padding */
+    }
+
+    footer {
+        font-size: 10px;
+        margin-top: 15px;
+    }
+
+    button {
+        padding: 12px 20px; /* Aumenta o tamanho do botão */
+    }
+}
