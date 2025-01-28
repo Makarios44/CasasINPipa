@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect,get_object_or_404
 from .models import Casa, ImagemAdicional
 from django.shortcuts import render
-
+from .forms import CasaForm, ImagemAdicionalForm
 
 from datetime import datetime
 from django.contrib.auth.decorators import login_required
@@ -42,51 +42,65 @@ def reservas(request):
 
 
 @login_required
-def rental(request): #cadastro de casas
+def rental(request):
     if request.method == 'POST':
-      
-        user = request.user  
+        casa_form = CasaForm(request.POST, request.FILES)
+        if casa_form.is_valid():
+            # Salva a casa associando ao usuário logado
+            casa = casa_form.save(commit=False)
+            casa.owner = request.user
+            casa.save()
 
-        
-        casa_obj = Casa.objects.create(
-            nome=request.POST['nome'],
-            descricao=request.POST['descricao'],
-            endereco=request.POST['endereco'],
-            preco_diaria=request.POST['preco_diaria'],
-            tipo=request.POST['tipo'],
-            imagem_principal=request.FILES['foto_principal'],
-            owner=user 
-        )
-        
-        return redirect('reservas')
-    
-    return render(request, 'rental.html')
+            # Processa as imagens adicionais
+            imagens_adicionais = request.FILES.getlist('imagens_adicionais')
+            for imagem in imagens_adicionais:
+                ImagemAdicional.objects.create(casa=casa, imagem=imagem)
 
+            return redirect('reservas')  # Redireciona após o cadastro
+    else:
+        casa_form = CasaForm()
+
+    return render(request, 'rental.html', {'casa_form': casa_form})
 
 
 @login_required
 def editar(request, casa_id):
     casa = get_object_or_404(Casa, id=casa_id)
 
-    
+    # Verificar se o usuário atual é o proprietário da casa
     if casa.owner != request.user:
-        return redirect('reservas') 
-    
+        return redirect('reservas')
+
     if request.method == 'POST':
-        
+        # Atualizando os campos principais da casa
         casa.nome = request.POST['nome']
         casa.descricao = request.POST['descricao']
         casa.endereco = request.POST['endereco']
         casa.preco_diaria = request.POST['preco_diaria']
         casa.tipo = request.POST['tipo']
+    
+        imagem_principal = request.FILES.get('imagem_principal')  
 
-        if 'imagem_principal' in request.FILES:
-            casa.imagem_principal = request.FILES['imagem_principal']
+        if imagem_principal:
+            casa.imagem_principal = imagem_principal  
+
+
+
+
+      
+        imagens_adicionais = request.FILES.getlist('imagens_adicionais')
+      
+      
+        if imagens_adicionais:
+            casa.imagens_adicionais.all().delete()  
+            for imagem in imagens_adicionais:
+                casa.imagens_adicionais.create(imagem=imagem)  
 
         casa.save()
-        return redirect('reservas')  # Redireciona após salvar
+        return redirect('detalhes', casa_id=casa.id)  
 
     return render(request, 'editar.html', {'casa': casa})
+
 
 @login_required
 def excluir(request, casa_id):
@@ -102,3 +116,6 @@ def excluir(request, casa_id):
 
     return render(request, 'confirmar_exclusao.html', {'casa': casa})
 
+def detalhes(request, casa_id):
+    casa = get_object_or_404(Casa, id=casa_id)
+    return render(request, 'detalhes.html', {'casa': casa})

@@ -9,9 +9,9 @@ path('', views.reservas, name='reservas'), #bookings
 path('rental/',views.rental, name='rental'),
 path('editar/<int:casa_id>/', views.editar, name='editar'),
 path('excluir-casa/<int:casa_id>/', views.excluir, name='excluir_casa'),
-
+path('detalhes/<int:casa_id>/',views.detalhes, name='detalhes'),
 
 ]
 
-
+urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

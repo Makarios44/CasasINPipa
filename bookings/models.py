@@ -19,12 +19,9 @@ class Casa(models.Model):
     descricao = models.TextField(null=False)
     endereco = models.CharField(max_length=255, null=False)
     preco_diaria = models.DecimalField(max_digits=10, decimal_places=2, null=False)
-    disponivel = models.BooleanField(default=True)
     tipo = models.CharField(max_length=3, choices=TIPOS_CASA, null=False)
     imagem_principal = models.ImageField(upload_to='casas/', null=True, blank=True)
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
-    disponivel_de = models.DateField(null=True, blank=True)  
-    disponivel_ate = models.DateField(null=True, blank=True)  
     capacidade_maxima = models.IntegerField(default=2)
 
     def __str__(self):
@@ -32,15 +29,9 @@ class Casa(models.Model):
 
 
 class ImagemAdicional(models.Model):
-    casa = models.ForeignKey(Casa, related_name='imagens_adicionais', on_delete=models.CASCADE)  # Corrigido para 'Casa'
+    casa = models.ForeignKey(Casa, related_name='imagens_adicionais', on_delete=models.CASCADE)  
     imagem = models.ImageField(upload_to='imagens_adicionais/', null=False)
     
     def __str__(self):
         return f'Imagem adicional para {self.casa.nome}'
-
-
-class CasaForm(forms.ModelForm):
-    class Meta:
-        model = Casa
-        fields = ['nome', 'descricao', 'endereco', 'preco_diaria', 'tipo', 'imagem_principal']
 

@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Confirmar Exclusão</title>
     <link rel="shortcut icon" href="{% static 'imgs/logo.png' %}" type="image/x-icon">
+    <link rel="stylesheet" href="{% static 'css/confirmar_exclusao.css' %}">
 </head>
 <body>
     <h1>Tem certeza que deseja excluir a casa "{{ casa.nome }}"?</h1>
@@ -13,8 +14,10 @@
 
     <form method="POST">
         {% csrf_token %}
-        <button type="submit">Sim, excluir</button>
-        <a href="{% url 'reservas' %}">Cancelar</a>
+        <div class ="botoes">
+            <button type="submit" class="profile-link btn-edit" >Sim, excluir</button>
+            <a href="{% url 'reservas' %}" class="profile-link btn-edit ">Cancelar</a>
+        </div>
     </form>
 </body>
 </html>

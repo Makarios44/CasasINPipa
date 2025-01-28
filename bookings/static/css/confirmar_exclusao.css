@@ -1,0 +1,39 @@
+body{
+    margin: 0;
+    padding: 0;
+}
+
+h1 {
+    text-align: center;
+}
+
+p {
+    text-align: center;
+    color: red;
+    font-size: large;
+}
+
+
+
+
+.botoes{
+    display: flex;
+    justify-content: center;
+    gap:10px
+}
+
+
+.btn-edit {
+    display: inline-block;
+    padding: 10px 15px;
+    background-color: #007bff;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 14px;
+    margin-top: 10px;
+}
+
+.btn-edit:hover {
+    background-color: #0056b3;
+}

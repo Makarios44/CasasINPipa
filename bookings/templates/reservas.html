@@ -17,9 +17,7 @@
      <header class="header">
         <img src="{% static 'imgs/logo.png' %}" alt="Logo Casas em Pipa" class="logo">
         <div class="search-container">
-            <input type="text" name="checkin" id="checkin" placeholder="Check-in">
-            <input type="text" name="checkout" id="checkout" placeholder="Check-out">
-            <input type="number" name="hospedes" id="hospedes" placeholder="Qt. Hóspedes" min="1">
+            <input type="text" id="search" name="q" placeholder="Digite sua pesquisa...">
             <button class="search-btn" type="submit">🔍</button>
       
         </div>
@@ -43,7 +41,9 @@
 
      <nav class="navigation">
         {% if user.is_authenticated %}
-            <a href="{% url 'rental' %}" class="profile-link">Pretendo hospedar</a>
+            <a href="{% url 'rental' %}" class="profile-link">
+                <button type="button" class="btn btn-primary"> Locação</button>
+            </a>
         {% endif %}
         {% if user.is_authenticated and user == casa.owner %}
             <a href="{% url 'editar_casa' casa.id %}" class="profile-link">Editar Casa</a>
@@ -53,9 +53,7 @@
    
     
     
-    <div class='botao-filtro'>
-        <button class="filter-btn" id="filter-btn">Filtro</button>
-    </div>
+   
 
     <main>
         <div class="lexend-giga-header">
@@ -64,26 +62,6 @@
         </div>
        
 
-        <div class="sidebar" id="sidebar">
-            <h3>Filtros</h3>
-            <form action="#" method="POST">
-                {% csrf_token %}
-                
-                <label for="rooms">Número de quartos</label>
-                <input type="number" id="rooms" name="rooms" min="1" max="10">
-                
-                <label for="type">Tipo de casa</label>
-                <select id="type" name="type">
-                    <option value="casa">Casa</option>
-                    <option value="apartamento">Apartamento</option>
-                    <option value="sitio">Chalé</option>
-                    <option value="vista_mar">Vista mar</option>
-                </select>
-                
-                <button type="submit" class="search-btn">Aplicar Filtro</button>
-            </form>
-            
-        </div>
         
         <div id="carouselExampleSlidesOnly" class="carousel slide" data-bs-ride="carousel">
             <div class="carousel-inner">
@@ -114,42 +92,34 @@
           {% endif %}
       
 
-          {% if casas %}
-          {% for casa in casas %}
-              <div class="houses">
-                  <div class="house">
-                      <div class="card">
-                          {% if casa.imagem_principal %}
-                              <img src="{{ casa.imagem_principal.url }}" class="card-img-top" alt="Imagem da Casa">
-                          {% else %}
-                              <p>Imagem não disponível</p>
-                          {% endif %}
+          
+          <div class="houses">
+            {% for casa in casas %}
+                <div class="house">
+                    <div class="card">
+                        {% if casa.imagem_principal %}
+                            <img src="{{ casa.imagem_principal.url }}" class="card-img-top" alt="Imagem da Casa">
+                        {% else %}
+                            <p>Imagem não disponível</p>
+                        {% endif %}
+                        
+                        <div class="card-body">
+                            <h1 class="card-text">{{ casa.nome }}</h1>
+                            <p class="card-text">{{ casa.preco_diaria }}</p>
+                            <p class="card-text">{{ casa.endereco }}</p>
+                            <p class="card-text">{{ casa.tipo }}</p>
+                            <p class="card-text">Capacidade máxima: {{ casa.capacidade_maxima }} hóspedes</p>
+    
+                            <a href="{% url 'detalhes' casa.id %}" class="profile-link btn-edit">Ver mais</a>
                           
-                          <div class="card-body">
-                              <h1 class="card-text">{{ casa.nome }}</h1>
-                              <p class="card-text">{{ casa.descricao }}</p>
-                              <p class="card-text">{{ casa.preco_diaria }}</p>
-                              <p class="card-text">{{ casa.endereco }}</p>
-                              <p class="card-text">{{ casa.tipo }}</p>
-                              <p class="card-text">Capacidade máxima: {{ casa.capacidade_maxima }} hóspedes</p>
-                              <p class="card-text">Disponível de {{ casa.disponivel_de }} até {{ casa.disponivel_ate }}</p>
-                       
-                              {% if user.is_authenticated and user == casa.owner %}
-                                  <a href="{% url 'editar' casa.id %}" class="profile-link btn-edit">Editar Casa</a>
-                              {% endif %}
-                              {% if user.is_authenticated and user == casa.owner %}
-                                  <a href="{% url 'excluir_casa' casa.id %}" class="profile-link btn-edit">Excluir Casa</a>
-                              {% endif %}
-                          </div>
-                      </div>
-                  </div>
-              </div>
-          {% empty %}
-              <p>Não há casas disponíveis para as datas e quantidade de hóspedes selecionados.</p>
-          {% endfor %}
-      {% else %}
-          <p>Não há casas cadastradas no momento.</p>
-      {% endif %}
+                        </div>
+                    </div>
+                </div>
+            {% empty %}
+                <p>Não há casas disponíveis para as datas e quantidade de hóspedes selecionados.</p>
+            {% endfor %}
+        </div>
+
     </main>
 
     <footer>

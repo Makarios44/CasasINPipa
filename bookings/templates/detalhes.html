@@ -1,0 +1,53 @@
+{% load static %}
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ casa.nome }}</title>
+    <link rel="stylesheet" href="{% static 'css/detalhes.css' %}">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.4/css/lightbox.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class ="voltar">
+         <a href="{% url 'reservas' %}" class="profile-link btn-edit">Voltar</a>
+    </div>
+    <div class="house-container">
+        <h1>{{ casa.nome }}</h1>
+        
+        <div class="gallery">
+            <div class="gallery-row">
+                {% for imagem in casa.imagens_adicionais.all|slice:":3" %}
+                    <a href="{{ imagem.imagem.url }}" data-lightbox="galeria" data-title="Imagem da Casa">
+                        <img src="{{ imagem.imagem.url }}" class="card-img-top" alt="Imagem da Casa">
+                    </a>
+                {% empty %}
+                    <p>Não há imagens disponíveis.</p>
+                {% endfor %}
+            </div>
+            <div class="gallery-row">
+                {% for imagem in casa.imagens_adicionais.all|slice:"3:6" %}
+                    <a href="{{ imagem.imagem.url }}" data-lightbox="galeria" data-title="Imagem da Casa">
+                        <img src="{{ imagem.imagem.url }}" class="card-img-top" alt="Imagem da Casa">
+                    </a>
+                {% endfor %}
+            </div>
+        </div>
+
+        <div class="details">
+           
+            {% if user.is_authenticated and user == casa.owner %}
+            <a href="{% url 'editar' casa.id %}" class="profile-link btn-edit">Editar</a>
+            <a href="{% url 'excluir_casa' casa.id %}" class="profile-link btn-edit">Excluir</a>
+            {% endif %}
+        </div>
+
+        <div class="description">
+            <p><strong>Ocupação máxima:</strong> {{ casa.capacidade_maxima }} pessoas</p>
+            <h2>Descrição</h2>
+            <p>{{ casa.descricao }}</p>
+        </div>
+    </div>  
+    <script src="{% static 'js/detalhes.js' %}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.4/js/lightbox.min.js"></script>
+</body>
+</html>

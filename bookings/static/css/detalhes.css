@@ -1,0 +1,142 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f9f9f9;
+    color: #333;
+}
+
+.house-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+
+.voltar { 
+    display: flex;
+    justify-content: end;
+    margin-top: 40;
+    margin-right: 30;
+}
+
+h1 {
+    font-size: 50px;
+    text-align: center;
+    color: #000000;
+}
+
+.gallery {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin: 20px 0;
+}
+
+.gallery-row {
+    display: flex;
+    gap: 10px;
+}
+
+.gallery img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.details {
+    text-align: center;
+    margin: 20px 0;
+}
+
+.details p {
+    font-size: 18px;
+    margin: 10px 0;
+}
+
+.reserve-btn {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.reserve-btn:hover {
+    background-color: #0056b3;
+}
+
+.description {
+    margin-top: 20px;
+}
+
+.description h2 {
+    color: #007bff;
+    margin-bottom: 10px;
+}
+
+.description p {
+    font-size: 16px;
+    line-height: 1.6;
+}
+
+
+
+/* Estilo geral da galeria */
+.gallery {
+    display: flex;
+    flex-direction: column; /* Cada linha será uma "row" */
+    gap: 20px; /* Espaçamento entre as linhas */
+    padding: 20px;
+    align-items: center;
+}
+
+/* Estilo para cada linha */
+.gallery-row {
+    display: flex;
+    justify-content: center; /* Centraliza as imagens */
+    gap: 15px; /* Espaçamento entre as imagens */
+}
+
+/* Links das imagens */
+.gallery-row a {
+    display: block;
+    width: 200px; /* Tamanho fixo das imagens */
+    height: 150px;
+    overflow: hidden;
+    border-radius: 10px; /* Cantos arredondados */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.15); /* Sombra leve */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.gallery-row a:hover {
+    transform: scale(1.05); /* Zoom ao passar o mouse */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3); /* Aumenta a sombra no hover */
+}
+
+/* Imagens dentro do link */
+.gallery-row img {
+    width: 100%; /* Ajusta a largura ao tamanho do link */
+    height: 100%; /* Ajusta a altura ao tamanho do link */
+    object-fit: cover; /* Recorta a imagem para caber sem distorcer */
+    display: block;
+    border-radius: 10px;
+}
+
+.btn-edit {
+    display: inline-block;
+    padding: 10px 15px;
+    background-color: #007bff;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 14px;
+    margin-top: 10px;
+}
+
+.btn-edit:hover {
+    background-color: #0056b3;
+}

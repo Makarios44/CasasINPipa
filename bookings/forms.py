@@ -1,5 +1,5 @@
 from django import forms
-from .models import Casa
+from .models import Casa, ImagemAdicional
 
   
 class CasaForm(forms.ModelForm):
@@ -12,3 +12,8 @@ class CasaForm(forms.ModelForm):
         if preco <= 0:
             raise forms.ValidationError("O preço diário deve ser maior que zero.")
         return preco
+
+class ImagemAdicionalForm(forms.ModelForm):
+    class Meta:
+        model = ImagemAdicional
+        fields = ['imagem']
