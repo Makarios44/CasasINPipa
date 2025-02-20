@@ -6,6 +6,7 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from bookings.models import Casa
 from .forms import EditarPerfilForm
+from django.contrib.auth import update_session_auth_hash
 # Create your views here.
 def login(request):
 
@@ -67,24 +68,30 @@ def register(request):
 
 
 
+
 @login_required
 def perfil(request):
+    casas = Casa.objects.filter(owner=request.user)  # Buscar as casas do usuário sempre
+
     if request.method == 'POST':
         form = EditarPerfilForm(request.POST, instance=request.user)
         if form.is_valid():
-            form.save()  # Salva as alterações feitas no usuário
-            messages.success(request, "Informações do perfil atualizadas com sucesso!")
-            return redirect('perfil')  # Redireciona para a página de perfil novamente
+            user = form.save()
+
+            # Atualiza a sessão caso a senha tenha sido alterada
+            update_session_auth_hash(request, user)
+
+            messages.success(request, "Perfil atualizado com sucesso!")
+            return redirect('perfil')
     else:
-        form = EditarPerfilForm(instance=request.user)  # Carrega os dados atuais do usuário no formulário
+        form = EditarPerfilForm(instance=request.user)
 
-    return render(request, 'perfil.html', {'form': form})
+    return render(request, 'perfil.html', {'form': form, 'casas': casas, 'user': request.user})
 
-
-
+@login_required
 def editar_perfil(request):
     if request.method == 'POST':
-        form = EditarPerfilForm(request.POST)
+        form = EditarPerfilForm(request.POST, instance=request.user)  # Vincular ao usuário autenticado
         if form.is_valid():
             user = request.user
             user.first_name = form.cleaned_data['nome']
@@ -93,12 +100,12 @@ def editar_perfil(request):
             if form.cleaned_data.get('senha'):
                 user.set_password(form.cleaned_data['senha'])
             user.save()
-            return redirect('perfil')  # Redireciona para a página de perfil
+            return redirect('perfil')  # Redireciona para a página de perfil após salvar
+    else:
+        form = EditarPerfilForm(instance=request.user)  # Passa os dados do usuário para edição
 
-        else:
-             form = EditarPerfilForm(instance=request.user)
-         
     return render(request, 'perfil.html', {'form': form})
+
 
 
 
@@ -110,3 +117,4 @@ def logout(request):
 
 def termos_de_uso(request):
     return render(request, 'termos_de_uso.html')
+

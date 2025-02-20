@@ -27,7 +27,7 @@
         <div class="user-info">
             {% if user.is_authenticated %}
             <span>Oi, {{ user.username}}</span>
-            <a href="#" class="profile-link">Perfil</a>
+            <a href="{% url 'perfil' %}" class="profile-link">Perfil</a>
             <a href="{% url 'logout' %}" class="button">Sair</a>
             {%else%}
 
@@ -104,19 +104,21 @@
                         {% endif %}
                         
                         <div class="card-body">
-                            <h1 class="card-text">{{ casa.nome }}</h1>
-                            <p class="card-text">{{ casa.preco_diaria }}</p>
+                            <h1 class="card-nome">{{ casa.nome }}</h1>
+                            <p class="card-text">{{ casa.preco }}</p>
                             <p class="card-text">{{ casa.endereco }}</p>
                             <p class="card-text">{{ casa.tipo }}</p>
-                            <p class="card-text">Capacidade máxima: {{ casa.capacidade_maxima }} hóspedes</p>
-    
+                            <p class="card-text">Capacidade máxima: {{ casa.capacidade_maxima }} Pessoas</p>
+                            <a href="https://wa.me/{{ casa.contato|default:'' }}" target="_blank" class="btn btn-success">
+                                <i class="fab fa-whatsapp"></i> Entrar em contato via WhatsApp
+                            </a>
                             <a href="{% url 'detalhes' casa.id %}" class="profile-link btn-edit">Ver mais</a>
                           
                         </div>
                     </div>
                 </div>
             {% empty %}
-                <p>Não há casas disponíveis para as datas e quantidade de hóspedes selecionados.</p>
+                <p>Não há casas disponíveis no momento.</p>
             {% endfor %}
         </div>
 

@@ -1,13 +1,24 @@
 from django import forms
-from .models import User
+from django.contrib.auth.models import User
 
 class EditarPerfilForm(forms.ModelForm):
+    password = forms.CharField(
+        label="Nova senha",
+        widget=forms.PasswordInput(),
+        required=False,  # A senha é opcional
+    )
+
     class Meta:
         model = User
-        fields = ['nome', 
-                  'sobrenome', 
-                  'email',
-               
-                    'telefone',
-                      'data_nascimento']
-    password = forms.CharField(widget=forms.PasswordInput(), required=False, label="Nova Senha")
+        fields = ['email']  # Apenas e-mail será editável
+
+    def save(self, commit=True):
+        user = super().save(commit=False)
+
+        # Se o usuário digitou uma nova senha, atualiza
+        if self.cleaned_data['password']:
+            user.set_password(self.cleaned_data['password'])
+
+        if commit:
+            user.save()
+        return user

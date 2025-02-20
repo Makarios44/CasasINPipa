@@ -47,6 +47,8 @@ def rental(request):
         casa_form = CasaForm(request.POST, request.FILES)
         if casa_form.is_valid():
             # Salva a casa associando ao usuário logado
+       
+
             casa = casa_form.save(commit=False)
             casa.owner = request.user
             casa.save()
