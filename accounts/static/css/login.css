@@ -6,6 +6,10 @@ body, h1, p, label, a, input, button {
   }
   
   body {
+    background-size: cover; 
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-image: url("../imgs/Pipa1.jpg");
     font-family: Arial, sans-serif;
     display: flex;
     justify-content: center;
