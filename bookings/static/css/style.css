@@ -1,30 +1,37 @@
 @import url('https://fonts.googleapis.com/css2?family=Lexend+Giga:wght@100..900&display=swap');
+
 *,
 *::before,
 *::after {
     box-sizing: border-box;
 }
 
+
+
+
+html, body {
+    height: 100%; /* Garantir que o body ocupe 100% da altura da tela */
+    margin: 0;
+}
+
 body {
-    background-size: cover; 
+    background-size: cover;
     background-repeat: no-repeat;
     background-position: center center;
     background-image: url("../imgs/por-do-sol.jpeg");
     font-family: Arial, sans-serif;
     margin: 0;
-    padding: 0;
+    padding-bottom: 50px; /* Espaçamento para o rodapé */   
     background-color: #f9f9f9;
     width: 100%;
     padding-bottom: 50px;
-    overflow-x: hidden; 
+    overflow-x: hidden;
+    min-height: 100%;
 }
 
-main{
-
-margin-top: 60px;
+main {
+    margin-top: 60px;
 }
-
-
 
 .header {
     display: flex;
@@ -32,7 +39,7 @@ margin-top: 60px;
     align-items: center;
     padding: 10px 20px;
     width: 100%;
-    background-color: linear-gradient(to bottom, #ff7e5f, #feb47b):;
+    background-color: linear-gradient(to bottom, #ff7e5f, #feb47b);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     box-sizing: border-box;
 }
@@ -52,7 +59,7 @@ margin-top: 60px;
     font-size: 14px;
     border: 1px solid #ccc;
     border-radius: 4px;
-    width: 150px; 
+    width: 150px;
 }
 
 .search-btn {
@@ -79,47 +86,45 @@ margin-top: 60px;
     color: #007bff;
     font-weight: bold;
 }
+
 .navigation {
-    margin: 20px -10px 10px -10px; 
+    margin: 20px -10px 10px -10px;
     font-size: 16px;
     display: flex;
-    justify-content: flex-end; 
-    width: 100%; 
-    gap: 20px; 
+    justify-content: flex-end;
+    width: 100%;
+    gap: 20px;
 }
 
 .navigation a {
     text-decoration: none;
     color: #007bff;
 }
+
 main {
     text-align: center;
     padding: 20px;
     width: 100%;
 }
 
-
-
 .lexend-giga-header {
     font-family: "Lexend Giga", serif;
     font-optical-sizing: auto;
-    font-weight: 700; 
+    font-weight: 700;
     font-style: normal;
-    color:white;
+    color: white;
     text-shadow: 2px 2px 0px black, 
     -2px -2px 0px black,  
-     2px -2px 0px black,  
+    2px -2px 0px black,  
     -2px 2px 0px black;
-  }
+}
 
-
-/* Cards de casas */
 .houses {
     display: flex;
-    justify-content:center;
+    justify-content: center;
     gap: 20px;
-    flex-wrap:wrap; 
-    margin-top:20px;
+    flex-wrap: wrap;
+    margin-top: 20px;
 }
 
 .house {
@@ -129,19 +134,19 @@ main {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     transition: 0.3s;
     display: flex;
-    flex-direction: column; /* Alinha a imagem em cima e o texto embaixo */
+    flex-direction: column;
     margin-bottom: 20px;
 }
 
 .house .card-img-top {
     width: 100%;
-    height: 180px; /* Ajuste da altura da imagem */
-    object-fit: cover; /* Garante que a imagem se ajuste ao tamanho do container */
+    height: 180px;
+    object-fit: cover;
 }
 
 .house .card-body {
     padding: 10px;
-    flex-grow: 1; /* Faz o texto ocupar o restante do espaço disponível */
+    flex-grow: 1;
 }
 
 .house .card-text {
@@ -149,7 +154,6 @@ main {
     color: #555;
 }
 
-/* Hover e outras animações */
 .house:hover {
     transform: scale(1.05);
 }
@@ -159,20 +163,45 @@ main {
 }
 
 footer {
-    position: fixed; 
-    bottom: 0;       
-    left: 0;         
-    width: 100%;     
-    font-size: 1rem; /* Corrigido para um valor válido */
-    color: #080808;
- 
-    text-align: center; 
-    padding: 10px 0; 
-    
-    z-index: 10; /* Garante que o rodapé fique sobre outros elementos */
-  }
-  
+    background: #4D4D4D;
+    color: #fff;
+    font-size: 12px;
+    position: relative;
+    z-index: 8;
+    text-align: center;
+    padding: 10px 0;
+}
 
+.footer-address-and-phone {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.footer-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.footer-info-email, .footer-info span {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.footer-powered {
+    padding-top: 10px;
+}
+
+.footer-address-and-phone span,
+.footer-info span {
+    font-size: 12px;
+}
+
+.footer-info-email img, .footer-info span img {
+    width: 16px;
+    height: 16px;
+}
 
 .button {
     display: inline-block;
@@ -204,143 +233,213 @@ footer {
     background-color: #0056b3;
 }
 
-
 .carousel-control {
     color: white;
     width: 15%;
     opacity: 0.5;
     transition: opacity 0.15s ease;
-  }
-  
-  .carousel-control:hover {
+}
+
+.carousel-control:hover {
     opacity: 0.9;
-  }
-  
-  .carousel-indicator {
+}
+
+.carousel-indicator {
     width: 30px;
     height: 3px;
-    margin-bottom: 10px; /* Aproximando o hit-area-height */
-    margin-right: 3px; /* Espaçamento */
+    margin-bottom: 10px;
+    margin-right: 3px;
     opacity: 0.5;
     transition: opacity 0.6s ease;
-  }
-  
-  .carousel-indicator.active {
+}
+
+.carousel-indicator.active {
     background-color: white;
     opacity: 1;
-  }
-  
-  .carousel-caption {
+}
+
+.carousel-caption {
     width: 70%;
     color: white;
     padding-top: 1.25rem;
     padding-bottom: 1.25rem;
     margin-bottom: 1.25rem;
-  }
-  
-  .carousel-control-icon {
+}
+
+.carousel-control-icon {
     width: 2rem;
-  }
-  
-  .carousel-control-prev-icon {
+}
+
+.carousel-control-prev-icon {
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='white'%3E%3Cpath d='M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z'/%3E%3C/svg%3E");
-  }
-  
-  .carousel-control-next-icon {
+}
+
+.carousel-control-next-icon {
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='white'%3E%3Cpath d='M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z'/%3E%3C/svg%3E");
-  }
-  
-  .carousel {
-    transition: transform 0.6s ease-in-out;
-  }
-  
-  /* Ajuste do tamanho do carrossel */
+}
+
 .carousel {
-    max-width: 1000px; 
-    max-height: 950px;
-    margin: 0 auto; 
-    overflow: hidden; 
+    transition: transform 0.6s ease-in-out;
+}
 
-   
-    border-radius: 8px; 
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
-    padding: 5px; 
+.carousel {
+    max-width: 899px;
+    max-height: 700px;
+    margin: 0 auto;
+    overflow: hidden;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.8);
+    padding: 5px;
+}
 
-  }
-  
-  /* Ajuste das imagens dentro do carrossel */
-  .carousel-inner img {
-    width: 100%; 
-    height: auto; 
-    object-fit: cover; /* Opcional: para cortar a imagem sem distorcer */
-  }
-  
-  @media (max-width: 768px) {
+.carousel-inner img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+}
+
+footer {
+    background:rgb(96, 97, 97);
+    color: #fff;
+    font-size: 12px;
+    position: relative;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    text-align: center;
+    padding: 10px 0;
+    z-index: 10;
+    margin-top: auto; /* Garante que o rodapé fique no final da página */
+}
+
+
+.footer-address-and-phone {
+    display: flex;
+    gap: 30px;
+}
+
+.footer-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.footer-info-email, .footer-info span {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.footer-info-email img, .footer-info span img {
+    width: 16px;
+    height: 16px;
+}
+
+.footer-hotel-name-year {
+    text-align: center;
+}
+
+.footer-powered {
+    padding-top: 10px;
+}
+
+.footer-address-and-phone span,
+.footer-info span {
+    font-size: 12px;
+}
+
+footer .cookies-politics {
+    color: #fff;
+    text-decoration: underline;
+}
+
+footer .cookies-politics:hover {
+    cursor: pointer;
+}
+
+@media (max-width: 768px) {
     body {
         padding-bottom: 20px;
     }
 
     .header {
-        flex-direction: column; /* Alinha o logo e a barra de pesquisa em coluna */
+        flex-direction: column;
         padding: 10px 15px;
     }
 
     .search-container input {
-        width: 100%; /* Deixa a barra de pesquisa ocupar toda a largura */
+        width: 100%;
     }
 
     .search-btn {
-        width: 100%; /* Botão de pesquisa também ocupa toda a largura */
+        width: 100%;
     }
 
     .user-info {
-        flex-direction: column; /* Alinha os elementos de usuário em coluna */
+        flex-direction: column;
         align-items: flex-start;
         gap: 10px;
     }
 
     .navigation {
-        flex-direction: column; /* Alinha os links de navegação em coluna */
+        flex-direction: column;
         gap: 10px;
         font-size: 14px;
     }
 
     .houses {
-        flex-direction: column; /* Exibe as casas em uma coluna */
+        flex-direction: column;
         gap: 10px;
-        align-items: center; /* Alinha as casas no centro */
+        align-items: center;
     }
 
     .house {
-        width: 100%; /* As casas ocupam toda a largura em telas pequenas */
-        margin-bottom: 10px; /* Menos espaço entre as casas */
-    }
-
-    .sidebar {
-        left: -250px; /* Inicialmente escondido */
-        width: 200px; /* Largura menor da sidebar */
-    }
-
-    .sidebar.active {
-        left: 0;
+        width: 100%;
+        margin-bottom: 10px;
     }
 
     .carousel {
         max-width: 100%;
-        max-height: 300px; /* Ajuste da altura do carrossel */
+        max-height: 300px;
     }
 
     .carousel-inner img {
-        height: 200px; /* Ajuste da altura das imagens do carrossel */
+        height: 200px;
         object-fit: cover;
     }
 
     footer {
-        font-size: 14px;
-        padding: 5px 0;
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        font-size: 1rem;
+        padding: 10px 0;
+        z-index: 10;
+        background-color: #4D4D4D;
     }
 
-    .filter-btn {
-        width: 100%; /* Botão de filtro ocupa toda a largura */
+
+    .container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .footer-address-and-phone {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .footer-info {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .footer-hotel-name-year {
+        text-align: center;
+    }
+
+    .footer-powered {
+        text-align: center;
+        padding-top: 10px;
     }
 }
