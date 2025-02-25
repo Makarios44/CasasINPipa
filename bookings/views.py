@@ -6,6 +6,10 @@ from .forms import CasaForm, ImagemAdicionalForm
 from datetime import datetime
 from django.contrib.auth.decorators import login_required
 
+
+from django.core.mail import send_mail
+from django.conf import settings
+
 # Create your views here.
 def reservas(request):
     casas = Casa.objects.all()  # Inicializa com todas as casas
@@ -46,9 +50,6 @@ def rental(request):
     if request.method == 'POST':
         casa_form = CasaForm(request.POST, request.FILES)
         if casa_form.is_valid():
-            # Salva a casa associando ao usuário logado
-       
-
             casa = casa_form.save(commit=False)
             casa.owner = request.user
             casa.save()
@@ -58,12 +59,19 @@ def rental(request):
             for imagem in imagens_adicionais:
                 ImagemAdicional.objects.create(casa=casa, imagem=imagem)
 
+            # Envio do e-mail de confirmação de cadastro
+            subject = "Sua casa foi cadastrada com sucesso!"
+            message = f'Olá, {casa.owner.username}! Sua casa "{casa.nome}" foi cadastrada com sucesso em nossa plataforma. ' \
+                      'Ela está agora disponível para alugar. Obrigado por escolher nossa plataforma!'
+            from_email = settings.DEFAULT_FROM_EMAIL
+            recipient_list = [casa.owner.email]
+            send_mail(subject, message, from_email, recipient_list)
+
             return redirect('reservas')  # Redireciona após o cadastro
     else:
         casa_form = CasaForm()
 
     return render(request, 'rental.html', {'casa_form': casa_form})
-
 
 @login_required
 def editar(request, casa_id):
@@ -86,35 +94,44 @@ def editar(request, casa_id):
         if imagem_principal:
             casa.imagem_principal = imagem_principal  
 
-
-
-
-      
         imagens_adicionais = request.FILES.getlist('imagens_adicionais')
-      
-      
         if imagens_adicionais:
             casa.imagens_adicionais.all().delete()  
             for imagem in imagens_adicionais:
-                casa.imagens_adicionais.create(imagem=imagem)  
+                casa.imagens_adicionais.create(imagem=imagem)
 
         casa.save()
-        return redirect('detalhes', casa_id=casa.id)  
+
+        # Envio de e-mail após a edição
+        subject = "Sua casa foi atualizada!"
+        message = f'Olá, {casa.owner.username}! As informações da sua casa "{casa.nome}" foram atualizadas com sucesso. ' \
+                  'Se você não fez essas alterações, entre em contato conosco.'
+        from_email = settings.DEFAULT_FROM_EMAIL
+        recipient_list = [casa.owner.email]
+        send_mail(subject, message, from_email, recipient_list)
+
+        return redirect('detalhes', casa_id=casa.id)
 
     return render(request, 'editar.html', {'casa': casa})
 
-
 @login_required
 def excluir(request, casa_id):
-    
     casa = get_object_or_404(Casa, id=casa_id)
     if casa.owner != request.user:
-        return redirect('reservas')  
+        return redirect('reservas')
 
-   
     if request.method == 'POST':
-        casa.delete()  
-        return redirect('reservas')  
+        casa.delete()
+
+        # Envio de e-mail após exclusão
+        subject = "Sua casa foi excluída!"
+        message = f'Olá, {casa.owner.username}! A sua casa "{casa.nome}" foi excluída com sucesso da nossa plataforma. ' \
+                  'Se você não solicitou essa exclusão, por favor, entre em contato conosco imediatamente.'
+        from_email = settings.DEFAULT_FROM_EMAIL
+        recipient_list = [casa.owner.email]
+        send_mail(subject, message, from_email, recipient_list)
+
+        return redirect('reservas')
 
     return render(request, 'confirmar_exclusao.html', {'casa': casa})
 

@@ -11,7 +11,7 @@ class Casa(models.Model):
     imagem_principal = models.ImageField(upload_to='casas/', null=True, blank=True)
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
     capacidade_maxima = models.IntegerField(default=2)
-    contato =  models.CharField(max_length=15, help_text="Digite o número de telefone com DDD, exemplo: 11991234567", default='https://exemplo.com') 
+    contato =  models.CharField(max_length=15, help_text="Digite o número de telefone com DDD, exemplo: 84991234567", default='0') 
 
     def __str__(self):
         return self.nome

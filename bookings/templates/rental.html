@@ -20,8 +20,9 @@
     </header>
 
     <botoes class="botoes">
-        <a href="#" class="profile-link">Minhas casas</a> | 
-        <a href="#" class="profile-link">Minhas reservas</a>
+        <a href="{% url 'reservas' %}" class="profile-link">
+            <button type="button" class="btn btn-primary"> Voltar</button>
+        </a>
     </botoes>
 
 
@@ -36,8 +37,6 @@
         
             <button type="submit">Cadastrar Casa</button>
         </form>
-    <footer>
-        <p>&copy; 2024 Casas em Pipa</p>
-    </footer>
+   
 </body>
 </html>

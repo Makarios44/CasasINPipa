@@ -18,9 +18,17 @@ body {
 
 .botoes{
     display: flex;
-    justify-content: end;
-    margin-left: 100px;
+    justify-content: right;
+    margin-left:1250px;
+    margin-top: 10px;
     gap:5px;
+
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    max-width: min-content;
 }
 
 .logo {
@@ -56,42 +64,61 @@ h1 {
 .form-cadastro {
     display: flex;
     flex-direction: column;
-    gap: 15px;
+    gap: 20px; /* Aumenta o espaçamento entre os campos */
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Sombra mais suave */
+    border-radius: 8px;
 }
-
 label {
     font-weight: bold;
+    color: #333; /* Cor mais escura para melhor contraste */
+    font-size: 14px;
 }
 
 input, textarea, select, button {
     font-size: 16px;
-    padding: 10px;
+    padding: 12px;
     border: 1px solid #ccc;
     border-radius: 4px;
+    margin: 0; /* Remove margem entre os campos */
+    width: 100%; /* Garante que o campo ocupe toda a largura disponível */
+    box-sizing: border-box; /* Garante que o padding não afete a largura total */
+    transition: border-color 0.3s ease-in-out; /* Animação suave ao focar */
+}
+
+input:focus, textarea:focus, select:focus {
+    border-color: #007bff; /* Cor de borda quando o campo estiver em foco */
+    outline: none; /* Remove o contorno padrão do navegador */
 }
 
 textarea {
-    resize: vertical;
+    resize: vertical; /* Permite redimensionar apenas na direção vertical */
+    height: 120px; /* Define uma altura mínima para o textarea */
 }
 
+/* boetão de envio*/
 button {
     background-color: #007bff;
     color: white;
     border: none;
     cursor: pointer;
     font-size: 16px;
+    padding: 14px 20px;
+    border-radius: 4px;
+    transition: background-color 0.3s ease-in-out; /* Animação ao passar o mouse */
+    width: 100%; /* Botão ocupa toda a largura disponível */
 }
 
 button:hover {
-    background-color: #0056b3;
+    background-color: #0056b3; /* Cor de fundo do botão quando passar o mouse */
 }
 
-footer {
-    text-align: center;
-    margin-top: 20px;
-    font-size: 12px;
-    color: #666;
+button:active {
+    background-color: #004085; /* Cor quando o botão é pressionado */
 }
+
+
 
 
 /* Media query para dispositivos móveis */
