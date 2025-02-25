@@ -134,4 +134,4 @@ EMAIL_PORT = 587  # Porta para envio
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'makariosteste@gmail.com'  # Seu email de envio
 EMAIL_HOST_PASSWORD = 'ogms spne whwu nfap'  # Sua senha de email
-DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+DEFAULT_FROM_EMAIL = 'no-reply@casasInPipa.com'

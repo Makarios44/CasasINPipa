@@ -7,10 +7,21 @@ from django.contrib.auth.decorators import login_required
 from bookings.models import Casa
 from .forms import EditarPerfilForm
 from django.contrib.auth import update_session_auth_hash
-
+from django.http import HttpResponse
 from django.conf import settings
 from django.core.mail import send_mail
+
+from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
+from django.template.loader import render_to_string
+from django.contrib.auth.forms import PasswordChangeForm
+from django.contrib.auth.tokens import default_token_generator
+from .forms import ResetPasswordForm
+from django.contrib.auth import get_user_model
+from django.contrib.auth.forms import SetPasswordForm
 # Create your views here.
+
+
+
 def login(request):
 
     if request.user.is_authenticated:
@@ -112,22 +123,13 @@ def editar_perfil(request):
     if request.method == 'POST':
         form = EditarPerfilForm(request.POST, instance=request.user)  # Vincula ao usuário autenticado
         if form.is_valid():
-            user = request.user
-            user.first_name = form.cleaned_data['nome']
-            user.last_name = form.cleaned_data['sobrenome']
-            user.email = form.cleaned_data['email']
-            
-            # Se o usuário alterou a senha
-            if form.cleaned_data.get('senha'):
-                user.set_password(form.cleaned_data['senha'])
-            
-            # Salva as alterações no perfil do usuário
-            user.save()
-
+            user = form.save()  
+       
+  
             # Envio do e-mail de atualização de perfil
             subject = "Sua conta foi atualizada!"
             message = f'Olá, {user.username}! Suas informações foram atualizadas com sucesso. ' \
-                      'Caso tenha feito alguma alteração, ela já está refletida em nossa plataforma.'
+                      'Se não foi você que fez essa mudança, entre em contato com nosso suport Urgentemente!'
             from_email = settings.DEFAULT_FROM_EMAIL
             recipient_list = [user.email]
             send_mail(subject, message, from_email, recipient_list)
@@ -152,3 +154,60 @@ def logout(request):
 def termos_de_uso(request):
     return render(request, 'termos_de_uso.html')
 
+@login_required    
+def Password_reset(request):
+    if request.method == 'POST':
+        form = ResetPasswordForm(request.POST)
+        if form.is_valid():
+            email = form.cleaned_data['email']
+            user = User.objects.filter(email=email).first()
+
+            if user:
+                # Gerar o token e o uid para o link de reset
+                token = default_token_generator.make_token(user)
+                uid = urlsafe_base64_encode(str(user.pk).encode())
+
+
+                # Construir o link de redefinição de senha
+                reset_link = request.build_absolute_uri(f'/reset-password/{uid}/{token}/')
+
+                # Preparar o e-mail
+                subject = 'Redefinição de senha'
+                message = render_to_string('password_reset_email.html', {
+                    'reset_link': reset_link,
+                    'user': user,
+                })
+
+                # Enviar o e-mail
+                send_mail(subject, message, 'no-reply@meusite.com', [email])
+
+                # Resposta de sucesso
+                return HttpResponse("Instruções de recuperação de senha enviadas para seu e-mail.")
+            else:
+                # Caso o e-mail não seja encontrado
+                return HttpResponse("E-mail não encontrado no sistema.")
+    else:
+        form = ResetPasswordForm()
+
+    return render(request, 'Password_reset.html', {'form': form})
+
+@login_required
+def password_reset_confirm(request, uidb64, token):
+    try:
+        uid = urlsafe_base64_decode(uidb64).decode()
+        user = get_user_model().objects.get(pk=uid)
+    except (TypeError, ValueError, OverflowError, User.DoesNotExist):
+        user = None
+
+    if user and default_token_generator.check_token(user, token):
+        if request.method == 'POST':
+            form = SetPasswordForm(user, request.POST)
+            if form.is_valid():
+                form.save()
+                return redirect('login')  # Redirecionar para a página de login após redefinir
+        else:
+            form = SetPasswordForm(user)
+        
+        return render(request, 'password_reset_confirm.html', {'form': form})
+    else:
+        return HttpResponse("O link de redefinição de senha é inválido ou expirou.")

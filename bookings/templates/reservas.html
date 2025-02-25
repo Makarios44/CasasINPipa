@@ -36,7 +36,7 @@
      <nav class="navigation">
         {% if user.is_authenticated %}
             <a href="{% url 'rental' %}" class="profile-link">
-                <button type="button" class="btn btn-primary"> Locação</button>
+                <button type="button" class="btn btn-primary"> Aluguel</button>
             </a>
         {% endif %}
         {% if user.is_authenticated and user == casa.owner %}
@@ -81,35 +81,27 @@
             {% endfor %}
         </div>
     </main>
-
-    <footer>
-        <section class="footer">
-            <div class="container contain">
-                <div class="footer-address-and-phone">
-                    <div class="footer-info">
-                        <span class="footer-info-email">
-                            <img src="https://book.omnibees.com/icons/envelope-icon.svg" alt="contact">
-                            <span>Mmakarios44@gmail.com</span>
-                        </span>
-                        <span>
-                            <img src="https://book.omnibees.com/icons/icons_White/iconWhite_Footer_Contact.svg" alt="contact">
-                            <span>+55 84 9 9842-4140</span>
-                        </span>
-                    </div>
-                </div>
-                <div class="footer-hotel-name-year">
-                    <span class="cookies-politics">
-                        <span id="triggerModalLGPDFooter" class="open-lgpd-modal">Política de Cookies</span>
-                    </span>
-                </div>
-                <div class="footer-powered">
-                    <span>© 2025 Casas In Pipa. </span>
-                </div>
-            </div>
-        </section>
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="nome-footer">CasasInPipa</div>
+            
+        </div>
+        <div class="foto">
+            <img src="{% static 'imgs/logo.png' %}" alt="Logo Casas em Pipa" class="logo">
+ 
+        </div>
+        <div class="links">
+            <a href="#">Home</a>
+            <a href="#">Sobre nós</a>
+            <a href="#">Contate-nos</a>
+            <a href="#">Politica e Privacidade </a>
+            
+        </div>
+        <p class="copyright">Copyright 2025. Todos os direitos reservados.</p>
     </footer>
-
-    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+ 
     <script src="{% static 'js/script.js' %}"></script>
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+
 </body>
 </html>

@@ -235,59 +235,69 @@ footer {
 
 .btn-edit:hover {
     background-color: #0056b3;
-}
-
-footer {
-    background-color: whitesmoke;
-    color: black;
-    font-size: 12px;
-    position: relative;
-    width: 100%;
+    .footer {
+        background-color: white;
+        padding: 30px 20px;
+        text-align: center;
+        box-shadow: 0 -1px 5px rgba(0, 0, 0, 0.1);}
+ }
+ .footer {
+    align-items:center;
+    background-color: white;
+    padding: 30px 20px;
     text-align: center;
-    padding: 10px 0;
-    z-index: 10;
-    margin-top: auto; /* Garantir que o rodapé esteja no final */
+    box-shadow: 0 -1px 5px rgba(0, 0, 0, 0.1);
 }
-
-.footer-address-and-phone {
+.footer-content {
     display: flex;
-    gap: 30px;
-}
-
-.footer-info {
-    display: flex;
-    flex-direction: column;
-}
-
-.footer-info-email, .footer-info span {
-    display: flex;
+    justify-content: space-between;
     align-items: center;
-    gap: 5px;
+    max-width: 1100px;
+    margin: 0 auto;
+    flex-wrap: wrap;
+    margin-left:150px;
+}
+.nome-footer {
+    
+    display:flex;
+    flex-direction:column;
+    font-size: 30px ;
+    font-weight: bold;
     color: black;
+  
+}
+.links {
+
+    display: flex;
+    justify-content: flex-end;  /* Alinha os links à direita */
+    gap: 20px;  /* Adiciona um espaço entre os links */
+    margin-right: 30px;  /* Aumenta o espaço à direita */
 }
 
-.footer-hotel-name-year {
+.links a {
+    color: black;  /* Cor preta para os links */
+    text-decoration: none;  /* Remove o sublinhado */
+}
+
+.links a:hover {
+    color: gray;  /* Altera a cor ao passar o mouse (opcional) */
+}
+
+.foto {
+    display: flex;
+    margin-left:147px;
+}
+
+.foto img {
+    width: 200px;
+    height: auto;
+}
+.footer .copyright {
     text-align: center;
-}
-
-.footer-powered {
-    padding-top: 10px;
-}
-
-.footer-address-and-phone span,
-.footer-info span {
+    margin-top: 20px;
     font-size: 12px;
+    color: gray;
 }
-
-footer .cookies-politics {
-    color: black;
-    text-decoration: underline;
-}
-
-footer .cookies-politics:hover {
-    cursor: pointer;
-}
-
 
 
 @media (max-width: 768px) {
