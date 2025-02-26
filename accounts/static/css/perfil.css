@@ -218,23 +218,126 @@ footer {
     margin-top: auto;
 }
 
-/* Responsividade */
-@media (max-width: 768px) {
+
+/*  móveis */
+@media (max-width: 767px) {
     .container {
         flex-direction: column;
     }
 
     .sidebar {
-        width: 100%;
+        width: 100%; 
         padding: 10px;
     }
 
-    .menu ul {
-        display: flex;
-        justify-content: space-around;
+    .sidebar .back-button {
+        margin-bottom: 10px;
+    }
+
+    .menu ul li a {
+        padding: 8px; 
+    }
+
+    .content {
+        padding: 10px;
+    }
+
+    form {
+        width: 90%; 
+        max-width: none;
+    }
+
+    .houses {
+        flex-direction: column;
     }
 
     .house {
-        width: 100%;
+        flex-basis: 100%; 
+    }
+
+    .card img {
+        height: 120px; 
+    }
+
+    .card-body h3 {
+        font-size: 16px; 
+    }
+
+    .card-body p {
+        font-size: 12px; 
+    }
+
+    .btn-edit {
+        padding: 6px 10px; 
+    }
+}
+
+/* tablets  */
+@media (min-width: 768px) and (max-width: 1023px) {
+    .sidebar {
+        width: 200px;
+    }
+
+    .content {
+        padding: 15px;
+    }
+
+    form {
+        width: 70%; 
+    }
+
+    .house {
+        flex-basis: calc(50% - 20px); 
+    }
+
+    .card img {
+        height: 130px; 
+    }
+
+    .card-body h3 {
+        font-size: 17px; 
+    }
+
+    .card-body p {
+        font-size: 13px; 
+    }
+
+    .btn-edit {
+        padding: 7px 11px; 
+    }
+}
+
+/* telas grandes  */
+@media (min-width: 1024px) {
+    .sidebar {
+        width: 250px; 
+    }
+
+    .content {
+        padding: 20px;
+    }
+
+    form {
+        width: 50%; 
+    }
+
+    .house {
+        flex-basis: calc(33.33% - 20px); 
+    }
+
+    .card img {
+        height: 150px; 
+    }
+
+    .card-body h3 {
+        font-size: 18px; 
+    }
+
+    .card-body p {
+        font-size: 14px; 
+    }
+
+    .btn-edit {
+        padding: 8px 12px; 
     }
 }

@@ -1,0 +1,97 @@
+body{
+    margin: 0;
+    font-size: 5em;
+    background-image: url("../imgs/bg.jpg");
+  
+  }
+  .banner {
+    height: 100vh;
+    
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .banner::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: url('../imgs/madeiro.jpg');
+    background-size: cover;
+    background-position: center;
+    animation: bgZoomIn 4s ease-in-out 1 forwards;
+    z-index: -1;
+    pointer-events: none;
+  }
+  .banner::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: url('../imgs/after.png');
+    background-size: cover;
+    background-position: top;
+    transform: scale(2);
+    animation: bgZoomOut 4s ease-in-out 1 forwards;
+    z-index: -1;
+    pointer-events: none;
+  }
+  @keyframes bgZoomIn {
+    from {
+      transform: scale(1.2);
+    } to {
+      transform: scale(1);
+    }
+  }
+  @keyframes bgZoomOut {
+    from {
+      transform: scale(1);
+    } to {
+      transform: scale(2);
+    }
+  }
+  
+  svg path {
+    fill: transparent;
+    stroke: #fff;
+    stroke-width: 0.1;
+    stroke-dasharray: 50;
+    stroke-dashoffset: 50;
+    animation: textAnimation 4s ease-in-out 1 forwards;
+  }
+  @keyframes textAnimation {
+    0% {
+      stroke-dashoffset: 50;
+    }
+    80% {
+      fill: transparent;
+    }
+    100% {
+      fill: #fff;
+      stroke-dashoffset: 0;
+    }
+  }
+  
+  .enter-link{
+    text-decoration: none;
+  }
+  
+  button {
+    background: none;
+    border: 2px solid #fff;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    margin-left: 300px;
+    width: 100px;
+    justify-content: center; 
+    height: 40px;
+    text-decoration: none; 
+  }
+  
+  button:hover {
+    background-color: #fff;
+    color: #000;
+    transform: scale(1.1);
+   
+  }

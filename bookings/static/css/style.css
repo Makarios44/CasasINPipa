@@ -19,13 +19,14 @@ body {
     background-repeat: no-repeat;
     background-position: center center;
     background-image: url("../imgs/mar.jpg");
+    background-attachment: fixed;
     font-family: Arial, sans-serif;
     margin: 0;
     padding-bottom: 50px; /* Espaçamento para o rodapé */   
     background-color: #f9f9f9;
     width: 100%;
     overflow-x: hidden;
-    min-height: 100%;
+    min-height: 100vh;
 }
 
 main {
@@ -34,7 +35,7 @@ main {
     padding: 20px;
     width: 100%;
     min-height: calc(100vh - 60px); /* Isso garante que o conteúdo ocupe toda a altura disponível */
-
+    
 }
 
 .header {
@@ -299,90 +300,104 @@ footer {
     color: gray;
 }
 
-
-@media (max-width: 768px) {
-    body {
-        padding-bottom: 20px;
-    }
-
+@media screen and (max-width: 767px) {
     .header {
         flex-direction: column;
-        padding: 10px 15px;
+        align-items: center;
+        padding: 10px;
     }
 
     .search-container input {
         width: 100%;
-    }
-
-    .search-btn {
-        width: 100%;
+        margin-bottom: 10px;
     }
 
     .user-info {
         flex-direction: column;
-        align-items: flex-start;
-        gap: 10px;
+        gap: 5px;
     }
 
     .navigation {
-        flex-direction: column;
+        justify-content: center;
         gap: 10px;
-        font-size: 14px;
     }
 
     .houses {
         flex-direction: column;
-        gap: 10px;
         align-items: center;
     }
 
     .house {
-        width: 100%;
-        margin-bottom: 10px;
+        width: 90%; /* Ocupa quase toda a largura da tela */
     }
 
-    .carousel {
-        max-width: 100%;
-        max-height: 300px;
-    }
-
-    .carousel-inner img {
-        height: 200px;
-        object-fit: cover;
-    }
-
-    footer {
-        position: fixed;
-        bottom: 0;
-        left: 0;
-        width: 100%;
-        font-size: 1rem;
-        padding: 10px 0;
-        z-index: 10;
-        background-color: #fff;
-    }
-
-    .container {
+    .footer-content {
         flex-direction: column;
         align-items: center;
+        margin-left: 0;
     }
 
-    .footer-address-and-phone {
-        flex-direction: column;
-        gap: 15px;
+    .links {
+        justify-content: center;
+        margin-right: 0;
     }
 
-    .footer-info {
-        flex-direction: column;
-        align-items: center;
+    .foto {
+        margin-left: 0;
     }
 
-    .footer-hotel-name-year {
-        text-align: center;
+    .foto img {
+        width: 150px; /* Reduz o tamanho da logo no mobile */
+    }
+}
+@media screen and (min-width: 768px) and (max-width: 1023px) {
+    .house {
+        width: calc(50% - 40px); /* 2 colunas */
     }
 
-    .footer-powered {
-        text-align: center;
-        padding-top: 10px;
+    .footer-content {
+        margin-left: 50px;
+    }
+
+    .foto {
+        margin-left: 50px;
+    }
+
+    .foto img {
+        width: 180px; /* Tamanho intermediário para tablets */
+    }
+}
+@media screen and (min-width: 1024px) and (max-width: 1199px) {
+    .house {
+        width: calc(33.33% - 40px); /* 3 colunas */
+    }
+
+    .footer-content {
+        margin-left: 100px;
+    }
+
+    .foto {
+        margin-left: 100px;
+    }
+
+    .foto img {
+        width: 200px; /* Tamanho original */
+    }
+}
+@media screen and (min-width: 1200px) {
+    .house {
+        width: calc(25% - 40px); /* 4 colunas */
+    }
+
+    .footer-content {
+        margin-left: 150px;
+    }
+
+    .foto {
+        margin-left: 150px;
+    }
+
+    .foto img {
+        width: 200px; /* Tamanho original */
     }
 }

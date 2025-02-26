@@ -11,7 +11,7 @@ from django.core.mail import send_mail
 from django.conf import settings
 
 # Create your views here.
-def reservas(request):
+def home(request):
     casas = Casa.objects.all()  # Inicializa com todas as casas
     erro = None
 
@@ -42,7 +42,7 @@ def reservas(request):
                 erro = 'Formato de dados inválido.'
         
 
-    return render(request, 'reservas.html', {'casas': casas, 'erro': erro})
+    return render(request, 'home.html', {'casas': casas, 'erro': erro})
 
 
 @login_required
@@ -67,7 +67,7 @@ def rental(request):
             recipient_list = [casa.owner.email]
             send_mail(subject, message, from_email, recipient_list)
 
-            return redirect('reservas')  # Redireciona após o cadastro
+            return redirect('home')  # Redireciona após o cadastro
     else:
         casa_form = CasaForm()
 
@@ -79,7 +79,7 @@ def editar(request, casa_id):
 
     # Verificar se o usuário atual é o proprietário da casa
     if casa.owner != request.user:
-        return redirect('reservas')
+        return redirect('home')
 
     if request.method == 'POST':
         # Atualizando os campos principais da casa
@@ -118,7 +118,7 @@ def editar(request, casa_id):
 def excluir(request, casa_id):
     casa = get_object_or_404(Casa, id=casa_id)
     if casa.owner != request.user:
-        return redirect('reservas')
+        return redirect('home')
 
     if request.method == 'POST':
         casa.delete()
@@ -131,10 +131,13 @@ def excluir(request, casa_id):
         recipient_list = [casa.owner.email]
         send_mail(subject, message, from_email, recipient_list)
 
-        return redirect('reservas')
+        return redirect('home')
 
     return render(request, 'confirmar_exclusao.html', {'casa': casa})
 
 def detalhes(request, casa_id):
     casa = get_object_or_404(Casa, id=casa_id)
     return render(request, 'detalhes.html', {'casa': casa})
+
+def intro(request):
+    return render (request,'intro.html')

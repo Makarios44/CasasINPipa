@@ -9,7 +9,7 @@ class CasaForm(forms.ModelForm):
     def clean_preco_diaria(self):
         preco = self.cleaned_data.get('preco_diaria')
         if preco <= 0:
-            raise forms.ValidationError("O preço diário deve ser maior que zero.")
+            raise forms.ValidationError("O preço deve ser maior que zero.")
         return preco
 
 

@@ -99,33 +99,33 @@ footer {
 }
 
 
-/* Media Query para telas menores */
+
 @media (max-width: 768px) {
     body {
-        padding: 20px 10px; /* Adiciona um pouco de espaçamento nas laterais em telas pequenas */
+        padding: 20px 10px; 
     }
 
     .container {
-        width: 100%; /* Ocupa toda a largura disponível */
-        max-width: 100%; /* Remove o limite de largura */
-        padding: 15px; /* Diminui o padding para mais conforto */
+        width: 100%; 
+        max-width: 100%; 
+        padding: 15px; 
     }
 
     h1 {
-        font-size: 18px; /* Ajusta o tamanho do título para telas menores */
+        font-size: 18px; 
     }
 
     .input {
-        padding: 10px; /* Ajusta o padding dos campos */
-        font-size: 14px; /* Ajusta o tamanho da fonte */
+        padding: 10px; 
+        font-size: 14px; 
     }
 
     .btn {
-        padding: 10px; /* Ajusta o tamanho do botão */
-        font-size: 14px; /* Ajusta o tamanho da fonte do botão */
+        padding: 10px; 
+        font-size: 14px; 
     }
 
     footer {
-        font-size: 0.75rem; /* Ajusta o tamanho da fonte do rodapé */
+        font-size: 0.75rem; 
     }
 }

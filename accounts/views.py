@@ -25,7 +25,7 @@ from django.contrib.auth.forms import SetPasswordForm
 def login(request):
 
     if request.user.is_authenticated:
-        return redirect('reservas') 
+        return redirect('home') 
 
     if request.method == 'POST':
         nome = request.POST.get('login')
@@ -36,7 +36,7 @@ def login(request):
             auth_login(request, usuario)
         
             request.session['logado'] = True
-            return  redirect('reservas')
+            return  redirect('home')
 
         else:
             messages.error(request,'email ou senha incorretos')
@@ -211,3 +211,6 @@ def password_reset_confirm(request, uidb64, token):
         return render(request, 'password_reset_confirm.html', {'form': form})
     else:
         return HttpResponse("O link de redefinição de senha é inválido ou expirou.")
+    
+def Política_de_Privacidade(request):
+    return render (request, 'Política_de_Privacidade.html')

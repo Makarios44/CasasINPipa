@@ -120,59 +120,94 @@ button:active {
 
 
 
-
-/* Media query para dispositivos móveis */
-@media (max-width: 768px) {
+/*  dispositivos móveis (até 767px) */
+@media (max-width: 767px) {
     body {
         padding: 0 10px;
     }
 
     .header {
-        flex-direction: column; /* Alinha logo e botões em coluna */
+        flex-direction: column;
         padding: 10px;
     }
 
     .botoes {
-        justify-content: center; /* Alinha os botões ao centro */
+        justify-content: center;
         margin-left: 0;
         gap: 10px;
     }
 
     .logo {
-        width: 80px; /* Logo um pouco menor em telas pequenas */
+        width: 80px;
     }
 
     .user-info {
-        flex-direction: column; /* Alinha as informações do usuário em coluna */
+        flex-direction: column;
         gap: 5px;
     }
 
     main {
         margin: 10px;
         padding: 15px;
-        max-width: 100%; /* Aumenta o tamanho máximo do main para aproveitar mais espaço */
+        max-width: 100%;
     }
 
     h1 {
-        font-size: 20px; /* Reduz o tamanho do título */
+        font-size: 20px;
         margin-bottom: 15px;
     }
 
     .form-cadastro {
-        gap: 10px; /* Menos espaçamento entre os campos */
+        gap: 10px;
     }
 
     input, textarea, select, button {
-        font-size: 14px; /* Fonte menor para se adaptar ao espaço */
-        padding: 8px; /* Ajuste no tamanho do padding */
-    }
-
-    footer {
-        font-size: 10px;
-        margin-top: 15px;
+        font-size: 14px;
+        padding: 8px;
     }
 
     button {
-        padding: 12px 20px; /* Aumenta o tamanho do botão */
+        padding: 12px 20px;
+    }
+}
+
+/*  tablets */
+@media (min-width: 768px) and (max-width: 1023px) {
+    .botoes {
+        margin-left: 0;
+        justify-content: flex-end;
+    }
+
+    main {
+        max-width: 80%;
+    }
+
+    .form-cadastro {
+        gap: 15px;
+    }
+
+    input, textarea, select, button {
+        font-size: 15px;
+        padding: 10px;
+    }
+}
+
+/*  telas grandes */
+@media (min-width: 1024px) {
+    .botoes {
+        margin-left: 1250px;
+    }
+
+    main {
+        max-width: 600px;
+    }
+
+    .form-cadastro {
+        gap: 20px;
+    }
+
+    input, textarea, select, button {
+        font-size: 16px;
+        padding: 12px;
     }
 }

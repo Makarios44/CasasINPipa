@@ -93,41 +93,76 @@ button:hover {
 }
 
 
-/* Media query para dispositivos móveis */
-@media (max-width: 768px) {
-    .modal {
-        padding: 20px; /* Adiciona um pequeno padding em torno do modal */
-    }
-
+/* móveis  */
+@media (max-width: 767px) {
     .modal-content {
-        width: 95%; /* Aumenta a largura do modal para aproveitar mais o espaço da tela */
-        max-width: 350px; /* Ajusta o tamanho máximo do modal */
-        padding: 20px; /* Ajusta o padding para um melhor uso do espaço */
+        width: 95%; 
+        max-width: none; 
+        padding: 10px;
     }
 
     .modal-content h1 {
-        font-size: 18px; /* Diminui o tamanho do título */
-        margin-bottom: 10px;
-    }
-
-    form {
-        gap: 15px; /* Aumenta o espaçamento entre os campos do formulário */
+        font-size: 18px;
     }
 
     input[type="text"],
     input[type="number"],
     textarea,
     input[type="file"] {
-        font-size: 16px; /* Aumenta o tamanho da fonte dos inputs */
-        padding: 10px; /* Ajusta o padding para um melhor conforto */
-    }
-
-    textarea {
-        height: 100px; /* Ajusta a altura da área de texto */
+        font-size: 12px; 
+        padding: 6px;
     }
 
     button {
-        padding: 12px 20px; /* Aumenta o tamanho do botão */
-        font-size: 16px; /* Aumenta o tamanho da fonte do botão */
+        font-size: 12px;
+        padding: 8px;
+    }
+}
+
+/*  tablets  */
+@media (min-width: 768px) and (max-width: 1023px) {
+    .modal-content {
+        max-width: 500px; 
+    }
+
+    .modal-content h1 {
+        font-size: 22px; 
+    }
+
+    input[type="text"],
+    input[type="number"],
+    textarea,
+    input[type="file"] {
+        font-size: 14px;
+        padding: 8px;
+    }
+
+    button {
+        font-size: 14px;
+        padding: 10px;
+    }
+}
+
+/* telas grandes (1024px ou mais) */
+@media (min-width: 1024px) {
+    .modal-content {
+        max-width: 600px; /
+    }
+
+    .modal-content h1 {
+        font-size: 24px; 
+    }
+
+    input[type="text"],
+    input[type="number"],
+    textarea,
+    input[type="file"] {
+        font-size: 16px;
+        padding: 10px;
+    }
+
+    button {
+        font-size: 16px;
+        padding: 12px;
     }
 }

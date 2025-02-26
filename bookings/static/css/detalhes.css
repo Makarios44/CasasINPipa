@@ -85,20 +85,20 @@ h1 {
 
 
 
-/* Estilo geral da galeria */
+/* Estilo galeria */
 .gallery {
     display: flex;
-    flex-direction: column; /* Cada linha será uma "row" */
-    gap: 20px; /* Espaçamento entre as linhas */
+    flex-direction: column; 
+    gap: 20px;
     padding: 20px;
     align-items: center;
 }
 
-/* Estilo para cada linha */
+
 .gallery-row {
     display: flex;
-    justify-content: center; /* Centraliza as imagens */
-    gap: 15px; /* Espaçamento entre as imagens */
+    justify-content: center; 
+    gap: 15px; 
 }
 
 /* Links das imagens */
@@ -139,4 +139,81 @@ h1 {
 
 .btn-edit:hover {
     background-color: #0056b3;
+}
+@media (max-width: 767px) {
+    h1 {
+        font-size: 30px; 
+    }
+
+    .gallery-row {
+        flex-direction: column; 
+        align-items: center; 
+    }
+
+    .gallery-row a {
+        width: 100%; 
+        height: auto; 
+    }
+
+    .details p {
+        font-size: 16px; 
+    }
+
+    .description p {
+        font-size: 14px; 
+
+    .btn-edit {
+        font-size: 12px; 
+        padding: 8px 12px;
+    }
+}
+}
+
+@media (min-width: 768px) and (max-width: 1023px) {
+    h1 {
+        font-size: 40px; 
+    }
+
+    .gallery-row a {
+        width: 180px; 
+        height: 135px;
+    }
+
+    .details p {
+        font-size: 17px; 
+    }
+
+    .description p {
+        font-size: 15px; 
+    }
+
+    .btn-edit {
+        font-size: 13px; 
+        padding: 9px 14px;
+    }
+}
+
+
+@media (min-width: 1024px) {
+    h1 {
+        font-size: 50px; 
+    }
+
+    .gallery-row a {
+        width: 200px; 
+        height: 150px;
+    }
+
+    .details p {
+        font-size: 18px; /* Fonte maior para melhor legibilidade */
+    }
+
+    .description p {
+        font-size: 16px; /* Fonte maior para melhor legibilidade */
+    }
+
+    .btn-edit {
+        font-size: 14px; /* Botões maiores */
+        padding: 10px 15px;
+    }
 }
