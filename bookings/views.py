@@ -6,7 +6,7 @@ from .forms import CasaForm, ImagemAdicionalForm
 from datetime import datetime
 from django.contrib.auth.decorators import login_required
 
-
+from django.contrib.auth.models import User
 from django.core.mail import send_mail
 from django.conf import settings
 
@@ -54,12 +54,11 @@ def rental(request):
             casa.owner = request.user
             casa.save()
 
-            # Processa as imagens adicionais
             imagens_adicionais = request.FILES.getlist('imagens_adicionais')
             for imagem in imagens_adicionais:
                 ImagemAdicional.objects.create(casa=casa, imagem=imagem)
 
-            # Envio do e-mail de confirmação de cadastro
+           
             subject = "Sua casa foi cadastrada com sucesso!"
             message = f'Olá, {casa.owner.username}! Sua casa "{casa.nome}" foi cadastrada com sucesso em nossa plataforma. ' \
                       'Ela está agora disponível para alugar. Obrigado por escolher nossa plataforma!'
@@ -67,7 +66,16 @@ def rental(request):
             recipient_list = [casa.owner.email]
             send_mail(subject, message, from_email, recipient_list)
 
-            return redirect('home')  # Redireciona após o cadastro
+            all_users = User.objects.exclude(id=casa.owner.id)  # Todos os usuários, exceto o dono da casa
+            subject_for_users = "Nova casa cadastrada!"
+            message_for_users = f'Olá! Uma nova casa chamada "{casa.nome}" foi cadastrada na plataforma. Confira agora!'
+
+            recipient_list_for_users = all_users.values_list('email', flat=True)
+            if recipient_list_for_users:
+                send_mail(subject_for_users, message_for_users, from_email, recipient_list_for_users)
+
+
+            return redirect('home') 
     else:
         casa_form = CasaForm()
 
@@ -77,17 +85,17 @@ def rental(request):
 def editar(request, casa_id):
     casa = get_object_or_404(Casa, id=casa_id)
 
-    # Verificar se o usuário atual é o proprietário da casa
+    
     if casa.owner != request.user:
         return redirect('home')
 
     if request.method == 'POST':
-        # Atualizando os campos principais da casa
+   
         casa.nome = request.POST['nome']
         casa.descricao = request.POST['descricao']
         casa.endereco = request.POST['endereco']
         casa.preco_diaria = request.POST['preco_diaria']
-        casa.tipo = request.POST['tipo']
+       
     
         imagem_principal = request.FILES.get('imagem_principal')  
 
@@ -102,7 +110,7 @@ def editar(request, casa_id):
 
         casa.save()
 
-        # Envio de e-mail após a edição
+       
         subject = "Sua casa foi atualizada!"
         message = f'Olá, {casa.owner.username}! As informações da sua casa "{casa.nome}" foram atualizadas com sucesso. ' \
                   'Se você não fez essas alterações, entre em contato conosco.'
@@ -123,7 +131,7 @@ def excluir(request, casa_id):
     if request.method == 'POST':
         casa.delete()
 
-        # Envio de e-mail após exclusão
+     
         subject = "Sua casa foi excluída!"
         message = f'Olá, {casa.owner.username}! A sua casa "{casa.nome}" foi excluída com sucesso da nossa plataforma. ' \
                   'Se você não solicitou essa exclusão, por favor, entre em contato conosco imediatamente.'

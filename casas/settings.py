@@ -129,9 +129,9 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp.gmail.com'  # Servidor SMTP do Gmail
-EMAIL_PORT = 587  # Porta para envio
+EMAIL_HOST = 'smtp.gmail.com'  
+EMAIL_PORT = 587  
 EMAIL_USE_TLS = True
-EMAIL_HOST_USER = 'makariosteste@gmail.com'  # Seu email de envio
-EMAIL_HOST_PASSWORD = 'ogms spne whwu nfap'  # Sua senha de email
+EMAIL_HOST_USER = 'makariosteste@gmail.com' 
+EMAIL_HOST_PASSWORD = 'ogms spne whwu nfap' 
 DEFAULT_FROM_EMAIL = 'no-reply@casasInPipa.com'
