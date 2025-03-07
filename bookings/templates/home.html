@@ -17,13 +17,12 @@
      <header class="header">
         <img src="{% static 'imgs/logo.png' %}" alt="Logo Casas em Pipa" class="logo">
         <div class="search-container">
-            <input type="text" id="search" name="q" placeholder="Digite sua pesquisa...">
-            <button class="search-btn" type="submit">🔍</button>
+            
         </div>
 
         <div class="user-info">
             {% if user.is_authenticated %}
-            <span>Oi, {{ user.username}}</span>
+            <span>Oi, {{ user.first_name}}</span>
             <a href="{% url 'perfil' %}" class="profile-link">Perfil</a>
             <a href="{% url 'logout' %}" class="button">Sair</a>
             {%else%}
@@ -36,7 +35,7 @@
      <nav class="navigation">
         {% if user.is_authenticated %}
             <a href="{% url 'rental' %}" class="profile-link">
-                <button type="button" class="btn btn-primary"> Aluguel</button>
+                <button type="button" class="btn btn-primary">Alugue sua Casa</button>
             </a>
         {% endif %}
         {% if user.is_authenticated and user == casa.owner %}

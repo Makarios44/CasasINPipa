@@ -20,16 +20,16 @@
         <div class="content">
             <header>
                 <img src="{% static 'imgs/logo.png' %}" alt="Logo" class="logo">
-                <div class="user-icon">Olá, {{ user.username }}</div>
+                <div class="user-icon">Olá, {{ user.first_name }}</div>
             </header>
             <main>
                 <!-- Coluna do formulário -->
         <div class="form-column">
             <section id="informacoes-pessoais">
                 <h2>Informações Pessoais</h2>
-                <p><strong>Usuário:</strong> {{ user.username }}</p>
+                <p><strong>Nome :</strong> {{ user.first_name }}{{ user.last_name }}</p>
                 <p><strong>Email:</strong> {{ user.email }}</p>
-               
+                <p><strong>Telefone:</strong> {{ user.telefone }}</p>
                 <form method="post">
                     {% csrf_token %}
                     <label for="id_email">E-mail:</label>
@@ -85,7 +85,7 @@
 
     <!-- Rodapé -->
     <footer>
-        <p>&copy; 2025 Sua Empresa. Todos os direitos reservados.</p>
+        <p>&copy; 2025 CasasInPipa. Todos os direitos reservados.</p>
     </footer>
 
 

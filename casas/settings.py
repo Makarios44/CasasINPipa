@@ -32,6 +32,8 @@ INSTALLED_APPS = [
     'reviews',#avaliações
 ]
 
+AUTH_USER_MODEL = 'accounts.AppUser'
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
