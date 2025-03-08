@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Lexend+Giga:wght@100..900&display=swap');
+
 
 *,
 *::before,
@@ -34,7 +34,7 @@ main {
     text-align: center;
     padding: 20px;
     width: 100%;
-    min-height: calc(100vh - 60px); /* Isso garante que o conteúdo ocupe toda a altura disponível */
+    min-height: calc(100vh - 60px);/*conteúdo ocupe toda a altura disponível */
     
 }
 
@@ -106,22 +106,12 @@ main {
     color: #007bff;
 }
 
-main {
-    text-align: center;
-    padding: 20px;
-    width: 100%;
-}
 
-.lexend-giga-header {
-    font-family: "Lexend Giga", serif;
-    font-optical-sizing: auto;
-    font-weight: 700;
+.ms-madi-regular {
+    font-family: "Ms Madi", cursive;
     font-style: normal;
     color: white;
-    text-shadow: 2px 2px 0px black, 
-    -2px -2px 0px black,  
-    2px -2px 0px black,  
-    -2px 2px 0px black;
+    font-size: 90px;  
 }
 
 .houses {
