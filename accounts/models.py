@@ -10,7 +10,7 @@ class AppUserManager(BaseUserManager):
             raise ValueError('O email é obrigatório')
         email = self.normalize_email(email)
         user = self.model(email=email, username=email, first_name=nome, **extra_fields)
-        user.set_password(password)  # Criptografa a senha
+        user.set_password(password)  
         user.save(using=self._db)
         return user
     
