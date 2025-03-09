@@ -4,7 +4,7 @@ from .models import Casa, ImagemAdicional
 class CasaForm(forms.ModelForm):
     class Meta:
         model = Casa
-        fields = ['nome', 'descricao', 'endereco', 'contato', 'preco', 'imagem_principal']
+        fields = [ 'descricao', 'endereco', 'contato', 'preco', 'imagem_principal']
 
     def clean_preco_diaria(self):
         preco = self.cleaned_data.get('preco_diaria')

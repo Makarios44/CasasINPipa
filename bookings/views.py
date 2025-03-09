@@ -12,36 +12,9 @@ from django.conf import settings
 
 # Create your views here.
 def home(request):
-    casas = Casa.objects.all()  # Inicializa com todas as casas
+    casas = Casa.objects.all()  # todas as casas
     erro = None
-
-    if request.method == 'GET':
-        checkin = request.GET.get('checkin')
-        checkout = request.GET.get('checkout')
-        hospedes = request.GET.get('hospedes')
-
-        # Verifique se os parâmetros são válidos
-        if checkin and checkout and hospedes:
-            try:
-                # Converte as datas para o formato datetime.date
-                checkin = datetime.strptime(checkin, '%Y-%m-%d').date()
-                checkout = datetime.strptime(checkout, '%Y-%m-%d').date()
-                hospedes = int(hospedes)
-
-                # Filtra as casas com base nas datas e no número de hóspedes
-                casas = Casa.objects.filter(
-                    disponivel_de__lte=checkout,  # A casa deve estar disponível até a data de checkout
-                    disponivel_ate__gte=checkin,  # A casa deve estar disponível desde a data de checkin
-                    capacidade_maxima__gte=hospedes  # A casa deve ter capacidade para os hóspedes
-                )
-
-                # Verifica se há casas e, caso contrário, define a mensagem de erro
-                if not casas:
-                    erro = 'Não há casas disponíveis para essas datas e número de hóspedes.'
-            except ValueError:
-                erro = 'Formato de dados inválido.'
-        
-
+ 
     return render(request, 'home.html', {'casas': casas, 'erro': erro})
 
 
@@ -60,7 +33,7 @@ def rental(request):
 
            
             subject = "Sua casa foi cadastrada com sucesso!"
-            message = f'Olá, {casa.owner.username}! Sua casa "{casa.nome}" foi cadastrada com sucesso em nossa plataforma. ' \
+            message = f'Olá, {casa.owner.username}! Sua casa com endereço "{casa.endereco}" foi cadastrada com sucesso em nossa plataforma. ' \
                       'Ela está agora disponível para alugar. Obrigado por escolher nossa plataforma!'
             from_email = settings.DEFAULT_FROM_EMAIL
             recipient_list = [casa.owner.email]
@@ -68,7 +41,7 @@ def rental(request):
 
             all_users = User.objects.exclude(id=casa.owner.id)  # Todos os usuários, exceto o dono da casa
             subject_for_users = "Nova casa cadastrada!"
-            message_for_users = f'Olá! Uma nova casa chamada "{casa.nome}" foi cadastrada na plataforma. Confira agora!'
+            message_for_users = f'Olá! Uma nova casa na "{casa.endereco}" foi cadastrada na plataforma. Confira agora!'
 
             recipient_list_for_users = all_users.values_list('email', flat=True)
             if recipient_list_for_users:
@@ -91,7 +64,7 @@ def editar(request, casa_id):
 
     if request.method == 'POST':
    
-        casa.nome = request.POST['nome']
+        
         casa.descricao = request.POST['descricao']
         casa.endereco = request.POST['endereco']
         casa.preco_diaria = request.POST['preco_diaria']
@@ -112,7 +85,7 @@ def editar(request, casa_id):
 
        
         subject = "Sua casa foi atualizada!"
-        message = f'Olá, {casa.owner.username}! As informações da sua casa "{casa.nome}" foram atualizadas com sucesso. ' \
+        message = f'Olá, {casa.owner.username}! As informações da sua casa com endereço "{casa.endereco}" foram atualizadas com sucesso. ' \
                   'Se você não fez essas alterações, entre em contato conosco.'
         from_email = settings.DEFAULT_FROM_EMAIL
         recipient_list = [casa.owner.email]
@@ -133,7 +106,7 @@ def excluir(request, casa_id):
 
      
         subject = "Sua casa foi excluída!"
-        message = f'Olá, {casa.owner.username}! A sua casa "{casa.nome}" foi excluída com sucesso da nossa plataforma. ' \
+        message = f'Olá, {casa.owner.username}! A sua casa com endereço"{casa.endereço}" foi excluída com sucesso da nossa plataforma. ' \
                   'Se você não solicitou essa exclusão, por favor, entre em contato conosco imediatamente.'
         from_email = settings.DEFAULT_FROM_EMAIL
         recipient_list = [casa.owner.email]
