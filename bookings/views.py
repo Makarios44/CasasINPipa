@@ -6,7 +6,8 @@ from .forms import CasaForm, ImagemAdicionalForm
 from datetime import datetime
 from django.contrib.auth.decorators import login_required
 
-from django.contrib.auth.models import User
+from bookings.models import AppUser
+
 from django.core.mail import send_mail
 from django.conf import settings
 
@@ -33,13 +34,13 @@ def rental(request):
 
            
             subject = "Sua casa foi cadastrada com sucesso!"
-            message = f'Olá, {casa.owner.username}! Sua casa com endereço "{casa.endereco}" foi cadastrada com sucesso em nossa plataforma. ' \
+            message = f'Olá, {casa.owner.username}! Sua casa foi cadastrada com sucesso em nossa plataforma. ' \
                       'Ela está agora disponível para alugar. Obrigado por escolher nossa plataforma!'
             from_email = settings.DEFAULT_FROM_EMAIL
             recipient_list = [casa.owner.email]
             send_mail(subject, message, from_email, recipient_list)
 
-            all_users = User.objects.exclude(id=casa.owner.id)  # Todos os usuários, exceto o dono da casa
+            all_users = AppUser.objects.exclude(id=casa.owner.id)  # Todos os usuários, exceto o dono da casa
             subject_for_users = "Nova casa cadastrada!"
             message_for_users = f'Olá! Uma nova casa na "{casa.endereco}" foi cadastrada na plataforma. Confira agora!'
 
@@ -85,7 +86,7 @@ def editar(request, casa_id):
 
        
         subject = "Sua casa foi atualizada!"
-        message = f'Olá, {casa.owner.username}! As informações da sua casa com endereço "{casa.endereco}" foram atualizadas com sucesso. ' \
+        message = f'Olá, {casa.owner.username}! As informações da sua casa foram atualizadas com sucesso. ' \
                   'Se você não fez essas alterações, entre em contato conosco.'
         from_email = settings.DEFAULT_FROM_EMAIL
         recipient_list = [casa.owner.email]
@@ -106,7 +107,7 @@ def excluir(request, casa_id):
 
      
         subject = "Sua casa foi excluída!"
-        message = f'Olá, {casa.owner.username}! A sua casa com endereço"{casa.endereço}" foi excluída com sucesso da nossa plataforma. ' \
+        message = f'Olá, {casa.owner.username}! Sua casa foi excluída com sucesso da nossa plataforma. ' \
                   'Se você não solicitou essa exclusão, por favor, entre em contato conosco imediatamente.'
         from_email = settings.DEFAULT_FROM_EMAIL
         recipient_list = [casa.owner.email]

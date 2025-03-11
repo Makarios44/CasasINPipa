@@ -6,16 +6,18 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Casas em Pipa - Login</title>
   <link rel="stylesheet" href="{% static 'css/login.css' %}">
-  <link rel="shortcut icon" href="{% static 'imgs/logo.png' %}" type="image/x-icon">
+  <link rel="shortcut icon" href="{% static 'imgs/logo-circulo.png' %}" type="image/x-icon">
 </head>
 <body>
   
   {% if messages%}
-  <ul>
-      {%for message in messages%}
-          <li class="alert alert -{{message.tags}}">{{message}}</li>
-      {%endfor%}
-  <ul>
+  <div class="aviso">
+    {% for message in messages %}
+        <div class="alert alert-{{ message.tags }}" role="alert">
+            {{ message }}
+        </div>
+    {% endfor %}
+</div>
 {%endif%}
 
   <div class="container">

@@ -1,5 +1,5 @@
 body {
-    background-size: cover; 
+    background-size: cover;
     background-repeat: no-repeat;
     background-position: center center;
     background-image: url("../imgs/Pipa1.jpg");
@@ -16,41 +16,41 @@ body {
 
 .container {
     background-color: #fff;
-    padding: 20px;
+    padding: 15px; /* Reduzido o padding */
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     text-align: center;
-    width: 100%; /* Usado com um max-width para responsividade */
-    max-width: 400px; /* Limita o tamanho */
+    width: 100%;
+    max-width: 320px; /* Reduzido o tamanho máximo */
 }
 
 header {
-    margin-bottom: 20px;
+    margin-bottom: 15px; /* Reduzido o espaço do header */
 }
 
 .logo {
-    width: 100px;
+    width: 80px; /* Reduzido o tamanho da logo */
 }
 
 h1 {
-    font-size: 20px;
+    font-size: 18px; /* Tamanho de fonte reduzido */
     margin: 10px 0;
 }
 
 form {
     display: flex;
-    flex-direction: column; /* Empilha os elementos */
-    gap: 15px; /* Adiciona espaçamento entre os campos */
+    flex-direction: column;
+    gap: 12px; /* Reduzido o espaçamento entre os campos */
 }
 
 .form-group {
     display: flex;
-    flex-direction: column; /* Empilha os campos dentro do grupo */
-    gap: 10px; /* Espaçamento entre os campos no grupo */
+    flex-direction: column;
+    gap: 8px; /* Espaçamento reduzido dentro do grupo */
 }
 
 .form-group input[type="checkbox"] {
-    margin-right: 10px;
+    margin-right: 8px; /* Diminuído o espaço ao lado do checkbox */
 }
 
 .form-group label a {
@@ -63,20 +63,20 @@ form {
 }
 
 .input {
-    width: 100%; /* Campos ocupam toda a largura do container pai */
-    padding: 12px; /* Aumenta o padding para maior conforto */
-    font-size: 14px;
+    width: 100%;
+    padding: 10px; /* Reduzido o padding */
+    font-size: 13px; /* Fonte menor */
     border: 1px solid #ccc;
     border-radius: 4px;
-    box-sizing: border-box; /* Garante que padding e borda não extrapolem o tamanho */
+    box-sizing: border-box;
 }
 
 .btn {
     background-color: #007bff;
     color: white;
     border: none;
-    padding: 12px; /* Aumenta o padding do botão para um visual mais confortável */
-    font-size: 16px;
+    padding: 10px; /* Reduzido o padding */
+    font-size: 14px; /* Fonte menor */
     border-radius: 4px;
     cursor: pointer;
 }
@@ -90,7 +90,7 @@ footer {
     bottom: 0;
     left: 0;
     width: 100%;
-    font-size: 0.8rem; 
+    font-size: 0.75rem;
     color: #080808;
     background-color: #f8f8f8;
     text-align: center;
@@ -98,34 +98,33 @@ footer {
     box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
 }
 
-
-
+/* Estilos responsivos */
 @media (max-width: 768px) {
     body {
-        padding: 20px 10px; 
+        padding: 20px 10px;
     }
 
     .container {
-        width: 100%; 
-        max-width: 100%; 
-        padding: 15px; 
+        width: 100%;
+        max-width: 100%;
+        padding: 15px;
     }
 
     h1 {
-        font-size: 18px; 
+        font-size: 16px; /* Reduzido o tamanho da fonte */
     }
 
     .input {
-        padding: 10px; 
-        font-size: 14px; 
+        padding: 8px; /* Menos padding */
+        font-size: 12px; /* Fonte menor */
     }
 
     .btn {
-        padding: 10px; 
-        font-size: 14px; 
+        padding: 8px; /* Menos padding no botão */
+        font-size: 12px; /* Fonte menor no botão */
     }
 
     footer {
-        font-size: 0.75rem; 
+        font-size: 0.7rem; /* Fonte menor no rodapé */
     }
 }

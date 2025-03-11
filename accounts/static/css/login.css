@@ -18,6 +18,19 @@ body, h1, p, label, a, input, button {
     background-color: #f9f9f9;
   }
   
+.aviso{
+  background-color: #fd2626;
+  border: 1px solid #ddd;
+  width: 2000px;
+  padding: 20px;
+  text-align: center;
+
+  /* Centralização horizontal */
+  position: fixed;
+  top: -1%; /* Ajuste esse valor para controlar a distância do topo */
+  left: 50%;
+  transform: translateX(-50%); /* Centraliza horizontalmente */
+}
   .container {
     text-align: center;
     background: white;

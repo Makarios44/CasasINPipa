@@ -7,33 +7,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Casas em Pipa - Cadastro</title>
     <link rel="stylesheet" href="{% static 'css/register.css' %}">
-    <link rel="shortcut icon" href="{% static 'imgs/logo.png' %}" type="image/x-icon">
-    <style>
-        /* Estilos para melhorar a visualização do campo de data */
-        .input-with-label {
-            display: flex;
-            flex-direction: column;
-            width: 100%;
-        }
-        .input-label {
-            font-size: 0.85rem;
-            margin-bottom: 5px;
-            color: #555;
-        }
-        
-        /* Ajuste responsivo */
-        @media (max-width: 768px) {
-            .form-group {
-                flex-direction: column;
-            }
-            .input, .input-with-label {
-                margin-bottom: 10px;
-                width: 100%;
-            }
-        }
-    </style>
+    <link rel="shortcut icon" href="{% static 'imgs/logo-circulo.png' %}" type="image/x-icon">
+    
 </head>
 <body>
+
     {% if messages %}
         <ul>
             {% for message in messages %}

@@ -36,6 +36,12 @@ body{
     z-index: -1;
     pointer-events: none;
   }
+
+  .title svg {
+    width: 100% !important;
+    height: auto !important;
+    max-width: 487pt;
+}
   @keyframes bgZoomIn {
     from {
       transform: scale(1.2);
@@ -87,6 +93,7 @@ body{
     justify-content: center; 
     height: 40px;
     text-decoration: none; 
+    
   }
   
   button:hover {
@@ -95,3 +102,40 @@ body{
     transform: scale(1.1);
    
   }
+
+  @media screen and (max-width: 768px) {
+    .title {
+        width: 80%;
+        max-width: 300px;
+        margin: 0 auto;
+    }
+    
+    .title svg {
+        width: 100% !important;
+        max-width: 250pt !important;
+    }
+    
+    button {
+        margin-left: 0 !important;
+        margin: 20px auto !important;
+        display: block !important;
+    }
+}
+
+/* Tablets */
+@media screen and (min-width: 769px) and (max-width: 1075px) {
+    .title {
+        width: 90%;
+        max-width: 400px;
+        margin: 0 auto;
+    }
+    
+    .title svg {
+        width: 100% !important;
+        max-width: 350pt !important;
+    }
+    
+    button {
+        margin-left: 100px !important;
+    }
+}
