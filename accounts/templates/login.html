@@ -20,7 +20,7 @@
 </div>
 {%endif%}
 
-  <div class="container">
+<div class="container">
     <div class="logo">
       <img src="{% static 'imgs/logo.png' %}" alt="Logo Casas em Pipa">
       <h1>Casas em Pipa</h1>
@@ -33,12 +33,12 @@
       <label for="senha">Senha:</label>
       <input type="password" id="senha" name="senha" placeholder="Digite sua senha...">
       <div class="actions">
-        <a href="{% url 'Password_reset' %}" class="forgot-password">Esqueci a senha</a>
+        <a href="{% url 'password_reset' %}" class="forgot-password">Esqueci a senha</a>
       </div>
       <button type="submit" class="btn-primary">Login</button>
     </form>
 
-  </div>
+</div>
 
   
 </body>

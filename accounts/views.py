@@ -9,16 +9,17 @@ from .forms import EditarPerfilForm
 from django.contrib.auth import update_session_auth_hash
 from django.http import HttpResponse
 from django.conf import settings
-from django.core.mail import send_mail
-
-from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.template.loader import render_to_string
+from django.core.mail import send_mail
+from django.utils.encoding import force_bytes
+from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth.tokens import default_token_generator
 from .forms import ResetPasswordForm
 from django.contrib.auth import get_user_model
 from django.contrib.auth.forms import SetPasswordForm
 # Create your views here.
+from django.urls import reverse
 
 
 
@@ -70,7 +71,7 @@ def register(request):
             messages.error(request, 'As senhas não são iguais')
         else:
             # Cria o usuário
-            new_user = AppUser.objects.create_user(
+            user  = AppUser.objects.create_user(
                 nome=nome,
                 email=email,
                 password=password,
@@ -80,21 +81,21 @@ def register(request):
                 cpf=cpf,
             
             )
-            new_user.full_clean()  # Validar todos os campos
+            user.full_clean()  # Validar todos os campos
                 
                 
-            new_user.set_password(password)
+            user.set_password(password)
                 
                 
-            new_user.save()
+            user.save()
 
             # Enviar o email de boas-vindas
             subject = "Seja bem-vindo à nossa plataforma!"
-            message = f'Olá, {new_user.username}! Ficamos felizes em ver você por aqui. ' \
+            message = f'Olá, {user.username}! Ficamos felizes em ver você por aqui. ' \
                       'Esperamos que nossa plataforma ajude você a alugar sua casa o mais rápido possível. ' \
                       'Abraços da nossa equipe :)'
             from_email = settings.DEFAULT_FROM_EMAIL
-            recipient_list = [new_user.email]
+            recipient_list = [user.email]
             send_mail(subject, message, from_email, recipient_list)
 
             # Exibe uma mensagem de sucesso
@@ -116,32 +117,32 @@ def perfil(request):
     if request.method == 'POST':
         form = EditarPerfilForm(request.POST, instance=request.user)
         if form.is_valid():
-            new_user = form.save()
+            AppUser = form.save()
 
             # Atualiza a sessão caso a senha tenha sido alterada
-            update_session_auth_hash(request, new_user)
+            update_session_auth_hash(request, AppUser)
 
             messages.success(request, "Perfil atualizado com sucesso!")
             return redirect('perfil')
     else:
         form = EditarPerfilForm(instance=request.user)
 
-    return render(request, 'perfil.html', {'form': form, 'casas': casas, 'new_user': request.user})
+    return render(request, 'perfil.html', {'form': form, 'casas': casas,'AppUser': request.user})
 
 @login_required
 def editar_perfil(request):
     if request.method == 'POST':
         form = EditarPerfilForm(request.POST, instance=request.user)  # Vincula ao usuário autenticado
         if form.is_valid():
-            new_user = form.save()  
+            user = form.save()  
        
   
             # Envio do e-mail de atualização de perfil
             subject = "Sua conta foi atualizada!"
-            message = f'Olá, {new_user.username}! Suas informações foram atualizadas com sucesso. ' \
-                      'Se não foi você que fez essa mudança, entre em contato com nosso suport Urgentemente!'
+            message = f'Olá, {user.username}! Suas informações foram atualizadas com sucesso. ' \
+                      'Se não foi você que fez essa mudança, entre em contato com nosso suporte Urgentemente!'
             from_email = settings.DEFAULT_FROM_EMAIL
-            recipient_list = [new_user.email]
+            recipient_list = [user.email]
             send_mail(subject, message, from_email, recipient_list)
 
             # Exibe uma mensagem de sucesso
@@ -164,62 +165,59 @@ def logout(request):
 def termos_de_uso(request):
     return render(request, 'termos_de_uso.html')
 
-@login_required    
-def Password_reset(request):
+def password_reset(request):
     if request.method == 'POST':
         form = ResetPasswordForm(request.POST)
         if form.is_valid():
             email = form.cleaned_data['email']
-            AppUser = AppUser.objects.filter(email=email).first()
+            user = AppUser.objects.filter(email=email).first()
 
-            if AppUser:
+            if user:
                 # Gerar o token e o uid para o link de reset
-                token = default_token_generator.make_token(AppUser)
-                uid = urlsafe_base64_encode(str(AppUser.pk).encode())
+                token = default_token_generator.make_token(user)
+                uid = urlsafe_base64_encode(force_bytes(user.pk))
 
-
-                # Construir o link de redefinição de senha
-                reset_link = request.build_absolute_uri(f'/reset-password/{uid}/{token}/')
+                # Construir o link de redefinição de senha com `reverse()`
+                reset_link = request.build_absolute_uri(
+                    reverse('password_reset_confirm', kwargs={'uidb64': uid, 'token': token})
+                )
 
                 # Preparar o e-mail
                 subject = 'Redefinição de senha'
                 message = render_to_string('password_reset_email.html', {
                     'reset_link': reset_link,
-                    'AppUser': AppUser,
+                    'user': user,
                 })
 
                 # Enviar o e-mail
                 send_mail(subject, message, 'no-reply@meusite.com', [email])
 
-                # Resposta de sucesso
                 return HttpResponse("Instruções de recuperação de senha enviadas para seu e-mail.")
-        else:
-            if not AppUser:
-              messages.error(request, "E-mail não encontrado no sistema.")
-              return render(request, 'Password_reset.html', {'form': form})
+            else:
+                messages.error(request, "E-mail não encontrado no sistema.")
 
     else:
         form = ResetPasswordForm()
 
     return render(request, 'Password_reset.html', {'form': form})
 
-@login_required
+
 def password_reset_confirm(request, uidb64, token):
     try:
-        uid = urlsafe_base64_decode(uidb64).decode()
-        AppUser = AppUser.objects.get(pk=uid)
+        uid = urlsafe_base64_decode(uidb64).decode()  
+        user = AppUser.objects.get(pk=uid)
     except (TypeError, ValueError, OverflowError, AppUser.DoesNotExist):
-        AppUser = None
+        user = None
 
-    if AppUser and default_token_generator.check_token(AppUser, token):
+    if user and default_token_generator.check_token(user, token):
         if request.method == 'POST':
-            form = SetPasswordForm(AppUser, request.POST)
+            form = SetPasswordForm(user, request.POST)
             if form.is_valid():
                 form.save()
-                auth_login(request, AppUser)
-                return redirect('home')  # Redirecionar para a página de login após redefinir
+                auth_login(request, user)
+                return redirect('home')  
         else:
-            form = SetPasswordForm(AppUser)
+            form = SetPasswordForm(user)
         
         return render(request, 'password_reset_confirm.html', {'form': form})
     else:

@@ -10,52 +10,89 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
-    padding-bottom: 50px; /* Adiciona espaço para o rodapé não sobrepor o conteúdo */
+    min-height: 100vh;
+    padding-bottom: 50px; /* Espaço para o rodapé */
+}
+
+.aviso {
+    position: fixed;
+    top: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #fd2626;
+    border: 1px solid #ddd;
+    width: 90%;
+    max-width: 500px;
+    padding: 15px;
+    text-align: center;
+    border-radius: 5px;
+    z-index: 1000;
+    color: white;
 }
 
 .container {
     background-color: #fff;
-    padding: 15px; /* Reduzido o padding */
+    padding: 20px;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     text-align: center;
-    width: 100%;
-    max-width: 320px; /* Reduzido o tamanho máximo */
+    width: 90%;
+    max-width: 400px;
+    margin: 20px auto;
 }
 
 header {
-    margin-bottom: 15px; /* Reduzido o espaço do header */
+    margin-bottom: 15px;
 }
 
 .logo {
-    width: 80px; /* Reduzido o tamanho da logo */
+    width: 80px;
 }
 
 h1 {
-    font-size: 18px; /* Tamanho de fonte reduzido */
+    font-size: 1.5rem;
     margin: 10px 0;
 }
 
 form {
     display: flex;
     flex-direction: column;
-    gap: 12px; /* Reduzido o espaçamento entre os campos */
+    gap: 12px;
 }
 
 .form-group {
     display: flex;
     flex-direction: column;
-    gap: 8px; /* Espaçamento reduzido dentro do grupo */
+    gap: 10px;
+}
+
+.input-with-label {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 100%;
+}
+
+.input-label {
+    margin-bottom: 5px;
+    font-size: 0.85rem;
+    text-align: left;
 }
 
 .form-group input[type="checkbox"] {
-    margin-right: 8px; /* Diminuído o espaço ao lado do checkbox */
+    margin-right: 8px;
+}
+
+.form-group label {
+    display: flex;
+    align-items: center;
+    font-size: 0.9rem;
 }
 
 .form-group label a {
     color: #007BFF;
     text-decoration: none;
+    margin-left: 4px;
 }
 
 .form-group label a:hover {
@@ -64,8 +101,8 @@ form {
 
 .input {
     width: 100%;
-    padding: 10px; /* Reduzido o padding */
-    font-size: 13px; /* Fonte menor */
+    padding: 10px;
+    font-size: 0.9rem;
     border: 1px solid #ccc;
     border-radius: 4px;
     box-sizing: border-box;
@@ -75,10 +112,11 @@ form {
     background-color: #007bff;
     color: white;
     border: none;
-    padding: 10px; /* Reduzido o padding */
-    font-size: 14px; /* Fonte menor */
+    padding: 12px;
+    font-size: 1rem;
     border-radius: 4px;
     cursor: pointer;
+    margin-top: 10px;
 }
 
 .btn:hover {
@@ -98,33 +136,90 @@ footer {
     box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
 }
 
-/* Estilos responsivos */
-@media (max-width: 768px) {
-    body {
-        padding: 20px 10px;
-    }
-
+/* Estilos responsivos para tablets */
+@media (min-width: 600px) and (max-width: 1024px) {
     .container {
-        width: 100%;
-        max-width: 100%;
+        max-width: 500px;
+        padding: 25px;
+    }
+    
+    .form-group {
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: space-between;
+    }
+    
+    .form-group input:not([type="checkbox"]) {
+        width: 48%;
+    }
+    
+    .input-with-label {
+        width: 48%;
+    }
+}
+
+/* Estilos para celulares */
+@media (max-width: 599px) {
+    body {
         padding: 15px;
     }
-
+    
+    .container {
+        width: 100%;
+        padding: 15px;
+        margin: 10px auto;
+    }
+    
     h1 {
-        font-size: 16px; /* Reduzido o tamanho da fonte */
+        font-size: 1.2rem;
     }
-
+    
+    .logo {
+        width: 60px;
+    }
+    
     .input {
-        padding: 8px; /* Menos padding */
-        font-size: 12px; /* Fonte menor */
+        padding: 8px;
+        font-size: 0.85rem;
     }
-
+    
     .btn {
-        padding: 8px; /* Menos padding no botão */
-        font-size: 12px; /* Fonte menor no botão */
+        padding: 10px;
+        font-size: 0.9rem;
     }
-
+    
+    .form-group {
+        gap: 8px;
+    }
+    
+    .form-group label {
+        font-size: 0.8rem;
+    }
+    
     footer {
-        font-size: 0.7rem; /* Fonte menor no rodapé */
+        padding: 8px 0;
+        font-size: 0.7rem;
+    }
+    
+    .aviso {
+        width: 85%;
+        padding: 10px;
+        font-size: 0.85rem;
+    }
+}
+
+/* Ajuste para telas muito pequenas */
+@media (max-width: 350px) {
+    .container {
+        padding: 10px;
+    }
+    
+    .input {
+        padding: 6px;
+        font-size: 0.8rem;
+    }
+    
+    h1 {
+        font-size: 1rem;
     }
 }

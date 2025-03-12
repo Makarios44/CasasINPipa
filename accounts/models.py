@@ -9,8 +9,22 @@ class AppUserManager(BaseUserManager):
         if not email:
             raise ValueError('O email é obrigatório')
         email = self.normalize_email(email)
-        user = self.model(email=email, username=email, first_name=nome, **extra_fields)
-        user.set_password(password)  
+
+        if self.model.objects.filter(email=email).exists():
+            raise ValueError('Este email já está em uso')
+    
+
+        base_username = email.split('@')[0]  # Use a parte antes do @ como base
+        username = base_username
+        counter = 1
+
+        while self.model.objects.filter(username=username).exists():
+            username = f"{base_username}_{counter}"
+            counter += 1
+
+         
+        user = self.model(email=email, username=username, first_name=nome, **extra_fields)
+        user.set_password(password)
         user.save(using=self._db)
         return user
     
@@ -21,7 +35,7 @@ class AppUserManager(BaseUserManager):
 
 class AppUser(AbstractUser):
     email = models.EmailField(unique=True)
-    telefone = models.CharField(max_length=13)
+    telefone = models.CharField(max_length=20)
     data_nascimento = models.DateField(null=True)
    
     cpf = CPFField(

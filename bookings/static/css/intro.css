@@ -38,9 +38,10 @@ body{
   }
 
   .title svg {
-    width: 100% !important;
-    height: auto !important;
-    max-width: 487pt;
+    
+    width: 800px;
+    height: 200px;
+    max-width: 100%;
 }
   @keyframes bgZoomIn {
     from {
@@ -63,7 +64,7 @@ body{
     stroke-width: 0.1;
     stroke-dasharray: 50;
     stroke-dashoffset: 50;
-    animation: textAnimation 4s ease-in-out 1 forwards;
+    animation: textAnimation 2s ease-in-out 1 forwards;
   }
   @keyframes textAnimation {
     0% {
@@ -88,7 +89,7 @@ body{
     color: #fff;
     display: flex;
     align-items: center;
-    margin-left: 300px;
+    margin-left: 340px;
     width: 100px;
     justify-content: center; 
     height: 40px;
@@ -102,8 +103,8 @@ body{
     transform: scale(1.1);
    
   }
-
-  @media screen and (max-width: 768px) {
+/* tela pequena */
+@media screen and (max-width: 768px) {
     .title {
         width: 80%;
         max-width: 300px;
@@ -111,8 +112,10 @@ body{
     }
     
     .title svg {
-        width: 100% !important;
-        max-width: 250pt !important;
+        max-width: 300pt !important; /* Ajusta o tamanho máximo em telas pequenas */
+        transform: scale(0.7); /* Ajusta a escala para telas menores */
+        display:flex;
+        margin-left: -40px;
     }
     
     button {
@@ -132,10 +135,10 @@ body{
     
     .title svg {
         width: 100% !important;
-        max-width: 350pt !important;
+        max-width: 400pt !important;
     }
     
     button {
-        margin-left: 100px !important;
+        margin-left: 127px !important;
     }
 }
