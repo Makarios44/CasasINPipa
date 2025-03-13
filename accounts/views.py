@@ -165,63 +165,6 @@ def logout(request):
 def termos_de_uso(request):
     return render(request, 'termos_de_uso.html')
 
-def password_reset(request):
-    if request.method == 'POST':
-        form = ResetPasswordForm(request.POST)
-        if form.is_valid():
-            email = form.cleaned_data['email']
-            user = AppUser.objects.filter(email=email).first()
 
-            if user:
-                # Gerar o token e o uid para o link de reset
-                token = default_token_generator.make_token(user)
-                uid = urlsafe_base64_encode(force_bytes(user.pk))
-
-                # Construir o link de redefinição de senha com `reverse()`
-                reset_link = request.build_absolute_uri(
-                    reverse('password_reset_confirm', kwargs={'uidb64': uid, 'token': token})
-                )
-
-                # Preparar o e-mail
-                subject = 'Redefinição de senha'
-                message = render_to_string('password_reset_email.html', {
-                    'reset_link': reset_link,
-                    'user': user,
-                })
-
-                # Enviar o e-mail
-                send_mail(subject, message, 'no-reply@meusite.com', [email])
-
-                return HttpResponse("Instruções de recuperação de senha enviadas para seu e-mail.")
-            else:
-                messages.error(request, "E-mail não encontrado no sistema.")
-
-    else:
-        form = ResetPasswordForm()
-
-    return render(request, 'Password_reset.html', {'form': form})
-
-
-def password_reset_confirm(request, uidb64, token):
-    try:
-        uid = urlsafe_base64_decode(uidb64).decode()  
-        user = AppUser.objects.get(pk=uid)
-    except (TypeError, ValueError, OverflowError, AppUser.DoesNotExist):
-        user = None
-
-    if user and default_token_generator.check_token(user, token):
-        if request.method == 'POST':
-            form = SetPasswordForm(user, request.POST)
-            if form.is_valid():
-                form.save()
-                auth_login(request, user)
-                return redirect('home')  
-        else:
-            form = SetPasswordForm(user)
-        
-        return render(request, 'password_reset_confirm.html', {'form': form})
-    else:
-        return HttpResponse("O link de redefinição de senha é inválido ou expirou.")
-    
 def Política_de_Privacidade(request):
     return render (request, 'Política_de_Privacidade.html')
