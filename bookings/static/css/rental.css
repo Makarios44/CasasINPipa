@@ -1,5 +1,4 @@
 body {
-    
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
@@ -15,20 +14,25 @@ body {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-
-.botoes{
+.botoes {
     display: flex;
-    justify-content: right;
-    margin-left:1250px;
+    justify-content: flex-end;
+    margin-right: 20px;
     margin-top: 10px;
-    gap:5px;
+    gap: 5px;
+    max-width: min-content;
+    margin-left: 97%;
+}
 
+.botoes button {
+    display: flex;
+    align-items: end;
     background-color: #007bff;
     color: white;
     border: none;
     border-radius: 4px;
     cursor: pointer;
-    max-width: min-content;
+    
 }
 
 .logo {
@@ -61,43 +65,53 @@ h1 {
     margin-bottom: 20px;
 }
 
+h3 {
+    font-size: 18px;
+    margin-bottom: 10px;
+    color: #333;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 5px;
+}
+
 .form-cadastro {
     display: flex;
     flex-direction: column;
-    gap: 20px; /* Aumenta o espaçamento entre os campos */
+    gap: 15px;
     padding: 20px;
     background-color: #fff;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Sombra mais suave */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
     border-radius: 8px;
 }
+
 label {
     font-weight: bold;
-    color: #333; /* Cor mais escura para melhor contraste */
+    color: #333;
     font-size: 14px;
+    display: block;
+    margin-bottom: 5px;
 }
 
 input, textarea, select, button {
     font-size: 16px;
-    padding: 12px;
+    padding: 10px;
     border: 1px solid #ccc;
     border-radius: 4px;
-    margin: 0; /* Remove margem entre os campos */
-    width: 100%; /* Garante que o campo ocupe toda a largura disponível */
-    box-sizing: border-box; /* Garante que o padding não afete a largura total */
-    transition: border-color 0.3s ease-in-out; /* Animação suave ao focar */
+    margin: 0;
+    width: 100%;
+    box-sizing: border-box;
+    transition: border-color 0.3s ease-in-out;
 }
 
 input:focus, textarea:focus, select:focus {
-    border-color: #007bff; /* Cor de borda quando o campo estiver em foco */
-    outline: none; /* Remove o contorno padrão do navegador */
+    border-color: #007bff;
+    outline: none;
 }
 
 textarea {
-    resize: vertical; /* Permite redimensionar apenas na direção vertical */
-    height: 120px; /* Define uma altura mínima para o textarea */
+    resize: vertical;
+    height: 100px;
 }
 
-/* boetão de envio*/
 button {
     background-color: #007bff;
     color: white;
@@ -106,21 +120,75 @@ button {
     font-size: 16px;
     padding: 14px 20px;
     border-radius: 4px;
-    transition: background-color 0.3s ease-in-out; /* Animação ao passar o mouse */
-    width: 100%; /* Botão ocupa toda a largura disponível */
+    transition: background-color 0.3s ease-in-out;
+    width: 100%;
+    margin-top: 10px;
 }
 
 button:hover {
-    background-color: #0056b3; /* Cor de fundo do botão quando passar o mouse */
+    background-color: #0056b3;
 }
 
 button:active {
-    background-color: #004085; /* Cor quando o botão é pressionado */
+    background-color: #004085;
 }
 
+/* Estilos para as seções do formulário */
+.campos-principais, .campos-numericos, .comodidades, .campos-imagens {
+    margin-bottom: 15px;
+}
 
+/* Grid para os campos numéricos */
+.grid-campos {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+}
 
-/*  dispositivos móveis (até 767px) */
+/* Estilos para as opções de comodidades */
+.opcoes-adicionais {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+}
+
+.opcao {
+    display: flex;
+    align-items: center;
+    margin-bottom: 0;
+}
+
+.opcao input[type="checkbox"] {
+    width: auto;
+    margin-right: 8px;
+}
+
+.opcao label {
+    margin-bottom: 0;
+    font-weight: normal;
+}
+
+/* Estilo para os selects em linha */
+.select-grupo {
+    display: flex;
+    gap: 15px;
+}
+
+.select-item {
+    flex: 1;
+}
+
+/* Estilo específico para o Django forms */
+.errorlist {
+    color: #dc3545;
+    padding-left: 0;
+    list-style: none;
+    font-size: 14px;
+    margin-top: 5px;
+    margin-bottom: 0;
+}
+
+/* Media queries para responsividade */
 @media (max-width: 767px) {
     body {
         padding: 0 10px;
@@ -134,7 +202,9 @@ button:active {
     .botoes {
         justify-content: center;
         margin-left: 0;
-        gap: 10px;
+        margin-right: 0;
+        width: 100%;
+        max-width: 100%;
     }
 
     .logo {
@@ -159,6 +229,7 @@ button:active {
 
     .form-cadastro {
         gap: 10px;
+        padding: 15px;
     }
 
     input, textarea, select, button {
@@ -169,13 +240,22 @@ button:active {
     button {
         padding: 12px 20px;
     }
+    
+    .opcoes-adicionais,
+    .grid-campos {
+        grid-template-columns: 1fr;
+    }
+    
+    .select-grupo {
+        flex-direction: column;
+        gap: 10px;
+    }
 }
 
-/*  tablets */
+/* Tablets */
 @media (min-width: 768px) and (max-width: 1023px) {
     .botoes {
-        margin-left: 0;
-        justify-content: flex-end;
+        margin-right: 20px;
     }
 
     main {
@@ -192,22 +272,16 @@ button:active {
     }
 }
 
-/*  telas grandes */
-@media (min-width: 1024px) {
-    .botoes {
-        margin-left: 1250px;
-    }
+/* Específico para os checkboxes do Django forms */
+input[type="checkbox"] {
+    width: auto;
+    height: auto;
+    margin-right: 8px;
+}
 
-    main {
-        max-width: 600px;
-    }
-
-    .form-cadastro {
-        gap: 20px;
-    }
-
-    input, textarea, select, button {
-        font-size: 16px;
-        padding: 12px;
-    }
+/* Ajuste para campos file do Django */
+input[type="file"] {
+    padding: 8px;
+    border: 1px dashed #ccc;
+    background-color: #f8f9fa;
 }

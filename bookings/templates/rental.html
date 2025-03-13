@@ -9,34 +9,138 @@
     <link rel="shortcut icon" href="{% static 'imgs/logo-circulo.png' %}" type="image/x-icon">
 </head>
 <body>
-
-    
     <header class="header">
-        <img src="{% static 'imgs/logo.png' %}" alt="Logo Casas em Pipa" class="logo">
+        <img src="{% static 'imgs/logo-circulo.png' %}" alt="Logo Casas em Pipa" class="logo">
         <div class="user-info">
             <span>Oi, {{user.first_name}}</span>
-            <a href="#" class="profile-link">Perfil</a>
+            <a href="{% url 'perfil' %}" class="profile-link">Perfil</a>
         </div>
     </header>
 
-    <botoes class="botoes">
+    <div class="botoes">
         <a href="{% url 'home' %}" class="profile-link">
-            <button type="button" class="btn btn-primary"> Voltar</button>
+            <button type="button" class="btn btn-primary">Voltar</button>
         </a>
-    </botoes>
-
+    </div>
 
     <main>
         <form action="{% url 'rental' %}" method="post" class="form-cadastro" enctype="multipart/form-data">
             {% csrf_token %}
-            {{ casa_form.as_p }}
-        
-            <!-- Campo para múltiplas imagens adicionais -->
+            
+            <!-- Campos principais -->
+            <div class="campos-principais">
+                {{ casa_form.titulo.label_tag }}
+                {{ casa_form.titulo }}
+                
+                {{ casa_form.descricao.label_tag }}
+                {{ casa_form.descricao }}
+                
+                {{ casa_form.endereco.label_tag }}
+                {{ casa_form.endereco }}
+                
+                {{ casa_form.contato.label_tag }}
+                {{ casa_form.contato }}
+                
+                {{ casa_form.preco_mes.label_tag }}
+                {{ casa_form.preco_mes }}
+            </div>
+            
+            <!-- Dados numéricos organizados em grid -->
+            <div class="campos-numericos">
+                <h3>Detalhes do Imóvel</h3>
+                <div class="grid-campos">
+                    <div class="campo-item">
+                        {{ casa_form.numero_quartos.label_tag }}
+                        {{ casa_form.numero_quartos }}
+                    </div>
+                    
+                    <div class="campo-item">
+                        {{ casa_form.numero_banheiros.label_tag }}
+                        {{ casa_form.numero_banheiros }}
+                    </div>
+                    
+                    <div class="campo-item">
+                        {{ casa_form.numero_suites.label_tag }}
+                        {{ casa_form.numero_suites }}
+                    </div>
+                    
+                    <div class="campo-item">
+                        {{ casa_form.numero_vagas_garagem.label_tag }}
+                        {{ casa_form.numero_vagas_garagem }}
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Selects em linha -->
+            <div class="select-grupo">
+                <div class="select-item">
+                    {{ casa_form.mobiliado.label_tag }}
+                    {{ casa_form.mobiliado }}
+                </div>
+
+                <div class="select-item">
+                    {{ casa_form.aceita_pets.label_tag }}
+                    {{ casa_form.aceita_pets }}
+                </div>
+            </div>
+            
+            <!-- Comodidades em grid -->
+            <div class="comodidades">
+                <h3>Comodidades</h3>
+                <div class="opcoes-adicionais">
+                    <div class="opcao">
+                        {{ casa_form.ar_condicionado }}
+                        <label for="{{ casa_form.ar_condicionado.id_for_label }}">Ar-condicionado</label>
+                    </div>
+                    
+                    <div class="opcao">
+                        {{ casa_form.piscina }}
+                        <label for="{{ casa_form.piscina.id_for_label }}">Piscina</label>
+                    </div>
+                    
+                    <div class="opcao">
+                        {{ casa_form.area_de_lazer }}
+                        <label for="{{ casa_form.area_de_lazer.id_for_label }}">Área de Lazer</label>
+                    </div>
+                    
+                    <div class="opcao">
+                        {{ casa_form.churrasqueira }}
+                        <label for="{{ casa_form.churrasqueira.id_for_label }}">Churrasqueira</label>
+                    </div>
+                    
+                    <div class="opcao">
+                        {{ casa_form.wifi_incluido }}
+                        <label for="{{ casa_form.wifi_incluido.id_for_label }}">Wi-Fi Incluso</label>
+                    </div>
+                    
+                    <div class="opcao">
+                        {{ casa_form.energia_inclusa }}
+                        <label for="{{ casa_form.energia_inclusa.id_for_label }}">Energia Inclusa</label>
+                    </div>
+                    
+                    <div class="opcao">
+                        {{ casa_form.agua_inclusa }}
+                        <label for="{{ casa_form.agua_inclusa.id_for_label }}">Água Inclusa</label>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Campo para imagens -->
+            <div class="campos-imagens">
+                {{ casa_form.imagem_principal.label_tag }}
+                {{ casa_form.imagem_principal }}
+                
+                <!-- Se você tiver um campo para múltiplas imagens no form -->
+                {% if casa_form.imagens_adicionais %}
+                    {{ casa_form.imagens_adicionais.label_tag }}
+                    {{ casa_form.imagens_adicionais }}
+                {% endif %}
+            </div>
             <label for="imagens_adicionais">Fotos Adicionais:</label>
             <input type="file" id="imagens_adicionais" name="imagens_adicionais" multiple>
-        
+            
             <button type="submit">Cadastrar Casa</button>
         </form>
-   
+    </main>
 </body>
 </html>

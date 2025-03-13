@@ -42,9 +42,12 @@
         </div>
 
         <div class="description">
-            <p><strong>Ocupação máxima:</strong> {{ casa.capacidade_maxima }} pessoas</p>
+            <h2> {{ casa.capacidade_maxima }} </h2>
+            <p><strong>Ocupação máxima:</strong>{{ casa.capacidade_maxima }} pessoas</p>
             <h2>Descrição</h2>
             <p>{{ casa.descricao }}</p>
+            <h3> Detalhes do Imóvel </h3>
+            
         </div>
     </div>  
     <script src="{% static 'js/detalhes.js' %}"></script>
