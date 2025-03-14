@@ -20,6 +20,176 @@ from django.contrib.auth import get_user_model
 from django.contrib.auth.forms import SetPasswordForm
 # Create your views here.
 from django.urls import reverse
+from django.contrib.auth.decorators import login_required, user_passes_test
+from django.core.paginator import Paginator
+from django.db.models import Q, Count
+from datetime import timedelta
+
+
+# Função auxiliar para verificar se o usuário é admin
+def is_admin(user):
+    return user.is_staff or user.is_superuser
+
+# Decorator para proteger as views do admin
+def admin_required(view_func):
+    decorated_view = login_required(user_passes_test(is_admin)(view_func))
+    return decorated_view
+
+@admin_required
+def admin_dashboard(request):
+    # Dados para o dashboard
+    total_usuarios = AppUser.objects.count()
+    total_casas = Casa.objects.count()
+    
+    # Usuários e casas dos últimos 30 dias
+    data_limite = timezone.now() - timedelta(days=30)
+    novos_usuarios = AppUser.objects.filter(date_joined__gte=data_limite).count()
+    novas_casas = Casa.objects.filter(data_cadastro__gte=data_limite).count()
+    
+    # Usuários recentes (10 últimos)
+    usuarios_recentes = AppUser.objects.order_by('-date_joined')[:10]
+    
+    # Casas recentes (10 últimas)
+    casas_recentes = Casa.objects.order_by('-data_cadastro')[:10]
+    
+    context = {
+        'active_tab': 'dashboard',
+        'total_usuarios': total_usuarios,
+        'total_casas': total_casas,
+        'novos_usuarios': novos_usuarios,
+        'novas_casas': novas_casas,
+        'usuarios_recentes': usuarios_recentes,
+        'casas_recentes': casas_recentes,
+    }
+    
+    return render(request, 'admin/dashboard.html', context)
+
+@admin_required
+def admin_usuarios(request):
+    # Busca de usuários
+    search_query = request.GET.get('search', '')
+    if search_query:
+        usuarios = AppUser.objects.filter(
+            Q(first_name__icontains=search_query) |
+            Q(last_name__icontains=search_query) |
+            Q(email__icontains=search_query) |
+            Q(cpf__icontains=search_query)
+        ).annotate(casas_count=Count('casa'))
+    else:
+        usuarios = AppUser.objects.all().annotate(casas_count=Count('casa'))
+    
+    # Paginação
+    paginator = Paginator(usuarios, 15)  # 15 usuários por página
+    page_number = request.GET.get('page')
+    usuarios_paginados = paginator.get_page(page_number)
+    
+    context = {
+        'active_tab': 'usuarios',
+        'usuarios': usuarios_paginados,
+        'search_query': search_query,
+    }
+    
+    return render(request, 'admin/usuarios.html', context)
+
+@admin_required
+def admin_usuario_detalhes(request, user_id):
+    usuario = get_object_or_404(AppUser, id=user_id)
+    casas = Casa.objects.filter(owner=usuario)
+    
+    context = {
+        'active_tab': 'usuarios',
+        'usuario': usuario,
+        'casas': casas,
+    }
+    
+    return render(request, 'admin/usuario_detalhes.html', context)
+
+
+@admin_required
+def admin_casas(request):
+    # Busca de casas
+    search_query = request.GET.get('search', '')
+    if search_query:
+        casas = Casa.objects.filter(
+            Q(titulo__icontains=search_query) |
+            Q(endereco__icontains=search_query) |
+            Q(owner__first_name__icontains=search_query) |
+            Q(owner__last_name__icontains=search_query)
+        )
+    else:
+        casas = Casa.objects.all()
+    
+    # Paginação
+    paginator = Paginator(casas, 10)  # 10 casas por página
+    page_number = request.GET.get('page')
+    casas_paginadas = paginator.get_page(page_number)
+    
+    context = {
+        'active_tab': 'casas',
+        'casas': casas_paginadas,
+        'search_query': search_query,
+    }
+    
+    return render(request, 'admin/casas.html', context)
+
+@admin_required
+def admin_casa_detalhes(request, casa_id):
+    casa = get_object_or_404(Casa, id=casa_id)
+    
+    context = {
+        'active_tab': 'casas',
+        'casa': casa,
+    }
+    
+    return render(request, 'admin/casa_detalhes.html', context)
+
+@admin_required
+def admin_casa_editar(request, casa_id):
+    casa = get_object_or_404(Casa, id=casa_id)
+    
+    if request.method == 'POST':
+        # Atualizar os dados da casa
+        casa.titulo = request.POST.get('titulo')
+        casa.endereco = request.POST.get('endereco')
+        casa.tipo = request.POST.get('tipo')
+        casa.preco_mes = request.POST.get('preco_mes')
+        casa.capacidade_máxima = request.POST.get('capacidade_maxima')
+        casa.descricao = request.POST.get('descricao')
+        casa.contato = request.POST.get('contato')
+        
+        # Processar imagem principal se enviada
+        if 'imagem_principal' in request.FILES:
+            casa.imagem_principal = request.FILES['imagem_principal']
+        
+        casa.save()
+        messages.success(request, 'Casa atualizada com sucesso!')
+        return redirect('admin_casa_detalhes', casa_id=casa.id)
+    
+    context = {
+        'active_tab': 'casas',
+        'casa': casa,
+    }
+    
+    return render(request, 'admin/casa_editar.html', context)
+
+@admin_required
+def admin_casa_excluir(request, casa_id):
+    casa = get_object_or_404(Casa, id=casa_id)
+    
+    if request.method == 'POST':
+        casa.delete()
+        messages.success(request, 'Casa excluída com sucesso!')
+        return redirect('admin_casas')
+    
+    context = {
+        'active_tab': 'casas',
+        'casa': casa,
+    }
+    
+    return render(request, 'admin/casa_excluir.html', context)
+
+
+
 
 
 

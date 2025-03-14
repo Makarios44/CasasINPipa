@@ -1,0 +1,99 @@
+{% extends "admin/base_admin.html" %}
+
+{% block subtitle %}Detalhes do Usuário{% endblock %}
+
+{% block content %}
+<div class="admin-actions">
+    <a href="{% url 'admin_usuarios' %}" class="btn btn-back">
+        <i class="fas fa-arrow-left"></i> Voltar para lista de usuários
+    </a>
+</div>
+
+<div class="user-details">
+    <div class="user-header">
+        <div class="user-avatar">
+            <i class="fas fa-user-circle"></i>
+        </div>
+        <div class="user-title">
+            <h2>{{ usuario.first_name }} {{ usuario.last_name }}</h2>
+            <p>{{ usuario.email }}</p>
+        </div>
+    </div>
+    
+    <div class="user-info-card">
+        <h3>Informações Pessoais</h3>
+        <div class="user-info-content">
+            <div class="info-item">
+                <span class="info-label">Nome Completo:</span>
+                <span class="info-value">{{ usuario.first_name }} {{ usuario.last_name }}</span>
+            </div>
+            <div class="info-item">
+                <span class="info-label">Email:</span>
+                <span class="info-value">{{ usuario.email }}</span>
+            </div>
+            <div class="info-item">
+                <span class="info-label">Telefone:</span>
+                <span class="info-value">{{ usuario.telefone }}</span>
+            </div>
+            <div class="info-item">
+                <span class="info-label">CPF:</span>
+                <span class="info-value">{{ usuario.cpf }}</span>
+            </div>
+            <div class="info-item">
+                <span class="info-label">Data de Nascimento:</span>
+                <span class="info-value">{{ usuario.data_nascimento|date:"d/m/Y" }}</span>
+            </div>
+            <div class="info-item">
+                <span class="info-label">Data de Cadastro:</span>
+                <span class="info-value">{{ usuario.date_joined|date:"d/m/Y H:i" }}</span>
+            </div>
+            <div class="info-item">
+                <span class="info-label">Último Login:</span>
+                <span class="info-value">{{ usuario.last_login|date:"d/m/Y H:i"|default:"Nunca" }}</span>
+            </div>
+            <div class="info-item">
+                <span class="info-label">Status:</span>
+                <span class="info-value status-badge {% if usuario.is_active %}active{% else %}inactive{% endif %}">
+                    {% if usuario.is_active %}Ativo{% else %}Inativo{% endif %}
+                </span>
+            </div>
+        </div>
+    </div>
+    
+    <div class="user-houses">
+        <h3>Casas Cadastradas ({{ casas|length }})</h3>
+        
+        {% if casas %}
+        <div class="houses-grid">
+            {% for casa in casas %}
+            <div class="house-card">
+                <div class="house-image">
+                    {% if casa.imagem_principal %}
+                    <img src="{{ casa.imagem_principal.url }}" alt="{{ casa.titulo }}">
+                    {% else %}
+                    <div class="no-image">Sem imagem</div>
+                    {% endif %}
+                </div>
+                <div class="house-info">
+                    <h4>{{ casa.titulo }}</h4>
+                    <p><i class="fas fa-map-marker-alt"></i> {{ casa.endereco }}</p>
+                    <p><i class="fas fa-home"></i> {{ casa.tipo }}</p>
+                    <p><i class="fas fa-dollar-sign"></i> R$ {{ casa.preco_mes }}</p>
+                    <p><i class="fas fa-users"></i> {{ casa.capacidade_máxima }} pessoas</p>
+                    <p><i class="fas fa-calendar-alt"></i> {{ casa.data_cadastro|date:"d/m/Y" }}</p>
+                    <div class="house-actions">
+                        <a href="{% url 'admin_casa_detalhes' casa.id %}" class="btn-view">Ver Detalhes</a>
+                        <a href="{% url 'admin_casa_editar' casa.id %}" class="btn-edit">Editar</a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        {% else %}
+        <div class="no-houses">
+            <p>Este usuário não cadastrou nenhuma casa ainda.</p>
+        </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

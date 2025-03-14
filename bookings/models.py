@@ -8,10 +8,12 @@ class Casa(models.Model):
     titulo = models.CharField(max_length=255, null=False, blank=True)  
     descricao = models.TextField(null=False)
     endereco = models.CharField(max_length=255, null=False)
-    preco_mes = models.DecimalField(max_digits=10, decimal_places=2, null=False, default='0')  
+    preco_mes = models.DecimalField(max_digits=10, decimal_places=0, null=False, default='0')  
     imagem_principal = models.ImageField(upload_to='casas/', null=True, blank=True)
     owner = models.ForeignKey(AppUser, on_delete=models.CASCADE)
     contato = models.CharField(max_length=15, help_text="Digite o número de telefone com DDD", default='0')
+    capacidade_máxima = models.DecimalField(max_digits=10, decimal_places=0, null=False, default='0')
+
 
     # Características do imóvel
     numero_quartos = models.PositiveIntegerField(default=1)

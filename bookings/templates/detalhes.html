@@ -42,12 +42,38 @@
         </div>
 
         <div class="description">
-            <h2> {{ casa.capacidade_maxima }} </h2>
-            <p><strong>Ocupação máxima:</strong>{{ casa.capacidade_maxima }} pessoas</p>
+            <p><strong>Ocupação máxima:</strong>{{ casa.capacidade_máxima }} pessoas</p>
             <h2>Descrição</h2>
             <p>{{ casa.descricao }}</p>
-            <h3> Detalhes do Imóvel </h3>
-            
+            <h3> Detalhes  e comodidades do Imóvel </h3>
+            <div class="caracteristicas-imovel">
+                <p><strong>Características:</strong> 
+                   {{ casa.numero_quartos }} quarto(s), 
+                   {{ casa.numero_banheiros }} banheiro(s)
+                   {% if casa.numero_suites > 0 %}, {{ casa.numero_suites }} suíte(s){% endif %}
+                   {% if casa.numero_vagas_garagem > 0 %}, {{ casa.numero_vagas_garagem }} vaga(s) de garagem{% endif %}
+                </p>
+                
+                <p><strong>Comodidades:</strong>
+                   {% if casa.mobiliado %}Mobiliado, {% endif %}
+                   {% if casa.aceita_pets %}Aceita pets, {% endif %}
+                   {% if casa.ar_condicionado %}Ar-condicionado, {% endif %}
+                   {% if casa.piscina %}Piscina, {% endif %}
+                   {% if casa.area_de_lazer %}Área de lazer, {% endif %}
+                   {% if casa.churrasqueira %}Churrasqueira, {% endif %}
+                   {% if casa.wifi_incluido %}Wi-Fi incluído{% endif %}
+                </p>
+                
+                {% if casa.energia_inclusa or casa.agua_inclusa %}
+                <p><strong>Incluso no aluguel:</strong>
+                   {% if casa.energia_inclusa %}Energia elétrica, {% endif %}
+                   {% if casa.agua_inclusa %}Água{% endif %}
+                </p>
+                {% else %}
+                    <p>**Nem agua e nem energia são inclusos no aluguel</p>
+                {% endif %}
+            </div>
+                     
         </div>
     </div>  
     <script src="{% static 'js/detalhes.js' %}"></script>

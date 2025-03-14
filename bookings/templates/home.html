@@ -63,11 +63,11 @@
                         {% endif %}
                         
                         <div class="card-body">
-                            <h1 class="card-nome">{{ casa.nome }}</h1>
-                            <p class="card-text">{{ casa.preco }}</p>
+                            <h2 class="card-nome">{{ casa.titulo }}</h2>
+                            <h4 class="card-text">R${{ casa.preco_mes }}</h4>
                             <p class="card-text">{{ casa.endereco }}</p>
                             <p class="card-text">{{ casa.tipo }}</p>
-                            <p class="card-text">Capacidade máxima: {{ casa.capacidade_maxima }} Pessoas</p>
+                            <p class="card-text">Capacidade máxima: {{ casa.capacidade_máxima }} Pessoas</p>
                             <a href="https://wa.me/{{ casa.contato|default:'' }}" target="_blank" class="btn btn-success">
                                 <i class="fab fa-whatsapp"></i> Entrar em contato via WhatsApp
                             </a>

@@ -1,0 +1,186 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Painel Administrativo - Casas em Pipa</title>
+    <link rel="stylesheet" href="{% static 'css/admin.css' %}">
+    <link rel="stylesheet" href="{% static 'css/admin_details.css' %}">
+
+
+    <link rel="shortcut icon" href="{% static 'imgs/logo-circulo.png' %}" type="image/x-icon">
+    <link href="https://fonts.googleapis.com/css2?family=Ms+Madi&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="admin-container">
+        <!-- Sidebar de navegação -->
+        <div class="admin-sidebar">
+            <div class="sidebar-header">
+                <img src="{% static 'imgs/logo-circulo.png' %}" alt="Logo Casas em Pipa" class="admin-logo">
+                <h2>Casas em Pipa</h2>
+            </div>
+            <nav class="sidebar-nav">
+                <ul>
+                    <li class="{% if active_tab == 'dashboard' %}active{% endif %}">
+                        <a href="{% url 'admin_dashboard' %}"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
+                    </li>
+                    <li class="{% if active_tab == 'usuarios' %}active{% endif %}">
+                        <a href="{% url 'admin_usuarios' %}"><i class="fas fa-users"></i> Usuários</a>
+                    </li>
+                    <li class="{% if active_tab == 'casas' %}active{% endif %}">
+                        <a href="{% url 'admin_casas' %}"><i class="fas fa-home"></i> Casas</a>
+                    </li>
+                    <li>
+                        <a href="{% url 'home' %}"><i class="fas fa-sign-out-alt"></i> Voltar ao Site</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+
+        <!-- Conteúdo principal -->
+        <div class="admin-content">
+            <!-- Cabeçalho do conteúdo -->
+            <div class="admin-header">
+                <div class="admin-title">
+                    <h1>Painel Administrativo</h1>
+                    <p>{% block subtitle %}Bem-vindo ao painel de administração{% endblock %}</p>
+                </div>
+                <div class="admin-user">
+                    <span>Olá, {{ request.user.first_name }}</span>
+                    <a href="{% url 'logout' %}" class="logout-btn">Sair</a>
+                </div>
+            </div>
+
+            <!-- Conteúdo específico da página -->
+            <div class="admin-main">
+                {% if messages %}
+                    <div class="admin-messages">
+                        {% for message in messages %}
+                            <div class="alert alert-{{ message.tags }}">
+                                {{ message }}
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+
+                {% block content %}
+                <!-- O conteúdo específico de cada página será injetado aqui -->
+                <div class="dashboard-cards">
+                    <div class="card">
+                        <div class="card-icon">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <div class="card-content">
+                            <h3>Usuários</h3>
+                            <p class="card-number">{{ total_usuarios }}</p>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-icon">
+                            <i class="fas fa-home"></i>
+                        </div>
+                        <div class="card-content">
+                            <h3>Casas</h3>
+                            <p class="card-number">{{ total_casas }}</p>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-icon">
+                            <i class="fas fa-user-plus"></i>
+                        </div>
+                        <div class="card-content">
+                            <h3>Novos Usuários</h3>
+                            <p class="card-number">{{ novos_usuarios }}</p>
+                            <p class="card-subtitle">Últimos 30 dias</p>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-icon">
+                            <i class="fas fa-home"></i>
+                        </div>
+                        <div class="card-content">
+                            <h3>Novas Casas</h3>
+                            <p class="card-number">{{ novas_casas }}</p>
+                            <p class="card-subtitle">Últimos 30 dias</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="recent-section">
+                    <h2>Usuários Recentes</h2>
+                    <div class="table-container">
+                        <table class="admin-table">
+                            <thead>
+                                <tr>
+                                    <th>Nome</th>
+                                    <th>Email</th>
+                                    <th>Telefone</th>
+                                    <th>Data de Cadastro</th>
+                                    <th>Ações</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for usuario in usuarios_recentes %}
+                                <tr>
+                                    <td>{{ usuario.first_name }} {{ usuario.last_name }}</td>
+                                    <td>{{ usuario.email }}</td>
+                                    <td>{{ usuario.telefone }}</td>
+                                    <td>{{ usuario.date_joined|date:"d/m/Y" }}</td>
+                                    <td>
+                                        <a href="{% url 'admin_usuario_detalhes' usuario.id %}" class="btn-view">Ver</a>
+                                    </td>
+                                </tr>
+                                {% empty %}
+                                <tr>
+                                    <td colspan="5">Nenhum usuário cadastrado recentemente.</td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="recent-section">
+                    <h2>Casas Recentes</h2>
+                    <div class="table-container">
+                        <table class="admin-table">
+                            <thead>
+                                <tr>
+                                    <th>Título</th>
+                                    <th>Proprietário</th>
+                                    <th>Endereço</th>
+                                    <th>Preço (Mês)</th>
+                                    <th>Data de Cadastro</th>
+                                    <th>Ações</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for casa in casas_recentes %}
+                                <tr>
+                                    <td>{{ casa.titulo }}</td>
+                                    <td>{{ casa.owner.first_name }} {{ casa.owner.last_name }}</td>
+                                    <td>{{ casa.endereco }}</td>
+                                    <td>R$ {{ casa.preco_mes }}</td>
+                                    <td>{{ casa.data_cadastro|date:"d/m/Y" }}</td>
+                                    <td>
+                                        <a href="{% url 'admin_casa_detalhes' casa.id %}" class="btn-view">Ver</a>
+                                        <a href="{% url 'admin_casa_editar' casa.id %}" class="btn-edit">Editar</a>
+                                    </td>
+                                </tr>
+                                {% empty %}
+                                <tr>
+                                    <td colspan="6">Nenhuma casa cadastrada recentemente.</td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                {% endblock %}
+            </div>
+        </div>
+    </div>
+</body>
+</html>

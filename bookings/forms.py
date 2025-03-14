@@ -8,7 +8,7 @@ class CasaForm(forms.ModelForm):
             'titulo', 'descricao', 'endereco', 'contato', 'preco_mes', 'imagem_principal',
             'numero_quartos', 'numero_banheiros', 'numero_suites', 'numero_vagas_garagem',
             'mobiliado', 'aceita_pets', 'ar_condicionado', 'piscina', 'area_de_lazer',
-            'churrasqueira', 'wifi_incluido', 'energia_inclusa', 'agua_inclusa'
+            'churrasqueira', 'wifi_incluido', 'energia_inclusa', 'agua_inclusa', 'capacidade_máxima'
         ]
 
     def clean_preco_mes(self):
