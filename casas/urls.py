@@ -6,10 +6,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('accounts/', include('accounts.urls')),
     path('', include('bookings.urls')),
-    path('notificatios/', include('notifications.urls')),
-    path('payments/', include('payments.urls')),
-    path('reviews/', include('reviews.urls')),
-
+    path('painel/', include('admin_site.urls')),
 ]
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

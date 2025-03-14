@@ -1,0 +1,32 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Casas</title>
+    <link rel="stylesheet" href="{% static 'css/dsh.css' %}">
+</head>
+<body>
+    <header class="header">
+        <h1>Lista de Casas</h1>
+        <nav>
+            <a href="{% url 'admin_dashboard' %}" class="button">Voltar ao Início</a>
+            <a href="{% url 'admin_casa_create' %}" class="button">Adicionar Nova Casa</a>
+        </nav>
+    </header>
+
+    <main class="container">
+        <ul>
+            {% for casa in casas %}
+            <li>
+                <strong>{{ casa.titulo }}</strong> - Cadastrada em: {{ casa.created_at|date:"d/m/Y H:i" }}
+                <a href="{% url 'admin_casa_detail' casa.id %}" class="button">Detalhes</a>
+                <a href="{% url 'admin_casa_update' casa.id %}" class="button">Editar</a>
+                <a href="{% url 'admin_casa_delete' casa.id %}" class="button button-danger">Deletar</a>
+            </li>
+            {% endfor %}
+        </ul>
+    </main>
+</body>
+</html>

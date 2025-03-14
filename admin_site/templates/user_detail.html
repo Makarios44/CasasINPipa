@@ -1,0 +1,31 @@
+{%load static%}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalhes do Usuário</title>
+    <link rel="stylesheet" href="{% static 'css/user_detalhe.css' %}">
+    <style>
+        
+    </style>
+</head>
+<body>
+    <header class="header">
+        <h1>Detalhes do Usuário</h1>
+        <nav>
+            <a href="{% url 'admin_users_list' %}" class="button">Voltar à Lista</a>
+            <a href="{% url 'admin_user_update' user.id %}" class="button">Editar</a>
+            <a href="{% url 'admin_user_delete' user.id %}" class="button button-danger">Deletar</a>
+        </nav>
+    </header>
+
+    <main class="container">
+        <h2>{{ user.email }}</h2>
+        <p><strong>Nome:</strong> {{ user.first_name }}</p>
+        <p><strong>Telefone:</strong> {{ user.telefone }}</p>
+        <p><strong>Data de Nascimento:</strong> {{ user.data_nascimento }}</p>
+        <p><strong>CPF:</strong> {{ user.cpf }}</p>
+    </main>
+</body>
+</html>

@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib.auth import get_user_model
-
+from django.utils import timezone
 AppUser = get_user_model()
 
 
@@ -13,7 +13,7 @@ class Casa(models.Model):
     owner = models.ForeignKey(AppUser, on_delete=models.CASCADE)
     contato = models.CharField(max_length=15, help_text="Digite o número de telefone com DDD", default='0')
     capacidade_máxima = models.DecimalField(max_digits=10, decimal_places=0, null=False, default='0')
-
+    created_at = models.DateTimeField(default=timezone.now)
 
     # Características do imóvel
     numero_quartos = models.PositiveIntegerField(default=1)

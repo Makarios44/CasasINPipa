@@ -1,0 +1,26 @@
+{%load static%}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% if form.instance.id %}Editar Casa{% else %}Adicionar Nova Casa{% endif %}</title>
+    <link rel="stylesheet" href="{% static 'css/casa_form.css' %}">
+</head>
+<body>
+    <header class="header">
+        <h1>{% if form.instance.id %}Editar Casa{% else %}Adicionar Nova Casa{% endif %}</h1>
+        <nav>
+            <a href="{% url 'admin_casas_list' %}" class="button">Voltar à Lista</a>
+        </nav>
+    </header>
+
+    <main class="container">
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Salvar</button>
+        </form>
+    </main>
+</body>
+</html>

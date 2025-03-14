@@ -1,0 +1,33 @@
+{%load static%}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Painel Administrativo</title>
+    <link rel="stylesheet" href="{% static 'css/dsh.css' %}">
+</head>
+<body>
+    <header class="header">
+        <h1>Painel Administrativo</h1>
+        <nav>
+            <a href="{% url 'admin_dashboard' %}" class="button">Início</a>
+            <a href="{% url 'admin_casas_list' %}" class="button">Casas</a>
+            <a href="{% url 'admin_users_list' %}" class="button">Usuários</a>
+        </nav>
+    </header>
+
+    <main class="container">
+        <h2>Bem-vindo ao Painel Administrativo</h2>
+        <p>Escolha uma das opções abaixo:</p>
+        <ul>
+            <li><a href="{% url 'admin_casas_list' %}" class="button">Gerenciar Casas</a></li>
+            <li><a href="{% url 'admin_users_list' %}" class="button">Gerenciar Usuários</a></li>
+        </ul>
+    </main>
+
+    <footer>
+        <p>&copy; 2023 Painel Administrativo</p>
+    </footer>
+</body>
+</html>

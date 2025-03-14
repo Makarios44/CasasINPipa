@@ -27,9 +27,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'accounts', #usuarios e autenticação
     'bookings', #reservas e alugueis
-    'notifications', #avisos de pagamentos e confirmações
-    'payments', #pagamentos
-    'reviews',#avaliações
+    'admin_site',
 ]
 
 AUTH_USER_MODEL = 'accounts.AppUser'

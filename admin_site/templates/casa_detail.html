@@ -1,0 +1,53 @@
+{%load static%}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalhes da Casa</title>
+    <link rel="stylesheet" href="{% static 'css/casa_detalhe.css' %}">
+</head>
+<body>
+    <header class="header">
+        <h1>Detalhes da Casa</h1>
+        <nav>
+            <a href="{% url 'admin_casas_list' %}" class="button">Voltar à Lista</a>
+            <a href="{% url 'admin_casa_update' casa.id %}" class="button">Editar</a>
+            <a href="{% url 'admin_casa_delete' casa.id %}" class="button button-danger">Deletar</a>
+        </nav>
+    </header>
+
+    <main class="container">
+        <div class="casa-details">
+            <h2>{{ casa.titulo }}</h2>
+            <p>{{ casa.descricao }}</p>
+            <p><strong>Endereço:</strong> {{ casa.endereco }}</p>
+            <p><strong>Preço por Mês:</strong> R$ {{ casa.preco_mes }}</p>
+            <p><strong>Capacidade Máxima:</strong> {{ casa.capacidade_maxima }} pessoas</p>
+            <p><strong>Número de Quartos:</strong> {{ casa.numero_quartos }}</p>
+            <p><strong>Número de Banheiros:</strong> {{ casa.numero_banheiros }}</p>
+            <p><strong>Número de Suítes:</strong> {{ casa.numero_suites }}</p>
+            <p><strong>Número de Vagas na Garagem:</strong> {{ casa.numero_vagas_garagem }}</p>
+            <p><strong>Mobiliado:</strong> {% if casa.mobiliado %}Sim{% else %}Não{% endif %}</p>
+            <p><strong>Aceita Pets:</strong> {% if casa.aceita_pets %}Sim{% else %}Não{% endif %}</p>
+            <p><strong>Ar Condicionado:</strong> {% if casa.ar_condicionado %}Sim{% else %}Não{% endif %}</p>
+            <p><strong>Piscina:</strong> {% if casa.piscina %}Sim{% else %}Não{% endif %}</p>
+            <p><strong>Área de Lazer:</strong> {% if casa.area_de_lazer %}Sim{% else %}Não{% endif %}</p>
+            <p><strong>Churrasqueira:</strong> {% if casa.churrasqueira %}Sim{% else %}Não{% endif %}</p>
+            <p><strong>Wi-Fi Incluso:</strong> {% if casa.wifi_incluido %}Sim{% else %}Não{% endif %}</p>
+            <p><strong>Energia Inclusa:</strong> {% if casa.energia_inclusa %}Sim{% else %}Não{% endif %}</p>
+            <p><strong>Água Inclusa:</strong> {% if casa.agua_inclusa %}Sim{% else %}Não{% endif %}</p>
+            <p><strong>Contato:</strong> {{ casa.contato }}</p>
+            {% if casa.imagem_principal %}
+                <img src="{{ casa.imagem_principal.url }}" alt="Imagem da Casa">
+            {% endif %}
+            <h3>Imagens Adicionais:</h3>
+            <div>
+                {% for imagem in imagens %}
+                    <img src="{{ imagem.imagem.url }}" alt="Imagem Adicional" style="max-width: 200px; margin: 10px;">
+                {% endfor %}
+            </div>
+        </div>
+    </main>
+</body>
+</html>
