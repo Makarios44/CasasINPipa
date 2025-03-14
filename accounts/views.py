@@ -20,178 +20,7 @@ from django.contrib.auth import get_user_model
 from django.contrib.auth.forms import SetPasswordForm
 # Create your views here.
 from django.urls import reverse
-from django.contrib.auth.decorators import login_required, user_passes_test
-from django.core.paginator import Paginator
-from django.db.models import Q, Count
-from datetime import timedelta
-
-
-# Função auxiliar para verificar se o usuário é admin
-def is_admin(user):
-    return user.is_staff or user.is_superuser
-
-# Decorator para proteger as views do admin
-def admin_required(view_func):
-    decorated_view = login_required(user_passes_test(is_admin)(view_func))
-    return decorated_view
-
-@admin_required
-def admin_dashboard(request):
-    # Dados para o dashboard
-    total_usuarios = AppUser.objects.count()
-    total_casas = Casa.objects.count()
-    
-    # Usuários e casas dos últimos 30 dias
-    data_limite = timezone.now() - timedelta(days=30)
-    novos_usuarios = AppUser.objects.filter(date_joined__gte=data_limite).count()
-    novas_casas = Casa.objects.filter(data_cadastro__gte=data_limite).count()
-    
-    # Usuários recentes (10 últimos)
-    usuarios_recentes = AppUser.objects.order_by('-date_joined')[:10]
-    
-    # Casas recentes (10 últimas)
-    casas_recentes = Casa.objects.order_by('-data_cadastro')[:10]
-    
-    context = {
-        'active_tab': 'dashboard',
-        'total_usuarios': total_usuarios,
-        'total_casas': total_casas,
-        'novos_usuarios': novos_usuarios,
-        'novas_casas': novas_casas,
-        'usuarios_recentes': usuarios_recentes,
-        'casas_recentes': casas_recentes,
-    }
-    
-    return render(request, 'admin/dashboard.html', context)
-
-@admin_required
-def admin_usuarios(request):
-    # Busca de usuários
-    search_query = request.GET.get('search', '')
-    if search_query:
-        usuarios = AppUser.objects.filter(
-            Q(first_name__icontains=search_query) |
-            Q(last_name__icontains=search_query) |
-            Q(email__icontains=search_query) |
-            Q(cpf__icontains=search_query)
-        ).annotate(casas_count=Count('casa'))
-    else:
-        usuarios = AppUser.objects.all().annotate(casas_count=Count('casa'))
-    
-    # Paginação
-    paginator = Paginator(usuarios, 15)  # 15 usuários por página
-    page_number = request.GET.get('page')
-    usuarios_paginados = paginator.get_page(page_number)
-    
-    context = {
-        'active_tab': 'usuarios',
-        'usuarios': usuarios_paginados,
-        'search_query': search_query,
-    }
-    
-    return render(request, 'admin/usuarios.html', context)
-
-@admin_required
-def admin_usuario_detalhes(request, user_id):
-    usuario = get_object_or_404(AppUser, id=user_id)
-    casas = Casa.objects.filter(owner=usuario)
-    
-    context = {
-        'active_tab': 'usuarios',
-        'usuario': usuario,
-        'casas': casas,
-    }
-    
-    return render(request, 'admin/usuario_detalhes.html', context)
-
-
-@admin_required
-def admin_casas(request):
-    # Busca de casas
-    search_query = request.GET.get('search', '')
-    if search_query:
-        casas = Casa.objects.filter(
-            Q(titulo__icontains=search_query) |
-            Q(endereco__icontains=search_query) |
-            Q(owner__first_name__icontains=search_query) |
-            Q(owner__last_name__icontains=search_query)
-        )
-    else:
-        casas = Casa.objects.all()
-    
-    # Paginação
-    paginator = Paginator(casas, 10)  # 10 casas por página
-    page_number = request.GET.get('page')
-    casas_paginadas = paginator.get_page(page_number)
-    
-    context = {
-        'active_tab': 'casas',
-        'casas': casas_paginadas,
-        'search_query': search_query,
-    }
-    
-    return render(request, 'admin/casas.html', context)
-
-@admin_required
-def admin_casa_detalhes(request, casa_id):
-    casa = get_object_or_404(Casa, id=casa_id)
-    
-    context = {
-        'active_tab': 'casas',
-        'casa': casa,
-    }
-    
-    return render(request, 'admin/casa_detalhes.html', context)
-
-@admin_required
-def admin_casa_editar(request, casa_id):
-    casa = get_object_or_404(Casa, id=casa_id)
-    
-    if request.method == 'POST':
-        # Atualizar os dados da casa
-        casa.titulo = request.POST.get('titulo')
-        casa.endereco = request.POST.get('endereco')
-        casa.tipo = request.POST.get('tipo')
-        casa.preco_mes = request.POST.get('preco_mes')
-        casa.capacidade_máxima = request.POST.get('capacidade_maxima')
-        casa.descricao = request.POST.get('descricao')
-        casa.contato = request.POST.get('contato')
-        
-        # Processar imagem principal se enviada
-        if 'imagem_principal' in request.FILES:
-            casa.imagem_principal = request.FILES['imagem_principal']
-        
-        casa.save()
-        messages.success(request, 'Casa atualizada com sucesso!')
-        return redirect('admin_casa_detalhes', casa_id=casa.id)
-    
-    context = {
-        'active_tab': 'casas',
-        'casa': casa,
-    }
-    
-    return render(request, 'admin/casa_editar.html', context)
-
-@admin_required
-def admin_casa_excluir(request, casa_id):
-    casa = get_object_or_404(Casa, id=casa_id)
-    
-    if request.method == 'POST':
-        casa.delete()
-        messages.success(request, 'Casa excluída com sucesso!')
-        return redirect('admin_casas')
-    
-    context = {
-        'active_tab': 'casas',
-        'casa': casa,
-    }
-    
-    return render(request, 'admin/casa_excluir.html', context)
-
-
-
-
-
+from django.core.exceptions import ValidationError
 
 def login(request):
 
@@ -216,14 +45,12 @@ def login(request):
     
     return render(request,'login.html')
 
-       
-
 
 def register(request):
-    if request.method == 'GET':
-        return render(request, 'register.html')
-
-    elif request.method == 'POST':
+    # Armazenar os dados do formulário para reenchimento em caso de erro
+    context = {}
+    
+    if request.method == 'POST':
         # Captura os dados do formulário
         nome = request.POST.get('nome')
         sobrenome = request.POST.get('sobrenome')
@@ -233,50 +60,81 @@ def register(request):
         telefone = request.POST.get('telefone')
         cpf = request.POST.get('cpf')
         data_nascimento = request.POST.get('data_nascimento')
-        terms = request.POST.get('terms')
-
+        termos = request.POST.get('termos')
+        
+        # Salvar os dados no contexto para reexibição em caso de erro
+        context = {
+            'nome': nome,
+            'sobrenome': sobrenome,
+            'email': email,
+            'telefone': telefone,
+            'cpf': cpf,
+            'data_nascimento': data_nascimento,
+        }
+        
+        # Lista para armazenar erros de cada campo
+        field_errors = {}
+        
+        # Verificando email já existente
         if AppUser.objects.filter(email=email).exists():
-            messages.error(request, 'Este email já está cadastrado')
-        elif password != password2:
-            messages.error(request, 'As senhas não são iguais')
+            field_errors['email'] = 'Este email já está cadastrado'
+        
+        # Verificando senhas iguais
+        if password != password2:
+            field_errors['confirme_senha'] = 'As senhas não são iguais'
+        
+        # Verificando CPF válido usando a classe CPFField diretamente
+        from django_cpf_cnpj.fields import CPFField
+        try:
+            # Criar uma instância temporária do campo CPF para validação
+            cpf_field = CPFField()
+            # Usar o método clean que aciona os validadores
+            cpf_field.clean(cpf, None)
+        except Exception as e:
+            # Capturar a mensagem de erro original, se possível
+            error_message = str(e)
+            if "is not valid cpf" in error_message.lower():
+                field_errors['cpf'] = f'CPF inválido. Por favor, verifique o formato.'
+            else:
+                field_errors['cpf'] = 'CPF inválido. Por favor, verifique o formato.'
+        
+        # Se não houver erros, criar o usuário
+        if not field_errors:
+            try:
+                user = AppUser.objects.create_user(
+                    email=email,
+                    nome=nome,
+                    password=password,
+                    last_name=sobrenome,
+                    telefone=telefone,
+                    data_nascimento=data_nascimento,
+                    cpf=cpf,
+                )
+                
+                # Enviar o email de boas-vindas
+                subject = "Seja bem-vindo à nossa plataforma!"
+                message = f'Olá, {user.first_name}! Ficamos felizes em ver você por aqui. ' \
+                          'Esperamos que nossa plataforma ajude você a alugar sua casa o mais rápido possível. ' \
+                          'Abraços da nossa equipe :)'
+                from_email = settings.DEFAULT_FROM_EMAIL
+                recipient_list = [user.email]
+                send_mail(subject, message, from_email, recipient_list)
+                
+                messages.success(request, 'Usuário cadastrado com sucesso')
+                return redirect('login')
+            except Exception as e:
+                # Log do erro para depuração
+                import logging
+                logger = logging.getLogger(__name__)
+                logger.error(f"Erro ao criar usuário: {str(e)}")
+                
+                # Mensagem genérica para o usuário
+                messages.error(request, 'Ocorreu um erro ao processar seu cadastro. Por favor, tente novamente.')
         else:
-            # Cria o usuário
-            user  = AppUser.objects.create_user(
-                nome=nome,
-                email=email,
-                password=password,
-                last_name=sobrenome,
-                telefone=telefone,
-                data_nascimento= data_nascimento,
-                cpf=cpf,
+            # Adicionar os erros ao contexto
+            context['field_errors'] = field_errors
             
-            )
-            user.full_clean()  # Validar todos os campos
-                
-                
-            user.set_password(password)
-                
-                
-            user.save()
-
-            # Enviar o email de boas-vindas
-            subject = "Seja bem-vindo à nossa plataforma!"
-            message = f'Olá, {user.username}! Ficamos felizes em ver você por aqui. ' \
-                      'Esperamos que nossa plataforma ajude você a alugar sua casa o mais rápido possível. ' \
-                      'Abraços da nossa equipe :)'
-            from_email = settings.DEFAULT_FROM_EMAIL
-            recipient_list = [user.email]
-            send_mail(subject, message, from_email, recipient_list)
-
-            # Exibe uma mensagem de sucesso
-            messages.success(request, 'Usuário cadastrado com sucesso')
-
-            return render(request, 'login.html')
-
-        
-        
-    return render(request, 'register.html')
-
+    return render(request, 'register.html', context)
 
 
 
