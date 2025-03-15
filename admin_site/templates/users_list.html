@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lista de Usuários</title>
-    <link rel="stylesheet" href="{% static 'css/user_list.css' %}">
+    <link rel="stylesheet" href="{% static 'css/users_list.css' %}">
 </head>
 <body>
     <header class="header">
@@ -24,6 +24,8 @@
                 <a href="{% url 'admin_user_update' user.id %}" class="button">Editar</a>
                 <a href="{% url 'admin_user_delete' user.id %}" class="button button-danger">Deletar</a>
             </li>
+            {% empty %}
+            <p>Não há usuarios no momento.</p>
             {% endfor %}
         </ul>
     </main>

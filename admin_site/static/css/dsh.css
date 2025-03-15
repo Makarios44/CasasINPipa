@@ -1,67 +1,255 @@
+/* Reset básico */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', Arial, sans-serif;
+}
+
+:root {
+    --primary-blue: #3498db;
+    --primary-light: #5dade2;
+    --primary-dark: #2980b9;
+    --accent-blue: #2c3e50;
+    --light-gray: #f4f4f4;
+    --white: #ffffff;
+    --border-color: #e0e0e0;
+    --form-bg: #f8fafc;
+    --shadow-color: rgba(52, 152, 219, 0.15);
+}
+
+/* Estilização da página */
 body {
-    font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
-    margin: 0;
-    padding: 0;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    background: var(--light-gray);
+    color: #444;
+    line-height: 1.6;
 }
+
+/* Header */
 .header {
-    background-color: #3498db;
-    color: white;
-    padding: 20px;
-    text-align: center;
-}
-.header h1 {
-    margin: 0;
-}
-
-
-ul {
-    list-style-type: none;
-    padding: 0;
-}
-
-li {
+    background: linear-gradient(to right, var(--primary-blue), var(--primary-dark));
+    color: var(--white);
+    padding: 20px 40px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 10px;
-    border-bottom: 1px solid #ddd;
+    box-shadow: 0 4px 15px rgba(41, 128, 185, 0.3);
+    position: relative;
+    z-index: 10;
 }
 
-li strong {
-    flex: 1;
+.header h1 {
+    font-size: 1.8rem;
+    font-weight: 600;
 }
 
-li .button {
-    margin-left: 10px;
+.logo {
+    height: 70px;
+    border-radius: 50%;
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+    transition: transform 0.3s ease;
 }
 
-.container {
-    max-width: 1200px;
-    margin: 20px auto;
-    padding: 20px;
-    background-color: white;
-    border-radius: 5px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+.logo:hover {
+    transform: scale(1.05);
 }
-.button {
-    background-color: #3498db;
-    color: white;
-    padding: 10px 20px;
-    text-decoration: none;
-    border-radius: 5px;
+
+.header nav {
+    display: flex;
+    gap: 15px;
+}
+
+.header .button {
     display: inline-block;
-    margin: 5px;
-}
-.button:hover {
-    background-color: #2980b9;
-}
-footer {
+    background: rgba(255, 255, 255, 0.2);
+    color: var(--white);
+    padding: 10px 20px;
     text-align: center;
-    padding: 20px;
-    background-color: #2c3e50;
+    border-radius: 50px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    font-weight: 600;
+    border: 2px solid transparent;
+}
+
+.header .button:hover {
+    background: var(--white);
+    color: var(--primary-dark);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(255, 255, 255, 0.3);
+}
+
+/* Container principal */
+.container {
+    flex: 1;
+    max-width: 1200px;
+    margin: 40px auto;
+    padding: 30px;
+    background: var(--white);
+    border-radius: 16px;
+    box-shadow: 0 10px 25px var(--shadow-color);
+    animation: fadeIn 0.5s ease-out forwards;
+    transition: all 0.3s ease;
+}
+
+.container:hover {
+    box-shadow: 0 15px 35px var(--shadow-color);
+    transform: translateY(-5px);
+}
+
+.container h2 {
+    color: var(--primary-blue);
+    margin-bottom: 25px;
+    padding-bottom: 15px;
+    border-bottom: 3px solid var(--primary-light);
+    font-size: 1.8rem;
+    position: relative;
+}
+
+.container h2:after {
+    content: '';
+    position: absolute;
+    bottom: -3px;
+    left: 0;
+    width: 60px;
+    height: 3px;
+    background: var(--primary-dark);
+}
+
+.container p {
+    margin-bottom: 30px;
+    color: var(--accent-blue);
+    font-size: 18px;
+}
+
+/* Lista de opções */
+.container ul {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+    margin-top: 40px;
+}
+
+.container ul li {
+    text-align: center;
+}
+
+.container .button {
+    display: block;
+    background: linear-gradient(to right, var(--primary-blue), var(--primary-light));
     color: white;
-    position: fixed;
-    bottom: 0;
-    width: 100%;
+    padding: 20px 30px;
+    text-decoration: none;
+    border-radius: 12px;
+    transition: all 0.3s ease;
+    font-weight: 600;
+    font-size: 18px;
+    box-shadow: 0 8px 15px var(--shadow-color);
+    position: relative;
+    overflow: hidden;
+}
+
+.container .button:hover {
+    background: linear-gradient(to right, var(--primary-dark), var(--primary-blue));
+    transform: translateY(-5px);
+    box-shadow: 0 12px 20px rgba(41, 128, 185, 0.4);
+}
+
+.container .button:active {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 10px rgba(41, 128, 185, 0.3);
+}
+
+/* Efeito de ripple no botão */
+.container .button::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 5px;
+    height: 5px;
+    background: rgba(255, 255, 255, 0.5);
+    opacity: 0;
+    border-radius: 100%;
+    transform: scale(1, 1) translate(-50%);
+    transform-origin: 50% 50%;
+}
+
+.container .button:focus:not(:active)::after {
+    animation: ripple 1s ease-out;
+}
+
+@keyframes ripple {
+    0% {
+        transform: scale(0, 0);
+        opacity: 1;
+    }
+    20% {
+        transform: scale(25, 25);
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+        transform: scale(40, 40);
+    }
+}
+
+/* Rodapé */
+footer {
+    background: linear-gradient(to right, var(--primary-blue), var(--primary-dark));
+    color: white;
+    text-align: center;
+    padding: 20px 0;
+    margin-top: auto;
+    font-weight: 500;
+    box-shadow: 0 -5px 20px rgba(0, 0, 0, 0.1);
+}
+
+/* Animações */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    .header {
+        flex-direction: column;
+        gap: 15px;
+        padding: 20px;
+        text-align: center;
+    }
+    
+    .header nav {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+    
+    .container {
+        margin: 20px;
+        padding: 20px;
+    }
+    
+    .container ul {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 480px) {
+    .header .button {
+        padding: 8px 15px;
+        font-size: 14px;
+    }
+    
+    .container h2 {
+        font-size: 1.5rem;
+    }
+    
+    .container p {
+        font-size: 16px;
+    }
 }

@@ -1,0 +1,222 @@
+/* Reset básico */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', Arial, sans-serif;
+}
+
+:root {
+    --primary-blue: #3498db;
+    --primary-light: #5dade2;
+    --primary-dark: #2980b9;
+    --accent-blue: #2c3e50;
+    --light-gray: #f4f4f4;
+    --white: #ffffff;
+    --border-color: #e0e0e0;
+    --form-bg: #f8fafc;
+    --shadow-color: rgba(52, 152, 219, 0.15);
+    --danger: #e74c3c;
+    --danger-dark: #c0392b;
+}
+
+/* Estilização da página */
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    background: var(--light-gray);
+    color: #444;
+    line-height: 1.6;
+}
+
+/* Header */
+.header {
+    background: linear-gradient(to right, var(--primary-blue), var(--primary-dark));
+    color: var(--white);
+    padding: 20px 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 4px 15px rgba(41, 128, 185, 0.3);
+    position: relative;
+    z-index: 10;
+}
+
+.header h1 {
+    font-size: 1.8rem;
+    font-weight: 600;
+}
+
+.header nav {
+    display: flex;
+    gap: 15px;
+}
+
+.header .button {
+    display: inline-block;
+    background: rgba(255, 255, 255, 0.2);
+    color: var(--white);
+    padding: 10px 20px;
+    text-align: center;
+    border-radius: 50px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    font-weight: 600;
+    border: 2px solid transparent;
+}
+
+.header .button:hover {
+    background: var(--white);
+    color: var(--primary-dark);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(255, 255, 255, 0.3);
+}
+
+/* Container principal */
+.container {
+    flex: 1;
+    max-width: 1200px;
+    margin: 40px auto;
+    padding: 30px;
+    background: var(--white);
+    border-radius: 16px;
+    box-shadow: 0 10px 25px var(--shadow-color);
+    animation: fadeIn 0.5s ease-out forwards;
+}
+
+/* Lista de usuários */
+.container ul {
+    list-style: none;
+}
+
+.container ul li {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px;
+    margin-bottom: 15px;
+    background: var(--form-bg);
+    border-radius: 12px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.03);
+    transition: all 0.3s ease;
+    border-left: 4px solid var(--primary-blue);
+    animation: slideIn 0.4s ease-out forwards;
+}
+
+.container ul li:nth-child(even) {
+    background-color: rgba(52, 152, 219, 0.05);
+}
+
+.container ul li:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px var(--shadow-color);
+}
+
+.container ul li strong {
+    font-size: 18px;
+    color: var(--accent-blue);
+    flex: 1;
+}
+
+/* Botões de ação */
+.container .button {
+    display: inline-block;
+    padding: 10px 20px;
+    margin-left: 10px;
+    background: var(--primary-blue);
+    color: white;
+    text-decoration: none;
+    border-radius: 50px;
+    transition: all 0.3s ease;
+    font-weight: 600;
+    font-size: 14px;
+    box-shadow: 0 4px 10px rgba(52, 152, 219, 0.2);
+}
+
+.container .button:hover {
+    background: var(--primary-dark);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(52, 152, 219, 0.3);
+}
+
+.container .button-danger {
+    background: var(--danger);
+    box-shadow: 0 4px 10px rgba(231, 76, 60, 0.2);
+}
+
+.container .button-danger:hover {
+    background: var(--danger-dark);
+    box-shadow: 0 6px 15px rgba(231, 76, 60, 0.3);
+}
+
+/* Mensagem de lista vazia */
+.container p {
+    text-align: center;
+    padding: 40px;
+    background: var(--form-bg);
+    border-radius: 12px;
+    color: #777;
+    font-size: 18px;
+    border: 2px dashed rgba(52, 152, 219, 0.3);
+    margin: 30px 0;
+}
+
+/* Animações */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slideIn {
+    from { opacity: 0; transform: translateX(-20px); }
+    to { opacity: 1; transform: translateX(0); }
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    .header {
+        flex-direction: column;
+        gap: 15px;
+        padding: 20px;
+        text-align: center;
+    }
+    
+    .container {
+        margin: 20px;
+        padding: 20px;
+    }
+    
+    .container ul li {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 15px;
+    }
+    
+    .container ul li strong {
+        margin-bottom: 10px;
+    }
+    
+    .container .button {
+        width: 100%;
+        margin-left: 0;
+        text-align: center;
+        margin-bottom: 5px;
+    }
+}
+
+@media (max-width: 480px) {
+    .header h1 {
+        font-size: 1.5rem;
+    }
+    
+    .header .button {
+        padding: 8px 15px;
+        font-size: 14px;
+    }
+    
+    .container p {
+        font-size: 16px;
+        padding: 20px;
+    }
+}

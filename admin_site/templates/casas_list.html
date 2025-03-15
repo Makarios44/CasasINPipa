@@ -25,7 +25,10 @@
                 <a href="{% url 'admin_casa_update' casa.id %}" class="button">Editar</a>
                 <a href="{% url 'admin_casa_delete' casa.id %}" class="button button-danger">Deletar</a>
             </li>
+            {% empty %}
+            <p>Não há casas disponíveis no momento.</p>
             {% endfor %}
+            
         </ul>
     </main>
 </body>
