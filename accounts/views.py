@@ -7,20 +7,11 @@ from django.contrib.auth.decorators import login_required
 from bookings.models import Casa
 from .forms import EditarPerfilForm
 from django.contrib.auth import update_session_auth_hash
-from django.http import HttpResponse
 from django.conf import settings
-from django.template.loader import render_to_string
 from django.core.mail import send_mail
-from django.utils.encoding import force_bytes
-from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
-from django.contrib.auth.forms import PasswordChangeForm
-from django.contrib.auth.tokens import default_token_generator
-from .forms import ResetPasswordForm
-from django.contrib.auth import get_user_model
-from django.contrib.auth.forms import SetPasswordForm
+
 # Create your views here.
 from django.urls import reverse
-from django.core.exceptions import ValidationError
 
 def login(request):
 

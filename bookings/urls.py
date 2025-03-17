@@ -10,6 +10,7 @@ path('rental/',views.rental, name='rental'),
 path('editar/<int:casa_id>/', views.editar, name='editar'),
 path('excluir-casa/<int:casa_id>/', views.excluir, name='excluir_casa'),
 path('detalhes/<int:casa_id>/',views.detalhes, name='detalhes'),
+path('sobre-nos', views.sobre_nos, name='sobre-nos')
 
 ]
 

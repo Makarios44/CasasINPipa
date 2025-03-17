@@ -123,3 +123,6 @@ def detalhes(request, casa_id):
 
 def intro(request):
     return render (request,'intro.html')
+
+def sobre_nos(request):
+    return render (request ,'sobre_nos.html')

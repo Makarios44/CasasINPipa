@@ -62,7 +62,8 @@
                         {% if casa.imagem_principal %}
                             <img src="{{ casa.imagem_principal.url }}" class="card-img-top" alt="Imagem da Casa">
                         {% else %}
-                            <p>Imagem não disponível</p>
+                        <div class="negativa"><p>Imagem não disponível</p></div>
+                            
                         {% endif %}
                         
                         <div class="card-body">
@@ -79,7 +80,7 @@
                     </div>
                 </div>
             {% empty %}
-                <p>Não há casas disponíveis no momento.</p>
+                <p class="negativa">Não há casas disponíveis no momento, tente novamente mais tarde.</p>
             {% endfor %}
         </div>
     </main>
@@ -94,15 +95,89 @@
         </div>
         <div class="links">
             <a href="#">Home</a>
-            <a href="#">Sobre nós</a>
-            <a href="#">Contate-nos</a>
-            <a href="#">Politica e Privacidade </a>
+            <a href= "sobre-nos"target=_blank"">Sobre nós</a>
+            <a href="#" id="contactBtn" class="contact-button">Contate-nos</a>
+            <a href="Política_de_Privacidade"target=_blank"">Politica e Privacidade </a>
             
         </div>
         <p class="copyright">Copyright 2025. Todos os direitos reservados.</p>
     </footer>
- 
-    <script src="{% static 'js/script.js' %}"></script>
+    <!-- Pop-up de Contato -->
+        <div id="contactPopup" class="popup-overlay">
+            <div class="popup-content">
+            <span class="close-popup">&times;</span>
+            <h2>Entre em Contato</h2>
+            <div class="contact-info">
+                <div class="contact-item">
+                <strong>Telefone:</strong>
+                <p>(84) 998424140</p>
+                </div>
+                <div class="contact-item">
+                <strong>Email:</strong>
+                <p>casasinpipa@gmail.com</p>
+                </div>
+                <div class="contact-item">
+                <strong>WhatsApp:</strong>
+                <p>(84)992063413</p>
+                </div>
+                <div class="contact-item">
+                <strong>Endereço:</strong>
+                <p>Rua Albacora, 6019 - Pipa, Tibau do Sul - RN</p>
+                </div>
+            </div>
+        
+            </div>
+        </div>
+    <script>
+  // Função para inicializar o popup
+  function initContactPopup() {
+    // Adicionar evento de clique ao seu botão existente
+    // Substitua 'seuBotaoID' pelo ID do seu botão existente
+    const contactBtn = document.getElementById('contactBtn');
+    const contactPopup = document.getElementById('contactPopup');
+    const closePopup = document.querySelector('.close-popup');
+    
+    if (contactBtn && contactPopup) {
+      // Abrir popup ao clicar no botão
+      contactBtn.addEventListener('click', function(e) {
+        e.preventDefault();
+        contactPopup.style.display = 'flex';
+        document.body.style.overflow = 'hidden';
+      });
+      
+      // Fechar popup ao clicar no X
+      if (closePopup) {
+        closePopup.addEventListener('click', function() {
+          contactPopup.style.display = 'none';
+          document.body.style.overflow = 'auto';
+        });
+      }
+      
+      // Fechar popup ao clicar fora dele
+      contactPopup.addEventListener('click', function(e) {
+        if (e.target === contactPopup) {
+          contactPopup.style.display = 'none';
+          document.body.style.overflow = 'auto';
+        }
+      });
+      
+      // Fechar popup ao pressionar ESC
+      document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && contactPopup.style.display === 'flex') {
+          contactPopup.style.display = 'none';
+          document.body.style.overflow = 'auto';
+        }
+      });
+    }
+  }
+
+  // Inicializar quando o DOM estiver carregado
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initContactPopup);
+  } else {
+    initContactPopup();
+  }
+</script>
     <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
 
 </body>
