@@ -38,7 +38,7 @@ def login(request):
 
 
 def register(request):
-    # Armazenar os dados do formulário para reenchimento em caso de erro
+    
     context = {}
     
     if request.method == 'POST':
@@ -185,5 +185,5 @@ def termos_de_uso(request):
     return render(request, 'termos_de_uso.html')
 
 
-def Política_de_Privacidade(request):
-    return render (request, 'Política_de_Privacidade.html')
+def politica_de_privacidade(request):
+    return render (request, 'politica_de_Privacidade.html')

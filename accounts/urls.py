@@ -10,7 +10,7 @@ path('perfil/',views.perfil, name='perfil'),
 path('logout/',views.logout,name='logout'),
 path('termos_de_uso/', views.termos_de_uso, name='termos_de_uso'),
 path('editar-perfil/', views.editar_perfil, name='editar_perfil'),
-path('Política_de_Privacidade/', views.Política_de_Privacidade, name='Política_de_Privacidade'),
+path('politica_de_privacidade/', views.politica_de_privacidade, name='politica_de_privacidade'),
 
 
 path('reset_password/', auth_views.PasswordResetView.as_view(
