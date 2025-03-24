@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect,get_object_or_404
-from .models import Casa, ImagemAdicional
+from .models import Casa, ImagemAdicional, Videos
 from django.shortcuts import render
-from .forms import CasaForm, ImagemAdicionalForm
+from .forms import CasaForm, VideoForm
 
 from datetime import datetime
 from django.contrib.auth.decorators import login_required
@@ -32,6 +32,9 @@ def rental(request):
             for imagem in imagens_adicionais:
                 ImagemAdicional.objects.create(casa=casa, imagem=imagem)
 
+            for video_file in request.FILES.getlist('videos'):  # Captura múltiplos vídeos
+                video = Videos(casa=casa, video=video_file)
+                video.save()
            
             subject = "Sua casa foi cadastrada com sucesso!"
             message = f'Olá, {casa.owner.username}! Sua casa foi cadastrada com sucesso em nossa plataforma. ' \
@@ -49,11 +52,13 @@ def rental(request):
                 send_mail(subject_for_users, message_for_users, from_email, recipient_list_for_users)
 
 
-            return redirect('home') 
+            return redirect('home')
+            
     else:
         casa_form = CasaForm()
+        video_form = VideoForm()
 
-    return render(request, 'rental.html', {'casa_form': casa_form})
+    return render(request, 'rental.html', {'casa_form': casa_form, 'video_form': video_form})
 
 @login_required
 def editar(request, casa_id):

@@ -30,8 +30,20 @@
                         <img src="{{ imagem.imagem.url }}" class="card-img-top" alt="Imagem da Casa">
                     </a>
                 {% endfor %}
+                {% for video in casa.videos.all %}
+                    <a href="{{ video.video.url }}" data-lightbox="galeria" data-title="Vídeo da Casa">
+                        <video class="card-img-top" controls>
+                            <source src="{{ video.video.url }}" type="video/mp4">
+                            Seu navegador não suporta a tag de vídeo.
+                        </video>
+                    </a>
+                {% endfor %}
             </div>
+          
+            
+            
         </div>
+
 
         <div class="details">
            
