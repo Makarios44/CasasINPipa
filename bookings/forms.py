@@ -1,5 +1,5 @@
 from django import forms
-from .models import Casa, ImagemAdicional
+from .models import Casa, ImagemAdicional, Videos
 
 class CasaForm(forms.ModelForm):
     class Meta:
@@ -23,3 +23,9 @@ class ImagemAdicionalForm(forms.ModelForm):
     class Meta:
         model = ImagemAdicional
         fields = ['imagem']
+
+
+class VideoForm(forms.ModelForm):
+    class Meta:
+        model = Videos
+        fields = ['video']

@@ -14,6 +14,7 @@ class Casa(models.Model):
     contato = models.CharField(max_length=15, help_text="Digite o número de telefone com DDD", default='0')
     capacidade_máxima = models.DecimalField(max_digits=10, decimal_places=0, null=False, default='0')
     created_at = models.DateTimeField(default=timezone.now)
+    
 
     # Características do imóvel
     numero_quartos = models.PositiveIntegerField(default=1)
@@ -43,3 +44,8 @@ class ImagemAdicional(models.Model):
 
     def __str__(self):
         return f'Imagem adicional para {self.casa.id}'
+    
+class Videos(models.Model):
+     casa = models.ForeignKey(Casa, related_name='videos', on_delete=models.CASCADE)
+     video = models.FileField(upload_to='videos/', null=False)
+

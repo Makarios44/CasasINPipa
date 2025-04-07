@@ -135,5 +135,9 @@ EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587  
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'casasinpipa@gmail.com' 
+<<<<<<< HEAD
 EMAIL_HOST_PASSWORD = 'wiyw dwwz wsat gjam' 
+=======
+EMAIL_HOST_PASSWORD = 'qofh riis xvid virk' 
+>>>>>>> cab569bb570076751a84fa800b5ad093a3c20eca
 DEFAULT_FROM_EMAIL = 'no-reply@casasInPipa.com'
