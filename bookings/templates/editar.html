@@ -43,5 +43,16 @@
     </div>
 
     <script src="{% static 'js/editar.js' %}"></script>
+    <script>
+ 
+        window.addEventListener("load", function () {
+           // simula carregamento com atraso visual
+           setTimeout(function () {
+             document.getElementById("preloader").style.display = "none";
+             document.getElementById("conteudo").style.display = "block";
+           }, 2000); // espera 2 segundos
+         });
+       
+    </script>
 </body>
 </html>

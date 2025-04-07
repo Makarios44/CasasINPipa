@@ -7,7 +7,6 @@ from datetime import datetime
 from django.contrib.auth.decorators import login_required
 
 from bookings.models import AppUser
-
 from django.core.mail import send_mail
 from django.conf import settings
 

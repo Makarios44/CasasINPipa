@@ -1,4 +1,7 @@
 {% load static %}
+
+
+
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -16,6 +19,11 @@
 </head>
 <body>
 
+      <div id="preloader">
+        <img src="{% static 'imgs/dolphin.gif' %}" alt="Carregando...">
+      </div>
+
+  
      <header class="header">
         <img src="{% static 'imgs/logo-circulo.png' %}" alt="Logo Casas em Pipa" class="logo">
         <div class="search-container">
@@ -171,12 +179,23 @@
     }
   }
 
-  // Inicializar quando o DOM estiver carregado
+  
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', initContactPopup);
   } else {
     initContactPopup();
   }
+</script>
+<script>
+ 
+ window.addEventListener("load", function () {
+    // simula carregamento com atraso visual
+    setTimeout(function () {
+      document.getElementById("preloader").style.display = "none";
+      document.getElementById("conteudo").style.display = "block";
+    }, 2000); // espera 2 segundos
+  });
+
 </script>
     <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
 

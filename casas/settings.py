@@ -11,9 +11,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'hdgydlfj=97fy)3vg*ht(ssde(n+l2k0lq_tg=cy5bi*c+wpt*p'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
-ALLOWED_HOSTS = ['3.90.147.28', 'casasinpipa.com', 'www.casasinpipa.com']
+ALLOWED_HOSTS = ['*']
 
 
 
@@ -135,5 +135,5 @@ EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587  
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'casasinpipa@gmail.com' 
-EMAIL_HOST_PASSWORD = 'SuporteCasas2000' 
+EMAIL_HOST_PASSWORD = 'wiyw dwwz wsat gjam' 
 DEFAULT_FROM_EMAIL = 'no-reply@casasInPipa.com'
